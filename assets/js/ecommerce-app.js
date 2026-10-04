@@ -390,6 +390,80 @@
   // Active Promo Code
   let activeCoupon = localStorage.getItem('ecom_coupon') || null;
 
+  // ================= Web Audio API Synthesizer =================
+  let soundEnabled = localStorage.getItem('ecom_sound') !== 'false';
+  let audioCtx = null;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      const AudioClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioClass) audioCtx = new AudioClass();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playChime(type = 'cart') {
+    if (!soundEnabled) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      if (type === 'cart') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      } else if (type === 'win') {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.12, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.35);
+        });
+      } else if (type === 'tick') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1400, now);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.03);
+      }
+    } catch (e) {}
+  }
+
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('ecom_sound', soundEnabled ? 'true' : 'false');
+    const btn = document.getElementById('soundToggleBtn');
+    if (btn) {
+      btn.innerHTML = soundEnabled ? '<i class="lni lni-volume-high"></i>' : '<i class="lni lni-volume-mute"></i>';
+      btn.title = soundEnabled ? 'Sound Effects: ON' : 'Sound Effects: OFF';
+    }
+    showToast(soundEnabled ? 'Audio Feedback ON 🔊' : 'Audio Feedback Muted 🔇', soundEnabled ? 'Pleasant UI chimes enabled.' : 'UI chimes muted.', 'info');
+    if (soundEnabled) playChime('cart');
+  }
+
   function addToCart(productId, qty = 1, options = {}) {
     const prod = PRODUCTS.find(p => p.id === productId);
     if (!prod) return;
@@ -407,6 +481,7 @@
 
     saveCart();
     updateCartUI();
+    playChime('cart');
     showToast('Added to Cart', `${prod.title} added (${qty}x)`, 'success');
 
     // Subtle bounce animation on header cart icon
@@ -461,6 +536,14 @@
       discount = subtotal * 0.1; // 10%
     } else if (activeCoupon === 'FLASH50' && subtotal >= 200) {
       discount = 50.0;
+    } else if (activeCoupon === 'LUCKY25') {
+      discount = subtotal * 0.25; // 25% Lucky Spin
+    } else if (activeCoupon === 'SPIN15') {
+      discount = subtotal * 0.15; // 15% Lucky Spin
+    } else if (activeCoupon === 'WIN30' && subtotal >= 100) {
+      discount = 30.0;
+    } else if (activeCoupon === 'GIFTKIT') {
+      discount = Math.min(25.0, subtotal); // $25 free accessory credit
     }
 
     // Free shipping threshold: $99
@@ -765,6 +848,15 @@
     if (modalDesc) modalDesc.textContent = prod.description;
     if (modalQty) modalQty.textContent = quickViewQty;
 
+    const modalLiveViewers = document.getElementById('qvLiveViewers');
+    const modalDeliveryCountdown = document.getElementById('qvDeliveryCountdown');
+    if (modalLiveViewers) modalLiveViewers.textContent = Math.floor(Math.random() * 16) + 12;
+    if (modalDeliveryCountdown) {
+      const hrs = Math.floor(Math.random() * 4) + 2;
+      const mins = Math.floor(Math.random() * 50) + 10;
+      modalDeliveryCountdown.textContent = `${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m`;
+    }
+
     if (modalStock) {
       modalStock.textContent = `In Stock (${prod.inStock} units available)`;
       modalStock.className = 'badge-stock badge-in-stock';
@@ -1026,25 +1118,57 @@
       activeCoupon = trimmed;
       localStorage.setItem('ecom_coupon', trimmed);
       updateCartUI();
+      playChime('win');
       showToast('Coupon Applied 🎉', '20% VIP discount applied to your cart!', 'success');
       return true;
     } else if (trimmed === 'WELCOME10') {
       activeCoupon = trimmed;
       localStorage.setItem('ecom_coupon', trimmed);
       updateCartUI();
+      playChime('win');
       showToast('Coupon Applied 🎉', '10% Welcome discount applied to your cart!', 'success');
       return true;
     } else if (trimmed === 'FREESHIP') {
       activeCoupon = trimmed;
       localStorage.setItem('ecom_coupon', trimmed);
       updateCartUI();
+      playChime('win');
       showToast('Coupon Applied 🎉', 'Free Express Shipping unlocked!', 'success');
       return true;
     } else if (trimmed === 'FLASH50') {
       activeCoupon = trimmed;
       localStorage.setItem('ecom_coupon', trimmed);
       updateCartUI();
+      playChime('win');
       showToast('Coupon Applied 🎉', '$50 Flat Flash Discount applied!', 'success');
+      return true;
+    } else if (trimmed === 'LUCKY25') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Lucky Spin 25% Off! 🎡', '25% Lucky Winner discount applied!', 'success');
+      return true;
+    } else if (trimmed === 'SPIN15') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Lucky Spin 15% Off! 🎡', '15% Lucky Winner discount applied!', 'success');
+      return true;
+    } else if (trimmed === 'WIN30') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Lucky Spin $30 Off! 🎡', '$30 Cash Voucher applied to your cart!', 'success');
+      return true;
+    } else if (trimmed === 'GIFTKIT') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Tech Gift Credit Unlocked! 🎁', '$25 Gift Credit & Free Shipping applied!', 'success');
       return true;
     } else {
       showToast('Invalid Coupon', 'The code entered is invalid or expired. Try VIP20 or WELCOME10.', 'error');
@@ -1445,6 +1569,26 @@
     renderRecentlyViewed();
     initLiveSalesSocialProof();
     refreshAllPricesOnPage();
+
+    // Sound button initial state
+    const soundBtn = document.getElementById('soundToggleBtn');
+    if (soundBtn) {
+      soundBtn.innerHTML = soundEnabled ? '<i class="lni lni-volume-high"></i>' : '<i class="lni lni-volume-mute"></i>';
+      soundBtn.title = soundEnabled ? 'Sound Effects: ON' : 'Sound Effects: OFF';
+    }
+
+    // Bundle checkboxes listeners
+    BUNDLE_ITEMS.forEach(item => {
+      const el = document.getElementById(item.elId);
+      if (el) el.addEventListener('change', updateBundleCalculations);
+    });
+    updateBundleCalculations();
+
+    // Store locator search input
+    const storeSearch = document.getElementById('storeSearchInput');
+    if (storeSearch) {
+      storeSearch.addEventListener('input', e => renderStoreList(e.target.value));
+    }
 
     // Check announcement bar session state
     if (sessionStorage.getItem('ecom_announcement_closed') === 'true') {
@@ -1978,6 +2122,381 @@
     showToast('Review Submitted! ⭐', 'Thank you for your valuable feedback.', 'success');
   }
 
+  // ================= 24. Bundle Builder Logic =================
+  const BUNDLE_ITEMS = [
+    { id: 'prod-1', title: 'Apple Watch Ultra 2 (GPS + Cellular)', price: 799, img: 'assets/images/products/product-1.jpg', elId: 'bundleCheck1', thumbId: 'bundleThumb1' },
+    { id: 'prod-3', title: 'Bose QuietComfort 45 Noise Cancelling', price: 279, img: 'assets/images/products/product-3.jpg', elId: 'bundleCheck2', thumbId: 'bundleThumb2' },
+    { id: 'prod-6', title: 'Xiaomi 20,000mAh 50W Fast PowerBank', price: 39, img: 'assets/images/products/product-6.jpg', elId: 'bundleCheck3', thumbId: 'bundleThumb3' }
+  ];
+
+  function updateBundleCalculations() {
+    let regularTotal = 0;
+    let selectedCount = 0;
+
+    BUNDLE_ITEMS.forEach(item => {
+      const chk = document.getElementById(item.elId);
+      const thumb = document.getElementById(item.thumbId);
+      if (chk && chk.checked) {
+        regularTotal += item.price;
+        selectedCount++;
+        if (thumb) thumb.classList.remove('inactive');
+      } else if (thumb) {
+        thumb.classList.add('inactive');
+      }
+    });
+
+    const discountRate = selectedCount >= 2 ? 0.15 : 0;
+    const savings = regularTotal * discountRate;
+    const finalPrice = regularTotal - savings;
+
+    const origEl = document.getElementById('bundleOriginalPrice');
+    const saveEl = document.getElementById('bundleSavings');
+    const finalEl = document.getElementById('bundleFinalPrice');
+    const addBtn = document.getElementById('btnAddBundleToCart');
+
+    if (origEl) origEl.textContent = formatMoney(regularTotal);
+    if (saveEl) {
+      if (savings > 0) {
+        saveEl.textContent = `Save ${formatMoney(savings)} (15% Bundle Discount!)`;
+        saveEl.parentElement.style.display = 'block';
+      } else {
+        saveEl.parentElement.style.display = 'none';
+      }
+    }
+    if (finalEl) finalEl.textContent = formatMoney(finalPrice);
+    if (addBtn) {
+      addBtn.disabled = selectedCount === 0;
+      addBtn.innerHTML = `<i class="lni lni-cart-full me-2"></i> Add Selected (${selectedCount}) to Cart`;
+    }
+  }
+
+  function addBundleToCart() {
+    let count = 0;
+    BUNDLE_ITEMS.forEach(item => {
+      const chk = document.getElementById(item.elId);
+      if (chk && chk.checked) {
+        addToCart(item.id, 1);
+        count++;
+      }
+    });
+    if (count > 0) {
+      playChime('win');
+      showToast('Bundle Added! 🎉', `${count} bundle items added to your cart with discount.`, 'success');
+      openCartDrawer();
+    }
+  }
+
+  // ================= 25. Spin & Win Lucky Wheel =================
+  const WHEEL_PRIZES = [
+    { label: '25% OFF', code: 'LUCKY25', color: '#3b82f6', text: '#ffffff' },
+    { label: 'FREE SHIPPING', code: 'FREESHIP', color: '#10b981', text: '#ffffff' },
+    { label: '$30 VOUCHER', code: 'WIN30', color: '#f59e0b', text: '#ffffff' },
+    { label: '15% OFF', code: 'SPIN15', color: '#ec4899', text: '#ffffff' },
+    { label: '$25 CREDIT', code: 'GIFTKIT', color: '#8b5cf6', text: '#ffffff' },
+    { label: '20% VIP PASS', code: 'VIP20', color: '#06b6d4', text: '#ffffff' }
+  ];
+
+  let wheelAngle = 0;
+  let isWheelSpinning = false;
+
+  function drawWheel() {
+    const canvas = document.getElementById('spinWheelCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = width / 2 - 8;
+
+    const sliceAngle = (2 * Math.PI) / WHEEL_PRIZES.length;
+
+    ctx.clearRect(0, 0, width, height);
+
+    WHEEL_PRIZES.forEach((prize, i) => {
+      const startAngle = wheelAngle + i * sliceAngle;
+      const endAngle = startAngle + sliceAngle;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.fillStyle = prize.color;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ffffff';
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(startAngle + sliceAngle / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = prize.text;
+      ctx.font = 'bold 12px sans-serif';
+      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowBlur = 4;
+      ctx.fillText(prize.label, radius - 20, 5);
+      ctx.restore();
+    });
+  }
+
+  function openSpinWheelModal() {
+    const modalEl = document.getElementById('spinWheelModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+      setTimeout(drawWheel, 250);
+    }
+  }
+
+  function spinTheWheel() {
+    if (isWheelSpinning) return;
+    isWheelSpinning = true;
+
+    const spinBtn = document.getElementById('btnDoSpin');
+    if (spinBtn) spinBtn.disabled = true;
+
+    const prizeIndex = Math.floor(Math.random() * WHEEL_PRIZES.length);
+    const winningPrize = WHEEL_PRIZES[prizeIndex];
+
+    const sliceAngle = (2 * Math.PI) / WHEEL_PRIZES.length;
+    const pointerAngle = (3 * Math.PI) / 2;
+    const targetSliceCenter = prizeIndex * sliceAngle + sliceAngle / 2;
+    const finalRotation = 10 * 2 * Math.PI + (pointerAngle - targetSliceCenter);
+
+    const startRot = wheelAngle % (2 * Math.PI);
+    const totalRotation = finalRotation - startRot;
+    const duration = 4000;
+    const startTime = performance.now();
+
+    let lastTickAngle = 0;
+
+    function animateSpin(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      wheelAngle = startRot + totalRotation * ease;
+      drawWheel();
+
+      if (Math.abs(wheelAngle - lastTickAngle) >= 0.5) {
+        lastTickAngle = wheelAngle;
+        playChime('tick');
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(animateSpin);
+      } else {
+        isWheelSpinning = false;
+        if (spinBtn) spinBtn.disabled = false;
+        playChime('win');
+        applyCouponCode(winningPrize.code);
+
+        const resultBox = document.getElementById('wheelResultNotice');
+        if (resultBox) {
+          resultBox.innerHTML = `
+            <div class="alert alert-success mt-3 mb-0 text-center">
+              <h5 class="font-weight-bold mb-1">🎉 You Won: ${winningPrize.label}!</h5>
+              <p class="mb-2" style="font-size:13px;">Coupon code <strong>${winningPrize.code}</strong> has been automatically applied to your cart!</p>
+              <button class="btn btn-sm btn-primary" onclick="bootstrap.Modal.getInstance(document.getElementById('spinWheelModal')).hide(); ShopApp.openCartDrawer();">View In Cart</button>
+            </div>
+          `;
+          resultBox.style.display = 'block';
+        }
+      }
+    }
+
+    requestAnimationFrame(animateSpin);
+  }
+
+  // ================= 26. Tech Advisor Quiz =================
+  let quizAnswers = { category: '', priority: '', budget: '' };
+  let currentQuizStep = 1;
+
+  function openQuizModal() {
+    quizAnswers = { category: '', priority: '', budget: '' };
+    currentQuizStep = 1;
+    setQuizStepUI(1);
+    const modalEl = document.getElementById('techQuizModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function setQuizStepUI(step) {
+    currentQuizStep = step;
+    for (let i = 1; i <= 4; i++) {
+      const el = document.getElementById(`quizStep${i}`);
+      if (el) el.classList.remove('active');
+    }
+    const curEl = document.getElementById(`quizStep${step}`);
+    if (curEl) curEl.classList.add('active');
+
+    const fill = document.getElementById('quizProgressFill');
+    if (fill) fill.style.width = `${(step / 3) * 100}%`;
+  }
+
+  function selectQuizCategory(cat) {
+    quizAnswers.category = cat;
+    playChime('cart');
+    setQuizStepUI(2);
+  }
+
+  function selectQuizPriority(prio) {
+    quizAnswers.priority = prio;
+    playChime('cart');
+    setQuizStepUI(3);
+  }
+
+  function selectQuizBudget(bud) {
+    quizAnswers.budget = bud;
+    playChime('win');
+    generateQuizResult();
+  }
+
+  function generateQuizResult() {
+    setQuizStepUI(4);
+    const fill = document.getElementById('quizProgressFill');
+    if (fill) fill.style.width = '100%';
+
+    let matchedId = 'prod-1';
+    let matchReason = '';
+
+    if (quizAnswers.category === 'watch') {
+      matchedId = 'prod-1';
+      matchReason = 'Top-tier rugged titanium build, dual-frequency GPS, and 36-hour battery life tailored for outdoor adventure and fitness.';
+    } else if (quizAnswers.category === 'audio') {
+      matchedId = 'prod-3';
+      matchReason = 'Industry-leading world-class active noise cancellation and plush synthetic leather cushions for acoustic luxury.';
+    } else if (quizAnswers.category === 'phone') {
+      matchedId = 'prod-4';
+      matchReason = 'A16 Bionic chip, Dynamic Island, and Pro-grade 48MP camera system for peak photography and daily speed.';
+    } else if (quizAnswers.category === 'laptop') {
+      matchedId = 'prod-8';
+      matchReason = 'Apple Silicon efficiency, silent fanless architecture, and 18 hours of real-world battery life in an ultra-thin unibody chassis.';
+    } else {
+      matchedId = 'prod-7';
+      matchReason = 'Next-generation hybrid full-frame camera with 33MP Exmor R sensor and 4K 60p video for creative professionals.';
+    }
+
+    const prod = PRODUCTS.find(p => p.id === matchedId) || PRODUCTS[0];
+    const resBox = document.getElementById('quizResultContent');
+    if (resBox) {
+      resBox.innerHTML = `
+        <div class="quiz-result-box">
+          <span class="badge bg-success mb-2 px-3 py-2" style="font-size:13px;"><i class="lni lni-checkmark-circle"></i> 98% Compatibility Match</span>
+          <h4 class="font-weight-bold mb-2">${prod.title}</h4>
+          <p class="text-muted" style="font-size:13px;max-width:440px;margin:0 auto 15px auto;">${matchReason}</p>
+          <div class="my-3">
+            <img src="${prod.image}" alt="${prod.title}" style="max-height:160px;object-fit:contain;border-radius:10px;">
+          </div>
+          <div class="h4 font-weight-bold text-primary mb-3">${formatMoney(prod.price)}</div>
+          <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-outline-secondary" onclick="ShopApp.openQuickView('${prod.id}'); bootstrap.Modal.getInstance(document.getElementById('techQuizModal')).hide();">
+              <i class="lni lni-eye"></i> View Specs
+            </button>
+            <button class="btn btn-primary" onclick="ShopApp.addToCart('${prod.id}', 1); bootstrap.Modal.getInstance(document.getElementById('techQuizModal')).hide(); ShopApp.openCartDrawer();">
+              <i class="lni lni-cart"></i> Add Recommended to Cart
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // ================= 27. Store Locator & Reservation =================
+  const STORES = [
+    { id: 'nyc', name: 'New York City - 5th Ave Flagship', addr: '767 Fifth Avenue, New York, NY 10153', hours: 'Open today: 9:00 AM – 9:00 PM', stock: 'In Stock (Ready in 1 Hour)', badgeClass: 'bg-success text-white' },
+    { id: 'sf', name: 'San Francisco - Market Street', addr: '845 Market St, San Francisco, CA 94103', hours: 'Open today: 10:00 AM – 8:00 PM', stock: 'In Stock (Ready in 1 Hour)', badgeClass: 'bg-success text-white' },
+    { id: 'chi', name: 'Chicago - Michigan Avenue', addr: '875 N Michigan Ave, Chicago, IL 60611', hours: 'Open today: 10:00 AM – 7:00 PM', stock: 'Limited Stock (2 Units Left)', badgeClass: 'bg-warning text-dark' },
+    { id: 'lon', name: 'London - Regent Street Flagship', addr: '235 Regent St, London W1B 2EL, UK', hours: 'Open today: 10:00 AM – 8:00 PM', stock: 'In Stock (Ready in 1 Hour)', badgeClass: 'bg-success text-white' }
+  ];
+
+  function openStoreLocatorModal() {
+    const modalEl = document.getElementById('storeLocatorModal');
+    if (modalEl) {
+      renderStoreList();
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function renderStoreList(filter = '') {
+    const container = document.getElementById('storeListContainer');
+    if (!container) return;
+
+    const filtered = STORES.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()) || s.addr.toLowerCase().includes(filter.toLowerCase()));
+
+    container.innerHTML = filtered.map(store => `
+      <div class="store-list-item">
+        <div>
+          <h6 class="font-weight-bold mb-1">${store.name}</h6>
+          <div class="text-muted" style="font-size:12px;margin-bottom:4px;"><i class="lni lni-map-marker"></i> ${store.addr}</div>
+          <div class="text-secondary" style="font-size:12px;"><i class="lni lni-timer"></i> ${store.hours}</div>
+        </div>
+        <div class="text-end">
+          <span class="store-status-badge ${store.badgeClass} d-inline-block mb-2">${store.stock}</span>
+          <div>
+            <button class="btn btn-sm btn-outline-primary" onclick="ShopApp.reservePickup('${store.id}')">
+              Reserve for Pickup
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function reservePickup(storeId) {
+    const store = STORES.find(s => s.id === storeId) || STORES[0];
+    showToast('Pickup Reserved! 🏬', `Order reserved for pickup at ${store.name}. Ready in 60 mins.`, 'success');
+    const modalEl = document.getElementById('storeLocatorModal');
+    if (modalEl) {
+      const bs = bootstrap.Modal.getInstance(modalEl);
+      if (bs) bs.hide();
+    }
+  }
+
+  // ================= 28. Community Tech Q&A =================
+  function submitCommunityQuestion(e) {
+    if (e) e.preventDefault();
+    const qInput = document.getElementById('qaUserQuestion');
+    const nameInput = document.getElementById('qaUserName');
+
+    const question = qInput ? qInput.value.trim() : '';
+    const name = nameInput ? nameInput.value.trim() : 'Customer';
+
+    if (!question) {
+      showToast('Question Required', 'Please enter your question.', 'error');
+      return;
+    }
+
+    const container = document.getElementById('qaListContainer');
+    if (container) {
+      const card = document.createElement('div');
+      card.className = 'qa-card';
+      card.innerHTML = `
+        <div class="qa-question">
+          <i class="lni lni-question-circle text-primary" style="font-size:20px;flex-shrink:0;"></i>
+          <div>
+            <strong>${question}</strong>
+            <div class="text-muted" style="font-size:11px;font-weight:normal;margin-top:2px;">Asked by ${name} • Just now</div>
+          </div>
+        </div>
+        <div class="qa-answer">
+          <div style="font-weight:700;color:var(--ecom-primary);font-size:12px;margin-bottom:2px;">
+            <i class="lni lni-checkmark-circle"></i> ShopGrids Tech Specialist Answer:
+          </div>
+          <div>Thank you for asking! All items ship 100% factory sealed with brand new genuine parts, original accessories, and global manufacturer warranty.</div>
+        </div>
+      `;
+      container.prepend(card);
+    }
+
+    if (qInput) qInput.value = '';
+    if (nameInput) nameInput.value = '';
+
+    showToast('Question Submitted! 💬', 'Your question has been posted to the tech community.', 'success');
+  }
+
   // Expose global methods under window.ShopApp
   window.ShopApp = {
     addToCart,
@@ -2012,6 +2531,20 @@
     sortProducts,
     filterByPrice,
     setReviewRating,
-    submitCustomerReview
+    submitCustomerReview,
+    toggleSound,
+    updateBundleCalculations,
+    addBundleToCart,
+    openSpinWheelModal,
+    spinTheWheel,
+    drawWheel,
+    openQuizModal,
+    selectQuizCategory,
+    selectQuizPriority,
+    selectQuizBudget,
+    openStoreLocatorModal,
+    renderStoreList,
+    reservePickup,
+    submitCommunityQuestion
   };
 })();

@@ -80,15 +80,18 @@
                         <div class="top-middle text-center">
                             <ul class="useful-links">
                                 <li><a href="index.html">Home</a></li>
-                                <li><a href="#trendingProductsArea">Trending</a></li>
-                                <li><a href="#flashDealsSection">Flash Sale</a></li>
+                                <li><a href="javascript:void(0)" onclick="ShopApp.openStoreLocatorModal()"><i class="lni lni-map-marker"></i> Stores</a></li>
                                 <li><a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941')"><i class="lni lni-delivery"></i> Track Order</a></li>
+                                <li><a href="javascript:void(0)" onclick="ShopApp.openSpinWheelModal()" style="color:#facc15;font-weight:700;"><i class="lni lni-gift"></i> Spin & Win</a></li>
                                 <li><a href="#faqSection">FAQs</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-end d-flex align-items-center justify-content-end gap-3">
+                        <div class="top-end d-flex align-items-center justify-content-end gap-2">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
                             <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
                                 <i class="lni lni-night"></i>
                             </button>
@@ -259,6 +262,11 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="#faqSection" aria-label="Toggle navigation">FAQ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0)" onclick="ShopApp.openQuizModal()" aria-label="Toggle navigation">
+                                            <i class="lni lni-bulb text-warning"></i> Tech Quiz <span class="badge bg-danger ms-1" style="font-size:10px;">AI MATCH</span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" aria-label="Toggle navigation">My Cart</a>
@@ -931,6 +939,81 @@
     </section>
     <!-- End Trending Product Area -->
 
+    <!-- Start Frequently Bought Together Bundle Builder -->
+    <section class="bundle-builder-section" id="frequentlyBoughtBundle">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <span class="badge bg-primary px-3 py-2 mb-2" style="font-size:12px;font-weight:700;letter-spacing:0.5px;">
+                        <i class="lni lni-offer"></i> BUNDLE & SAVE 15%
+                    </span>
+                    <h3 class="font-weight-bold" style="color:var(--ecom-dark);">Frequently Bought Together</h3>
+                    <p class="text-muted" style="font-size:14px;">Select any 2 or more complementary items below to automatically unlock 15% bundle savings.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-11 col-12">
+                    <div class="bundle-card">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7 col-12 mb-4 mb-lg-0">
+                                <div class="bundle-items-flow">
+                                    <div class="bundle-item-thumb" id="bundleThumb1">
+                                        <img src="assets/images/products/product-1.jpg" alt="Apple Watch Ultra 2">
+                                    </div>
+                                    <span class="bundle-plus-icon">+</span>
+                                    <div class="bundle-item-thumb" id="bundleThumb2">
+                                        <img src="assets/images/products/product-3.jpg" alt="Bose QC45">
+                                    </div>
+                                    <span class="bundle-plus-icon">+</span>
+                                    <div class="bundle-item-thumb" id="bundleThumb3">
+                                        <img src="assets/images/products/product-6.jpg" alt="Xiaomi PowerBank">
+                                    </div>
+                                </div>
+                                <div class="bundle-checklist">
+                                    <label class="bundle-check-item">
+                                        <input type="checkbox" id="bundleCheck1" class="form-check-input" checked>
+                                        <div>
+                                            <strong>This Item:</strong> Apple Watch Ultra 2 (GPS + Cellular, 49mm Titanium) — <span class="text-primary font-weight-bold">$799.00</span>
+                                        </div>
+                                    </label>
+                                    <label class="bundle-check-item">
+                                        <input type="checkbox" id="bundleCheck2" class="form-check-input" checked>
+                                        <div>
+                                            <strong>Add Companion:</strong> Bose QuietComfort 45 Active Noise-Cancelling — <span class="text-primary font-weight-bold">$279.00</span>
+                                        </div>
+                                    </label>
+                                    <label class="bundle-check-item">
+                                        <input type="checkbox" id="bundleCheck3" class="form-check-input" checked>
+                                        <div>
+                                            <strong>Add Accessory:</strong> Xiaomi 20,000mAh 50W Fast PowerBank — <span class="text-primary font-weight-bold">$39.00</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-12">
+                                <div class="bundle-price-summary-box text-center">
+                                    <div class="text-muted" style="font-size:13px;margin-bottom:4px;">Total Regular Price:</div>
+                                    <del id="bundleOriginalPrice" style="font-size:16px;color:#94a3b8;font-weight:600;">$1,117.00</del>
+                                    <div class="my-2">
+                                        <span class="badge bg-success" id="bundleSavings" style="font-size:13px;padding:6px 12px;">Save $167.55 (15% Bundle Discount!)</span>
+                                    </div>
+                                    <div class="h2 font-weight-bold text-primary my-2" id="bundleFinalPrice">$949.45</div>
+                                    <button type="button" class="btn btn-primary w-100 py-3 mt-2 shadow-sm font-weight-bold" id="btnAddBundleToCart" onclick="ShopApp.addBundleToCart()">
+                                        <i class="lni lni-cart-full me-2"></i> Add Bundle (3 Items) to Cart
+                                    </button>
+                                    <small class="text-muted mt-2 d-block" style="font-size:11px;">
+                                        <i class="lni lni-shield"></i> Includes Free Express Shipping & 30-Day Money Back Guarantee
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Frequently Bought Together Bundle Builder -->
+
     <!-- Start VIP Membership Promotional Banner (Replaces template placeholder) -->
     <section class="vip-banner-area">
         <div class="container">
@@ -1165,6 +1248,77 @@
         </div>
     </section>
     <!-- End FAQ Section -->
+
+    <!-- Start Community Tech Q&A Section -->
+    <section class="qa-section" id="communityQaSection">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <span class="badge bg-secondary text-white px-3 py-2 mb-2" style="font-size:12px;font-weight:700;">
+                        <i class="lni lni-comments"></i> COMMUNITY & EXPERT ADVICE
+                    </span>
+                    <h3 class="font-weight-bold" style="color:var(--ecom-dark);">Community Tech Q&A</h3>
+                    <p class="text-muted" style="font-size:14px;">Have questions about compatibility, specs, or international shipping? Ask our tech community and verified staff.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-12">
+                    <div id="qaListContainer">
+                        <div class="qa-card">
+                            <div class="qa-question">
+                                <i class="lni lni-question-circle text-primary" style="font-size:20px;flex-shrink:0;"></i>
+                                <div>
+                                    <strong>Do the laptops and phones come with international dual-voltage power adapters (110V - 240V)?</strong>
+                                    <div class="text-muted" style="font-size:11px;font-weight:normal;margin-top:2px;">Asked by Daniel K. • Verified Buyer</div>
+                                </div>
+                            </div>
+                            <div class="qa-answer">
+                                <div style="font-weight:700;color:var(--ecom-primary);font-size:12px;margin-bottom:2px;">
+                                    <i class="lni lni-checkmark-circle"></i> ShopGrids Senior Tech Lead Answer:
+                                </div>
+                                <div>Yes, all Apple MacBooks, iPhones, and portable electronics include auto-switching 100V–240V universal adapters compatible worldwide with standard wall plug adapters.</div>
+                            </div>
+                        </div>
+
+                        <div class="qa-card">
+                            <div class="qa-question">
+                                <i class="lni lni-question-circle text-primary" style="font-size:20px;flex-shrink:0;"></i>
+                                <div>
+                                    <strong>How quickly does 1-Hour in-store pickup notify me after ordering online?</strong>
+                                    <div class="text-muted" style="font-size:11px;font-weight:normal;margin-top:2px;">Asked by Rebecca S. • Flagship Store Shopper</div>
+                                </div>
+                            </div>
+                            <div class="qa-answer">
+                                <div style="font-weight:700;color:var(--ecom-primary);font-size:12px;margin-bottom:2px;">
+                                    <i class="lni lni-checkmark-circle"></i> ShopGrids In-Store Logistics Answer:
+                                </div>
+                                <div>When selecting In-Store Pickup for NYC, SF, Chicago, or London stores, your item is pulled and staged by an associate within 45 to 60 minutes. You will receive an SMS and email with your pickup barcode ready at customer service.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ask a Question Form -->
+                    <div class="card p-3 border rounded mt-4" style="background:#f8fafc;">
+                        <h6 class="font-weight-bold mb-2"><i class="lni lni-pencil"></i> Have a Question of Your Own?</h6>
+                        <form onsubmit="ShopApp.submitCommunityQuestion(event)">
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-4 col-12">
+                                    <input type="text" id="qaUserName" class="form-control form-control-sm" placeholder="Your Name or Alias" required>
+                                </div>
+                                <div class="col-md-8 col-12">
+                                    <input type="text" id="qaUserQuestion" class="form-control form-control-sm" placeholder="Ask about specs, compatibility, delivery..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="lni lni-telegram-original"></i> Post Question to Community
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Community Tech Q&A Section -->
 
     <!-- Start Recently Viewed Products Section -->
     <section class="recently-viewed-section" id="recentlyViewedSection" style="display:none;">
@@ -1463,10 +1617,17 @@
                                 <span id="qvRatingStars"></span>
                                 <small id="qvReviewCount" class="text-muted"></small>
                             </div>
-                            <div class="d-flex align-items-baseline gap-2 mb-3">
+                            <div class="d-flex align-items-baseline gap-2 mb-2">
                                 <span id="qvPrice" style="font-size:24px;font-weight:800;color:var(--ecom-primary);">$199.00</span>
                                 <span id="qvOrigPrice" style="text-decoration:line-through;color:#94a3b8;font-size:16px;">$229.00</span>
                             </div>
+
+                            <!-- Live Urgency & Viewers Strip -->
+                            <div class="qv-urgency-strip">
+                                <span class="chat-online-pulse" style="width:8px;height:8px;"></span>
+                                <span><strong id="qvLiveViewers">18</strong> people are looking at this right now!</span>
+                            </div>
+
                             <p id="qvDescription" style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:15px;"></p>
                             
                             <div class="mb-3">
@@ -1492,6 +1653,13 @@
                                 <button type="button" class="btn btn-outline-primary" onclick="ShopApp.addQuickViewToCart(true)">
                                     Buy Now
                                 </button>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="font-size:12px;">
+                                <span>⚡ Order within <strong id="qvDeliveryCountdown">02h 45m</strong> for Same-Day Dispatch</span>
+                                <a href="javascript:void(0)" onclick="bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide(); ShopApp.openStoreLocatorModal();" class="text-primary font-weight-bold">
+                                    <i class="lni lni-map-marker"></i> In-Store Pickup
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1963,6 +2131,173 @@
             <input type="text" id="ecomChatInput" class="ecom-chat-input" placeholder="Ask about shipping, deals, specs...">
             <button type="submit" class="ecom-chat-send" title="Send message"><i class="lni lni-telegram-original"></i></button>
         </form>
+    </div>
+
+    <!-- ========================= Floating Spin & Win Launcher ========================= -->
+    <button type="button" class="spin-wheel-launcher" onclick="ShopApp.openSpinWheelModal()" aria-label="Spin and win discount">
+        <i class="lni lni-gift"></i>
+        <span>Spin & Win!</span>
+    </button>
+
+    <!-- ========================= Spin & Win Lucky Wheel Modal ========================= -->
+    <div class="modal fade" id="spinWheelModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-3">
+                <div class="modal-header border-0 pb-0 justify-content-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <span class="badge bg-warning text-dark font-weight-bold px-3 py-2 mb-2">🎁 DAILY LUCKY PERK</span>
+                    <h4 class="font-weight-bold">Spin the ShopGrids Wheel!</h4>
+                    <p class="text-muted" style="font-size:13px;max-width:320px;margin:0 auto 15px auto;">
+                        Spin today's prize wheel to unlock instant discounts up to 25% OFF, free express shipping, or cash vouchers!
+                    </p>
+
+                    <div class="wheel-canvas-container">
+                        <div class="wheel-pointer"></div>
+                        <canvas id="spinWheelCanvas" width="300" height="300"></canvas>
+                        <div class="wheel-center-pin">★</div>
+                    </div>
+
+                    <button type="button" id="btnDoSpin" class="btn btn-primary px-5 py-2 font-weight-bold shadow" onclick="ShopApp.spinTheWheel()">
+                        <i class="lni lni-reload"></i> SPIN TO WIN
+                    </button>
+
+                    <div id="wheelResultNotice" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Tech Advisor Quiz Modal ========================= -->
+    <div class="modal fade" id="techQuizModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-bulb text-warning"></i> AI Tech Advisor Matcher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="quiz-progress-bar">
+                        <div id="quizProgressFill" class="quiz-progress-fill"></div>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div id="quizStep1" class="quiz-step-container active">
+                        <h5 class="font-weight-bold mb-1">Step 1 of 3: What category of device are you looking for?</h5>
+                        <p class="text-muted" style="font-size:13px;">Choose your primary area of interest to narrow down choices.</p>
+                        <div class="quiz-option-grid">
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizCategory('watch')">
+                                <i class="lni lni-timer"></i>
+                                <h6>Smartwatch & Wearable</h6>
+                                <p>Fitness tracking, cellular connectivity, health sensors</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizCategory('audio')">
+                                <i class="lni lni-headphone"></i>
+                                <h6>Headphones & Audio</h6>
+                                <p>Active noise cancelling, hi-res lossless sound, comfort</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizCategory('phone')">
+                                <i class="lni lni-mobile"></i>
+                                <h6>Flagship Smartphone</h6>
+                                <p>Pro cameras, 5G performance, dynamic displays</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizCategory('laptop')">
+                                <i class="lni lni-laptop"></i>
+                                <h6>Laptop & Ultrabook</h6>
+                                <p>Work, creative productivity, all-day battery life</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="quizStep2" class="quiz-step-container">
+                        <h5 class="font-weight-bold mb-1">Step 2 of 3: What is your primary priority?</h5>
+                        <p class="text-muted" style="font-size:13px;">Tell us what matters most in your daily usage.</p>
+                        <div class="quiz-option-grid">
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizPriority('performance')">
+                                <i class="lni lni-rocket"></i>
+                                <h6>Blazing Speed & Power</h6>
+                                <p>Heavy multitasking, gaming, and zero lag</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizPriority('travel')">
+                                <i class="lni lni-plane"></i>
+                                <h6>Travel & Battery Life</h6>
+                                <p>Compact portability and multiple days on a single charge</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizPriority('value')">
+                                <i class="lni lni-tag"></i>
+                                <h6>Best Value / Budget</h6>
+                                <p>Maximum bang-for-the-buck and smart features</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizPriority('pro')">
+                                <i class="lni lni-camera"></i>
+                                <h6>Professional Creation</h6>
+                                <p>Studio photography, 4K video, premium build</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="quizStep3" class="quiz-step-container">
+                        <h5 class="font-weight-bold mb-1">Step 3 of 3: What is your target price range?</h5>
+                        <p class="text-muted" style="font-size:13px;">Select your budget to find the best value match.</p>
+                        <div class="quiz-option-grid">
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizBudget('budget')">
+                                <i class="lni lni-wallet"></i>
+                                <h6>Under $250</h6>
+                                <p>Great entry point for top electronics</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizBudget('mid')">
+                                <i class="lni lni-coin"></i>
+                                <h6>$250 – $600</h6>
+                                <p>Sweet spot for premium audio and wearables</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizBudget('premium')">
+                                <i class="lni lni-diamond"></i>
+                                <h6>$600+</h6>
+                                <p>Pro tier flagship laptops, phones & cameras</p>
+                            </div>
+                            <div class="quiz-option-card" onclick="ShopApp.selectQuizBudget('any')">
+                                <i class="lni lni-star"></i>
+                                <h6>No Budget Limit</h6>
+                                <p>Show me the absolute best device available</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Result -->
+                    <div id="quizStep4" class="quiz-step-container">
+                        <div id="quizResultContent">
+                            <!-- Populated dynamically via ShopApp.generateQuizResult() -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Store Locator & Pickup Modal ========================= -->
+    <div class="modal fade" id="storeLocatorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-map-marker text-danger"></i> ShopGrids Official Flagship Stores</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted" style="font-size:13px;">
+                        Need your gear today? Order online and pick up at customer service in as little as <strong>1 Hour</strong> with zero delivery fees!
+                    </p>
+                    <div class="mb-3">
+                        <input type="text" id="storeSearchInput" class="form-control" placeholder="Search by city, address, or zip code (e.g. New York, Market St)...">
+                    </div>
+                    <div id="storeListContainer">
+                        <!-- Populated dynamically via ShopApp.renderStoreList() -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ========================= JS here ========================= -->

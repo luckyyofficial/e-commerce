@@ -1963,3 +1963,371 @@ body.dark-theme .live-sales-toast {
     gap: 10px;
   }
 }
+
+/* ================== Frequently Bought Together Bundle Builder ================== */
+.bundle-builder-section {
+  padding: 55px 0;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+body.dark-theme .bundle-builder-section {
+  background: #0b1522;
+  border-color: #1e293b;
+}
+.bundle-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+body.dark-theme .bundle-card {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.bundle-items-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+.bundle-item-thumb {
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s, opacity 0.2s;
+}
+body.dark-theme .bundle-item-thumb {
+  background: #1e293b;
+  border-color: #334155;
+}
+.bundle-item-thumb.inactive {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+.bundle-item-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.bundle-plus-icon {
+  font-size: 22px;
+  color: var(--ecom-primary);
+  font-weight: 800;
+}
+.bundle-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bundle-check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+body.dark-theme .bundle-check-item {
+  background: #162436;
+  border-color: #1e293b;
+}
+.bundle-check-item:hover {
+  background: #eff6ff;
+}
+body.dark-theme .bundle-check-item:hover {
+  background: #1e334d;
+}
+.bundle-price-summary-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #bfdbfe;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+body.dark-theme .bundle-price-summary-box {
+  background: linear-gradient(135deg, #132742 0%, #0d1e33 100%);
+  border-color: #1e3a5f;
+}
+
+/* ================== Spin & Win Lucky Wheel ================== */
+.spin-wheel-launcher {
+  position: fixed;
+  bottom: 85px;
+  left: 25px;
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+  cursor: pointer;
+  z-index: 9980;
+  animation: bounceSlow 3s infinite;
+  transition: transform 0.2s;
+}
+.spin-wheel-launcher:hover {
+  transform: scale(1.08);
+}
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.wheel-canvas-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 20px auto;
+}
+#spinWheelCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 6px solid #fff;
+}
+.wheel-pointer {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 26px solid #ef4444;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.wheel-center-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: #081828;
+  color: #facc15;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 3px solid #fff;
+  pointer-events: none;
+}
+
+/* ================== Tech Advisor Quiz ================== */
+.quiz-step-container {
+  display: none;
+}
+.quiz-step-container.active {
+  display: block;
+  animation: fadeIn 0.35s ease;
+}
+.quiz-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--ecom-primary);
+  width: 33%;
+  transition: width 0.3s ease;
+}
+.quiz-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+.quiz-option-card {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+body.dark-theme .quiz-option-card {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.quiz-option-card:hover {
+  border-color: var(--ecom-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(1, 103, 243, 0.12);
+}
+.quiz-option-card.selected {
+  border-color: var(--ecom-primary);
+  background: #eff6ff;
+}
+body.dark-theme .quiz-option-card.selected {
+  background: #132742;
+}
+.quiz-option-card i {
+  font-size: 32px;
+  color: var(--ecom-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+.quiz-option-card h6 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.quiz-option-card p {
+  font-size: 11px;
+  color: #64748b;
+  margin: 0;
+}
+.quiz-result-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #86efac;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+body.dark-theme .quiz-result-box {
+  background: #064e3b;
+  border-color: #047857;
+  color: #fff;
+}
+
+/* ================== Store Locator ================== */
+.store-list-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body.dark-theme .store-list-item {
+  border-color: #1e293b;
+  background: #111e2e;
+}
+.store-list-item:hover {
+  border-color: var(--ecom-primary);
+  background: #f8fafc;
+}
+body.dark-theme .store-list-item:hover {
+  background: #162436;
+}
+.store-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ================== Community Q&A Section ================== */
+.qa-section {
+  padding: 55px 0;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+}
+body.dark-theme .qa-section {
+  background: #081828;
+  border-color: #1e293b;
+}
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+body.dark-theme .qa-card {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.qa-question {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ecom-dark);
+}
+.qa-answer {
+  font-size: 13px;
+  color: #475569;
+  margin-top: 8px;
+  padding-left: 28px;
+  border-left: 2px solid var(--ecom-primary);
+  margin-left: 6px;
+}
+body.dark-theme .qa-answer {
+  color: #94a3b8;
+}
+
+/* Quick View Live Urgency */
+.qv-urgency-strip {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+body.dark-theme .qv-urgency-strip {
+  background: #450a0a;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+.sound-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 6px;
+}
+.sound-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #facc15;
+}
