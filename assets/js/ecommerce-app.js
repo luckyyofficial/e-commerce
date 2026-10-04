@@ -1,0 +1,1468 @@
+/* ==========================================================================
+   ShopGrids Advanced E-Commerce Client Application
+   Full interactive suite: Cart, Wishlist, Checkout, Tracking, Quick View,
+   Live Search, Currency Switcher, Live Countdown, and Toast Notifications
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  // ================= 1. Product Catalog Data =================
+  const PRODUCTS = [
+    {
+      id: 'prod-1',
+      title: 'Xiaomi Mi Band 5 Smart Fitness Tracker',
+      category: 'Watches',
+      categoryKey: 'watches',
+      price: 199.0,
+      origPrice: 229.0,
+      rating: 4.5,
+      reviewsCount: 38,
+      image: 'assets/images/products/product-1.jpg',
+      badge: 'HOT',
+      badgeClass: 'sale-tag',
+      inStock: 18,
+      sku: 'WTC-XMB5-01',
+      description:
+        'The Xiaomi Mi Band 5 features a crisp 1.1-inch dynamic AMOLED display, 24/7 heart rate monitoring, sleep analysis, and 14-day ultra-long battery life with magnetic charging.',
+      features: [
+        '1.1" Dynamic AMOLED Color Display',
+        '24/7 PPG Heart Rate & Sleep Monitoring',
+        '11 Professional Sports Tracking Modes',
+        '50M Water Resistance (5 ATM)',
+        '14-Day Magnetic Fast Charging'
+      ],
+      colors: ['Black', 'Navy Blue', 'Forest Green'],
+      gallery: [
+        'assets/images/products/product-1.jpg',
+        'assets/images/header/cart-items/item1.jpg',
+        'assets/images/product-details/04.jpg'
+      ]
+    },
+    {
+      id: 'prod-2',
+      title: 'Big Power Sound 360° Bluetooth Speaker',
+      category: 'Speaker',
+      categoryKey: 'speaker',
+      price: 275.0,
+      origPrice: 300.0,
+      rating: 5.0,
+      reviewsCount: 64,
+      image: 'assets/images/products/product-2.jpg',
+      badge: '-25%',
+      badgeClass: 'sale-tag',
+      inStock: 9,
+      sku: 'SPK-BPS360-02',
+      description:
+        'Engineered for room-filling acoustic brilliance, this high-output Bluetooth speaker delivers 60W of crystal-clear sound, deep bass radiators, and IPX7 waterproof durability.',
+      features: [
+        '60W High-Fidelity Stereo Output',
+        'Dual Passive Bass Radiators',
+        'IPX7 Complete Waterproof Housing',
+        '24-Hour Continuous Playtime',
+        'TWS Wireless Stereo Pairing'
+      ],
+      colors: ['Midnight Black', 'Slate Gray', 'Ocean Teal'],
+      gallery: [
+        'assets/images/products/product-2.jpg',
+        'assets/images/products/product-6.jpg',
+        'assets/images/product-details/02.jpg'
+      ]
+    },
+    {
+      id: 'prod-3',
+      title: 'Ultra HD WiFi Smart Security Camera',
+      category: 'Camera',
+      categoryKey: 'camera',
+      price: 399.0,
+      origPrice: 450.0,
+      rating: 5.0,
+      reviewsCount: 52,
+      image: 'assets/images/products/product-3.jpg',
+      badge: 'SECURITY',
+      badgeClass: 'new-tag',
+      inStock: 14,
+      sku: 'CAM-WSC1080-03',
+      description:
+        'Protect your home and office with 2K Ultra HD resolution, AI-powered person and motion detection, crystal-clear infrared night vision, and two-way real-time audio.',
+      features: [
+        '2K 1440p Ultra HD Video Quality',
+        '360° Pan & 114° Vertical Tilt Coverage',
+        'AI Human & Motion Detection Alerts',
+        'Color Night Vision up to 30 Feet',
+        'Encrypted Cloud & 256GB MicroSD Support'
+      ],
+      colors: ['Pure White', 'Matte Black'],
+      gallery: [
+        'assets/images/products/product-3.jpg',
+        'assets/images/header/cart-items/item2.jpg',
+        'assets/images/product-details/01.jpg'
+      ]
+    },
+    {
+      id: 'prod-4',
+      title: 'iPhone 12 Pro Max 256GB Flagship',
+      category: 'Phones',
+      categoryKey: 'phones',
+      price: 400.0,
+      origPrice: 520.0,
+      rating: 5.0,
+      reviewsCount: 112,
+      image: 'assets/images/products/product-4.jpg',
+      badge: 'NEW',
+      badgeClass: 'new-tag',
+      inStock: 6,
+      sku: 'PHN-APL12PM-04',
+      description:
+        'Immerse in the expansive 6.7-inch Super Retina XDR OLED display, powerhouse A14 Bionic chip, LiDAR scanner, and pro triple-camera system with 4K Dolby Vision HDR recording.',
+      features: [
+        '6.7-inch Super Retina XDR OLED Display',
+        'A14 Bionic Chip with Next-Gen Neural Engine',
+        'Triple 12MP Camera System with Sensor-Shift OIS',
+        'Ceramic Shield Front with 4x Drop Performance',
+        'Sub-6GHz and mmWave 5G Cellular Speeds'
+      ],
+      colors: ['Pacific Blue', 'Graphite', 'Gold', 'Silver'],
+      gallery: [
+        'assets/images/products/product-4.jpg',
+        'assets/images/hero/slider-bnr.jpg',
+        'assets/images/product-details/03.jpg'
+      ]
+    },
+    {
+      id: 'prod-5',
+      title: 'Studio Hi-Fi Wireless ANC Headphones',
+      category: 'Headphones',
+      categoryKey: 'headphones',
+      price: 350.0,
+      origPrice: 420.0,
+      rating: 5.0,
+      reviewsCount: 78,
+      image: 'assets/images/products/product-5.jpg',
+      badge: 'TOP RATED',
+      badgeClass: 'new-tag',
+      inStock: 22,
+      sku: 'AUD-SHF-ANC-05',
+      description:
+        'Featuring custom 40mm beryllium drivers, active hybrid noise cancellation, ergonomic memory foam earcups, and up to 45 hours of playtime with quick charge.',
+      features: [
+        'Hybrid Active Noise Cancellation (4 Mics)',
+        'Audiophile 40mm Beryllium Sound Drivers',
+        '45-Hour Battery Life with USB-C Quick Charge',
+        'Multipoint Bluetooth 5.3 Pairing',
+        'Plush Breathable Protein Leather Cushions'
+      ],
+      colors: ['Space Gray', 'Champagne Silver', 'Matte Black'],
+      gallery: [
+        'assets/images/products/product-5.jpg',
+        'assets/images/products/product-7.jpg',
+        'assets/images/banner/banner-2-bg.jpg'
+      ]
+    },
+    {
+      id: 'prod-6',
+      title: 'Mini Bluetooth Pocket Speaker Bass+',
+      category: 'Speaker',
+      categoryKey: 'speaker',
+      price: 70.0,
+      origPrice: 95.0,
+      rating: 4.0,
+      reviewsCount: 29,
+      image: 'assets/images/products/product-6.jpg',
+      badge: 'SALE',
+      badgeClass: 'sale-tag',
+      inStock: 30,
+      sku: 'SPK-MBP-06',
+      description:
+        'Compact enough to fit into your pocket, yet packs an astonishing punch with reinforced bass resonance, rugged shockproof rubber casing, and integrated speakerphone.',
+      features: [
+        'Compact Ultra-Portable Pocket Design',
+        'Rich Bass+ Dynamic Sound Profile',
+        'IP67 Water & Dust Resistance',
+        'Built-in Microphone for Hands-Free Calling',
+        'Up to 12 Hours Battery on a Single Charge'
+      ],
+      colors: ['Charcoal', 'Ruby Red', 'Cobalt Blue'],
+      gallery: [
+        'assets/images/products/product-6.jpg',
+        'assets/images/products/product-2.jpg'
+      ]
+    },
+    {
+      id: 'prod-7',
+      title: 'PX7 Wireless Over-Ear Active Headphones',
+      category: 'Headphones',
+      categoryKey: 'headphones',
+      price: 100.0,
+      origPrice: 200.0,
+      rating: 4.0,
+      reviewsCount: 45,
+      image: 'assets/images/products/product-7.jpg',
+      badge: '-50%',
+      badgeClass: 'sale-tag',
+      inStock: 11,
+      sku: 'AUD-PX7-07',
+      description:
+        'Half price special! Premium high-resolution over-ear headphones with adaptive noise cancellation, ambient transparency pass-through, and carbon fiber composite arms.',
+      features: [
+        'Adaptive Noise Cancelling with Smart Ambient Mode',
+        'Custom 43.6mm Full-Range Drivers',
+        '30-Hour Battery with 15-Min Quick Charge (5 hrs)',
+        'Wear-Sensing Pause/Play Detection',
+        'Lightweight Carbon Fiber Arm Structure'
+      ],
+      colors: ['Carbon Black', 'Silver Gray'],
+      gallery: [
+        'assets/images/products/product-7.jpg',
+        'assets/images/products/product-5.jpg'
+      ]
+    },
+    {
+      id: 'prod-8',
+      title: 'Apple MacBook Air 13.3" M1 256GB',
+      category: 'Laptop',
+      categoryKey: 'laptop',
+      price: 899.0,
+      origPrice: 999.0,
+      rating: 5.0,
+      reviewsCount: 95,
+      image: 'assets/images/products/product-8.jpg',
+      badge: 'BESTSELLER',
+      badgeClass: 'new-tag',
+      inStock: 8,
+      sku: 'LPT-MBA-M1-08',
+      description:
+        'Supercharged by the groundbreaking Apple M1 chip with 8-core CPU and 7-core GPU, fanless silent operation, 18-hour battery longevity, and stunning Retina display with P3 wide color.',
+      features: [
+        'Apple M1 Chip with 8-Core CPU & 7-Core GPU',
+        '13.3-inch Retina Display with True Tone Technology',
+        'Silent Fanless Thermal Design',
+        'Up to 18 Hours All-Day Battery Life',
+        'Backlit Magic Keyboard with Touch ID Sensor'
+      ],
+      colors: ['Space Gray', 'Silver', 'Gold'],
+      gallery: [
+        'assets/images/products/product-8.jpg',
+        'assets/images/hero/slider-bg1.jpg'
+      ]
+    },
+    {
+      id: 'prod-9',
+      title: 'Apple Watch Series 6 GPS 44mm Space Gray',
+      category: 'Watches',
+      categoryKey: 'watches',
+      price: 99.0,
+      origPrice: 149.0,
+      rating: 5.0,
+      reviewsCount: 88,
+      image: 'assets/images/header/cart-items/item1.jpg',
+      badge: 'POPULAR',
+      badgeClass: 'sale-tag',
+      inStock: 15,
+      sku: 'WTC-AWS6-09',
+      description:
+        'Measure your blood oxygen level with a revolutionary sensor and app. Take an ECG anytime, anywhere. See fitness metrics on the enhanced Always-On Retina display.',
+      features: [
+        'Blood Oxygen Sensor & ECG App Support',
+        'Always-On Retina OLED Display',
+        'S6 SiP with 64-Bit Dual-Core Processor',
+        '50M Water Resistance for Swimming',
+        'Emergency SOS & Fall Detection'
+      ],
+      colors: ['Space Gray', 'Silver', 'Product RED'],
+      gallery: [
+        'assets/images/header/cart-items/item1.jpg',
+        'assets/images/products/product-1.jpg'
+      ]
+    },
+    {
+      id: 'prod-10',
+      title: 'Wi-Fi Smart HD Pan-Tilt Security Camera',
+      category: 'Camera',
+      categoryKey: 'camera',
+      price: 35.0,
+      origPrice: 50.0,
+      rating: 4.8,
+      reviewsCount: 36,
+      image: 'assets/images/header/cart-items/item2.jpg',
+      badge: 'DEAL',
+      badgeClass: 'new-tag',
+      inStock: 25,
+      sku: 'CAM-WSC35-10',
+      description:
+        'Affordable home monitoring with crystal clear 1080p, night vision, motion tracking, and remote live smartphone streaming through the companion iOS/Android app.',
+      features: [
+        '1080p Full HD Resolution',
+        'Night Vision Infrared LEDs (up to 30ft)',
+        'Motion Tracking with Mobile Alerts',
+        'Two-Way Built-in Audio Speaker/Mic',
+        'Works with Alexa and Google Assistant'
+      ],
+      colors: ['White'],
+      gallery: [
+        'assets/images/header/cart-items/item2.jpg',
+        'assets/images/products/product-3.jpg'
+      ]
+    }
+  ];
+
+  // ================= 2. Currency Rates & Converter =================
+  const CURRENCIES = {
+    USD: { code: 'USD', symbol: '$', rate: 1.0, name: '$ USD' },
+    EUR: { code: 'EUR', symbol: '€', rate: 0.92, name: '€ EURO' },
+    CAD: { code: 'CAD', symbol: 'CA$', rate: 1.36, name: '$ CAD' },
+    INR: { code: 'INR', symbol: '₹', rate: 83.5, name: '₹ INR' },
+    CNY: { code: 'CNY', symbol: '¥', rate: 7.23, name: '¥ CNY' },
+    BDT: { code: 'BDT', symbol: '৳', rate: 110.0, name: '৳ BDT' }
+  };
+
+  let currentCurrencyCode = localStorage.getItem('ecom_currency') || 'USD';
+
+  function formatMoney(amountInUSD) {
+    const curr = CURRENCIES[currentCurrencyCode] || CURRENCIES.USD;
+    const converted = amountInUSD * curr.rate;
+    if (curr.code === 'INR' || curr.code === 'BDT' || curr.code === 'CNY') {
+      return `${curr.symbol}${converted.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    }
+    return `${curr.symbol}${converted.toFixed(2)}`;
+  }
+
+  function setCurrency(code) {
+    if (CURRENCIES[code]) {
+      currentCurrencyCode = code;
+      localStorage.setItem('ecom_currency', code);
+      refreshAllPricesOnPage();
+      updateCartUI();
+      showToast('Currency Updated', `Switched display currency to ${CURRENCIES[code].name}`, 'info');
+    }
+  }
+
+  function refreshAllPricesOnPage() {
+    // Update trending products price tags
+    document.querySelectorAll('[data-product-id]').forEach(card => {
+      const pid = card.getAttribute('data-product-id');
+      const prod = PRODUCTS.find(p => p.id === pid);
+      if (prod) {
+        const priceEl = card.querySelector('.price span:not(.discount-price)');
+        const discountEl = card.querySelector('.discount-price');
+        if (priceEl) priceEl.textContent = formatMoney(prod.price);
+        if (discountEl && prod.origPrice) discountEl.textContent = formatMoney(prod.origPrice);
+      }
+    });
+
+    // Update deal section cards
+    document.querySelectorAll('.deal-product-card[data-deal-id]').forEach(dealCard => {
+      const pid = dealCard.getAttribute('data-deal-id');
+      const prod = PRODUCTS.find(p => p.id === pid);
+      if (prod) {
+        const currPrice = dealCard.querySelector('.deal-curr-price');
+        const origPrice = dealCard.querySelector('.deal-orig-price');
+        if (currPrice) currPrice.textContent = formatMoney(prod.price);
+        if (origPrice && prod.origPrice) origPrice.textContent = formatMoney(prod.origPrice);
+      }
+    });
+  }
+
+  // ================= 3. Shopping Cart State =================
+  let cart = [];
+  const storedCart = localStorage.getItem('ecom_cart');
+  if (storedCart) {
+    try {
+      cart = JSON.parse(storedCart);
+    } catch (e) {
+      cart = [];
+    }
+  }
+
+  // Default initial demo cart if completely empty
+  if (!cart || cart.length === 0) {
+    cart = [
+      { id: 'prod-9', qty: 1, color: 'Space Gray' },
+      { id: 'prod-10', qty: 1, color: 'White' }
+    ];
+    saveCart();
+  }
+
+  function saveCart() {
+    localStorage.setItem('ecom_cart', JSON.stringify(cart));
+  }
+
+  // Active Promo Code
+  let activeCoupon = localStorage.getItem('ecom_coupon') || null;
+
+  function addToCart(productId, qty = 1, options = {}) {
+    const prod = PRODUCTS.find(p => p.id === productId);
+    if (!prod) return;
+
+    const existingIndex = cart.findIndex(item => item.id === productId);
+    if (existingIndex > -1) {
+      cart[existingIndex].qty += qty;
+    } else {
+      cart.push({
+        id: productId,
+        qty: qty,
+        color: options.color || (prod.colors && prod.colors[0]) || 'Standard'
+      });
+    }
+
+    saveCart();
+    updateCartUI();
+    showToast('Added to Cart', `${prod.title} added (${qty}x)`, 'success');
+
+    // Subtle bounce animation on header cart icon
+    const cartBtn = document.querySelector('.header .cart-items .main-btn');
+    if (cartBtn) {
+      cartBtn.style.transform = 'scale(1.25)';
+      setTimeout(() => {
+        cartBtn.style.transform = 'scale(1)';
+      }, 300);
+    }
+  }
+
+  function removeFromCart(productId) {
+    const prod = PRODUCTS.find(p => p.id === productId);
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartUI();
+    if (prod) {
+      showToast('Item Removed', `${prod.title} was removed from your cart.`, 'info');
+    }
+  }
+
+  function updateCartQty(productId, newQty) {
+    if (newQty <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    const item = cart.find(i => i.id === productId);
+    if (item) {
+      item.qty = newQty;
+      saveCart();
+      updateCartUI();
+    }
+  }
+
+  function getCartCalculations() {
+    let subtotal = 0;
+    let totalItems = 0;
+
+    cart.forEach(item => {
+      const prod = PRODUCTS.find(p => p.id === item.id);
+      if (prod) {
+        subtotal += prod.price * item.qty;
+        totalItems += item.qty;
+      }
+    });
+
+    let discount = 0;
+    if (activeCoupon === 'VIP20' || activeCoupon === 'SAVE20') {
+      discount = subtotal * 0.2; // 20%
+    } else if (activeCoupon === 'WELCOME10') {
+      discount = subtotal * 0.1; // 10%
+    } else if (activeCoupon === 'FLASH50' && subtotal >= 200) {
+      discount = 50.0;
+    }
+
+    // Free shipping threshold: $99
+    let shipping = subtotal >= 99 || subtotal === 0 || activeCoupon === 'FREESHIP' ? 0.0 : 15.0;
+    let taxableAmount = Math.max(0, subtotal - discount);
+    let estimatedTax = taxableAmount > 0 ? taxableAmount * 0.08 : 0; // 8% sales tax
+    let grandTotal = Math.max(0, taxableAmount + shipping + estimatedTax);
+
+    return {
+      subtotal,
+      discount,
+      shipping,
+      estimatedTax,
+      grandTotal,
+      totalItems
+    };
+  }
+
+  function updateCartUI() {
+    const calcs = getCartCalculations();
+
+    // 1. Update Header Badges
+    document.querySelectorAll('.cart-items .total-items').forEach(badge => {
+      badge.textContent = calcs.totalItems;
+    });
+
+    // 2. Update Header Shopping-List (Hover dropdown)
+    const headerShoppingList = document.querySelector('.header .shopping-list');
+    const headerCartTotal = document.querySelector('.header .dropdown-cart-header span');
+    const headerCartAmount = document.querySelector('.header .total-amount');
+
+    if (headerCartTotal) {
+      headerCartTotal.textContent = `${calcs.totalItems} ${calcs.totalItems === 1 ? 'Item' : 'Items'}`;
+    }
+    if (headerCartAmount) {
+      headerCartAmount.textContent = formatMoney(calcs.grandTotal);
+    }
+
+    if (headerShoppingList) {
+      if (cart.length === 0) {
+        headerShoppingList.innerHTML = `<li style="padding:15px 0;text-align:center;color:#6b7280;">Your shopping cart is empty.</li>`;
+      } else {
+        headerShoppingList.innerHTML = cart
+          .map(item => {
+            const prod = PRODUCTS.find(p => p.id === item.id);
+            if (!prod) return '';
+            return `
+            <li>
+              <a href="javascript:void(0)" class="remove btn-remove-cart" data-id="${prod.id}" title="Remove this item">
+                <i class="lni lni-close"></i>
+              </a>
+              <div class="cart-img-head">
+                <a class="cart-img" href="javascript:void(0)" onclick="ShopApp.openQuickView('${prod.id}')">
+                  <img src="${prod.image}" alt="${prod.title}">
+                </a>
+              </div>
+              <div class="content">
+                <h4><a href="javascript:void(0)" onclick="ShopApp.openQuickView('${prod.id}')">${prod.title}</a></h4>
+                <p class="quantity">${item.qty}x - <span class="amount">${formatMoney(prod.price)}</span></p>
+              </div>
+            </li>
+          `;
+          })
+          .join('');
+      }
+    }
+
+    // 3. Update Slide-out Cart Drawer
+    renderCartDrawer(calcs);
+  }
+
+  function renderCartDrawer(calcs) {
+    const drawerContainer = document.getElementById('cartDrawerItems');
+    const drawerTotalItems = document.getElementById('drawerTotalItems');
+    const drawerSubtotal = document.getElementById('drawerSubtotal');
+    const drawerDiscount = document.getElementById('drawerDiscount');
+    const drawerShipping = document.getElementById('drawerShipping');
+    const drawerTax = document.getElementById('drawerTax');
+    const drawerGrandTotal = document.getElementById('drawerGrandTotal');
+    const shippingMeterText = document.getElementById('shippingMeterText');
+    const shippingMeterFill = document.getElementById('shippingMeterFill');
+
+    if (drawerTotalItems) {
+      drawerTotalItems.textContent = `(${calcs.totalItems})`;
+    }
+
+    // Free shipping meter
+    if (shippingMeterText && shippingMeterFill) {
+      if (calcs.subtotal >= 99) {
+        shippingMeterText.innerHTML = `🎉 <strong>Congratulations!</strong> You qualify for <strong>FREE Express Shipping</strong>!`;
+        shippingMeterFill.style.width = '100%';
+        shippingMeterFill.style.background = '#10b981';
+      } else {
+        const remaining = 99 - calcs.subtotal;
+        const pct = Math.min(100, Math.round((calcs.subtotal / 99) * 100));
+        shippingMeterText.innerHTML = `Add <strong>${formatMoney(remaining)}</strong> more to unlock <strong>FREE Express Delivery</strong>!`;
+        shippingMeterFill.style.width = `${pct}%`;
+        shippingMeterFill.style.background = 'var(--ecom-primary)';
+      }
+    }
+
+    if (drawerContainer) {
+      if (cart.length === 0) {
+        drawerContainer.innerHTML = `
+          <div class="cart-empty-state">
+            <div class="cart-empty-icon"><i class="lni lni-cart-full"></i></div>
+            <h5>Your Cart is Empty</h5>
+            <p>Looks like you haven't added anything to your cart yet. Explore our trending electronics!</p>
+            <button class="btn btn-primary" onclick="ShopApp.closeCartDrawer(); window.scrollTo({top: 800, behavior: 'smooth'});">
+              Shop Trending Deals
+            </button>
+          </div>
+        `;
+      } else {
+        drawerContainer.innerHTML = cart
+          .map(item => {
+            const prod = PRODUCTS.find(p => p.id === item.id);
+            if (!prod) return '';
+            const itemTotal = prod.price * item.qty;
+            return `
+            <div class="cart-drawer-item">
+              <img src="${prod.image}" alt="${prod.title}" class="cart-drawer-item-img" onclick="ShopApp.openQuickView('${prod.id}')" style="cursor:pointer;">
+              <div class="cart-drawer-item-details">
+                <div class="cart-drawer-item-title" onclick="ShopApp.openQuickView('${prod.id}')" style="cursor:pointer;">
+                  ${prod.title}
+                </div>
+                <div class="cart-drawer-item-price">
+                  ${formatMoney(prod.price)} <small style="color:#64748b;font-weight:normal;">(${item.color})</small>
+                </div>
+                <div class="cart-qty-stepper">
+                  <button class="cart-qty-btn" onclick="ShopApp.changeCartItemQty('${prod.id}', ${item.qty - 1})">-</button>
+                  <span class="cart-qty-value">${item.qty}</span>
+                  <button class="cart-qty-btn" onclick="ShopApp.changeCartItemQty('${prod.id}', ${item.qty + 1})">+</button>
+                </div>
+              </div>
+              <button class="cart-drawer-item-remove" onclick="ShopApp.removeFromCart('${prod.id}')" title="Remove Item">
+                <i class="lni lni-trash"></i>
+              </button>
+            </div>
+          `;
+          })
+          .join('');
+      }
+    }
+
+    // Totals
+    if (drawerSubtotal) drawerSubtotal.textContent = formatMoney(calcs.subtotal);
+    if (drawerDiscount) {
+      if (calcs.discount > 0) {
+        drawerDiscount.textContent = `-${formatMoney(calcs.discount)}`;
+        drawerDiscount.parentElement.style.display = 'flex';
+      } else {
+        drawerDiscount.parentElement.style.display = 'none';
+      }
+    }
+    if (drawerShipping) {
+      drawerShipping.textContent = calcs.shipping === 0 ? 'FREE' : formatMoney(calcs.shipping);
+      drawerShipping.style.color = calcs.shipping === 0 ? '#10b981' : '#64748b';
+    }
+    if (drawerTax) drawerTax.textContent = formatMoney(calcs.estimatedTax);
+    if (drawerGrandTotal) drawerGrandTotal.textContent = formatMoney(calcs.grandTotal);
+  }
+
+  // ================= 4. Wishlist State =================
+  let wishlist = [];
+  const storedWishlist = localStorage.getItem('ecom_wishlist');
+  if (storedWishlist) {
+    try {
+      wishlist = JSON.parse(storedWishlist);
+    } catch (e) {
+      wishlist = [];
+    }
+  }
+
+  function saveWishlist() {
+    localStorage.setItem('ecom_wishlist', JSON.stringify(wishlist));
+    updateWishlistUI();
+  }
+
+  function toggleWishlist(productId) {
+    const prod = PRODUCTS.find(p => p.id === productId);
+    if (!prod) return;
+
+    const index = wishlist.indexOf(productId);
+    if (index > -1) {
+      wishlist.splice(index, 1);
+      showToast('Wishlist Updated', `${prod.title} removed from saved items.`, 'info');
+    } else {
+      wishlist.push(productId);
+      showToast('Added to Wishlist ❤️', `${prod.title} saved to your favorites.`, 'success');
+    }
+    saveWishlist();
+  }
+
+  function updateWishlistUI() {
+    // Update badge in header
+    document.querySelectorAll('.navbar-cart .wishlist .total-items').forEach(badge => {
+      badge.textContent = wishlist.length;
+    });
+
+    // Update active state on product cards
+    document.querySelectorAll('.quick-action-btn[data-wishlist-id]').forEach(btn => {
+      const pid = btn.getAttribute('data-wishlist-id');
+      if (wishlist.includes(pid)) {
+        btn.classList.add('active');
+        btn.innerHTML = '<i class="lni lni-heart-filled"></i>';
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="lni lni-heart"></i>';
+      }
+    });
+
+    // Render Wishlist Modal if open
+    renderWishlistModal();
+  }
+
+  function renderWishlistModal() {
+    const listContainer = document.getElementById('wishlistItemsContainer');
+    if (!listContainer) return;
+
+    if (wishlist.length === 0) {
+      listContainer.innerHTML = `
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:50px;color:#cbd5e1;margin-bottom:12px;"><i class="lni lni-heart"></i></div>
+          <h5 style="font-weight:700;">Your Wishlist is Empty</h5>
+          <p style="color:#64748b;font-size:14px;">Save your favorite products to buy later or monitor for special deals.</p>
+        </div>
+      `;
+    } else {
+      listContainer.innerHTML = wishlist
+        .map(id => {
+          const prod = PRODUCTS.find(p => p.id === id);
+          if (!prod) return '';
+          return `
+          <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${prod.image}" alt="${prod.title}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;">
+              <div>
+                <h6 style="margin-bottom:4px;font-weight:700;">${prod.title}</h6>
+                <div style="font-weight:700;color:var(--ecom-primary);">${formatMoney(prod.price)}</div>
+                <span class="badge ${prod.inStock > 0 ? 'bg-success' : 'bg-danger'}">${prod.inStock > 0 ? 'In Stock' : 'Out of Stock'}</span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-sm btn-primary" onclick="ShopApp.addToCart('${prod.id}', 1); ShopApp.toggleWishlist('${prod.id}');">
+                <i class="lni lni-cart"></i> Move to Cart
+              </button>
+              <button class="btn btn-sm btn-outline-danger" onclick="ShopApp.toggleWishlist('${prod.id}')">
+                <i class="lni lni-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        })
+        .join('');
+    }
+  }
+
+  // ================= 5. Quick View Modal =================
+  let currentQuickViewProduct = null;
+  let quickViewSelectedColor = null;
+  let quickViewQty = 1;
+
+  function openQuickView(productId) {
+    const prod = PRODUCTS.find(p => p.id === productId);
+    if (!prod) return;
+
+    currentQuickViewProduct = prod;
+    quickViewQty = 1;
+    quickViewSelectedColor = prod.colors ? prod.colors[0] : 'Standard';
+
+    // Populate Modal Elements
+    const modalTitle = document.getElementById('qvTitle');
+    const modalImage = document.getElementById('qvMainImg');
+    const modalThumbs = document.getElementById('qvGalleryThumbs');
+    const modalCat = document.getElementById('qvCategory');
+    const modalPrice = document.getElementById('qvPrice');
+    const modalOrigPrice = document.getElementById('qvOrigPrice');
+    const modalRatingStars = document.getElementById('qvRatingStars');
+    const modalReviewCount = document.getElementById('qvReviewCount');
+    const modalStock = document.getElementById('qvStockStatus');
+    const modalSku = document.getElementById('qvSku');
+    const modalDesc = document.getElementById('qvDescription');
+    const modalColorsWrap = document.getElementById('qvColorSwatches');
+    const modalQty = document.getElementById('qvQtyValue');
+
+    if (modalTitle) modalTitle.textContent = prod.title;
+    if (modalImage) modalImage.src = prod.image;
+    if (modalCat) modalCat.textContent = prod.category;
+    if (modalPrice) modalPrice.textContent = formatMoney(prod.price);
+    if (modalOrigPrice) {
+      if (prod.origPrice) {
+        modalOrigPrice.textContent = formatMoney(prod.origPrice);
+        modalOrigPrice.style.display = 'inline';
+      } else {
+        modalOrigPrice.style.display = 'none';
+      }
+    }
+    if (modalSku) modalSku.textContent = prod.sku;
+    if (modalDesc) modalDesc.textContent = prod.description;
+    if (modalQty) modalQty.textContent = quickViewQty;
+
+    if (modalStock) {
+      modalStock.textContent = `In Stock (${prod.inStock} units available)`;
+      modalStock.className = 'badge-stock badge-in-stock';
+    }
+
+    if (modalRatingStars) {
+      let starsHtml = '';
+      for (let i = 1; i <= 5; i++) {
+        starsHtml += `<i class="lni lni-star-filled" style="color:#fecb00;margin-right:2px;"></i>`;
+      }
+      modalRatingStars.innerHTML = starsHtml;
+    }
+    if (modalReviewCount) {
+      modalReviewCount.textContent = `(${prod.reviewsCount} verified customer reviews)`;
+    }
+
+    // Color Swatches
+    if (modalColorsWrap) {
+      if (prod.colors && prod.colors.length > 0) {
+        modalColorsWrap.innerHTML = prod.colors
+          .map((c, idx) => {
+            return `
+            <span class="variant-pill ${idx === 0 ? 'active' : ''}" onclick="ShopApp.selectQuickViewColor('${c}', this)">
+              ${c}
+            </span>
+          `;
+          })
+          .join('');
+      } else {
+        modalColorsWrap.innerHTML = `<span class="variant-pill active">Standard</span>`;
+      }
+    }
+
+    // Gallery Thumbs
+    if (modalThumbs) {
+      const thumbs = prod.gallery && prod.gallery.length > 0 ? prod.gallery : [prod.image];
+      modalThumbs.innerHTML = thumbs
+        .map((imgSrc, idx) => {
+          return `
+          <img src="${imgSrc}" class="quickview-thumb ${idx === 0 ? 'active' : ''}" onclick="ShopApp.setQuickViewMainImage('${imgSrc}', this)">
+        `;
+        })
+        .join('');
+    }
+
+    // Open Bootstrap Modal
+    const modalEl = document.getElementById('quickViewModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function setQuickViewMainImage(src, thumbEl) {
+    const mainImg = document.getElementById('qvMainImg');
+    if (mainImg) mainImg.src = src;
+    document.querySelectorAll('.quickview-thumb').forEach(t => t.classList.remove('active'));
+    if (thumbEl) thumbEl.classList.add('active');
+  }
+
+  function selectQuickViewColor(color, pillEl) {
+    quickViewSelectedColor = color;
+    document.querySelectorAll('#qvColorSwatches .variant-pill').forEach(p => p.classList.remove('active'));
+    if (pillEl) pillEl.classList.add('active');
+  }
+
+  function changeQuickViewQty(delta) {
+    quickViewQty = Math.max(1, quickViewQty + delta);
+    const modalQty = document.getElementById('qvQtyValue');
+    if (modalQty) modalQty.textContent = quickViewQty;
+  }
+
+  function addQuickViewToCart(buyNow = false) {
+    if (!currentQuickViewProduct) return;
+    addToCart(currentQuickViewProduct.id, quickViewQty, { color: quickViewSelectedColor });
+
+    const modalEl = document.getElementById('quickViewModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getInstance(modalEl);
+      if (bsModal) bsModal.hide();
+    }
+
+    if (buyNow) {
+      openCheckoutModal();
+    }
+  }
+
+  // ================= 6. Live Search & Autocomplete =================
+  function initLiveSearch() {
+    const searchInput = document.getElementById('mainSearchInput');
+    const searchSelect = document.getElementById('searchCategorySelect');
+    const suggestionsBox = document.getElementById('searchSuggestionsDropdown');
+    const searchBtn = document.getElementById('mainSearchBtn');
+
+    if (!searchInput) return;
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedCat = searchSelect ? searchSelect.value.toLowerCase() : 'all';
+
+      if (!suggestionsBox) return;
+
+      if (query.length < 2) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
+
+      const matches = PRODUCTS.filter(prod => {
+        const matchesQuery =
+          prod.title.toLowerCase().includes(query) ||
+          prod.category.toLowerCase().includes(query) ||
+          prod.description.toLowerCase().includes(query);
+        const matchesCat =
+          selectedCat === 'all' ||
+          prod.categoryKey === selectedCat ||
+          prod.category.toLowerCase() === selectedCat;
+        return matchesQuery && matchesCat;
+      });
+
+      if (matches.length === 0) {
+        suggestionsBox.innerHTML = `
+          <div style="padding:15px;text-align:center;color:#64748b;font-size:13px;">
+            No products found matching "<strong>${searchInput.value}</strong>".
+          </div>
+        `;
+      } else {
+        suggestionsBox.innerHTML = matches
+          .slice(0, 6)
+          .map(prod => {
+            return `
+            <div class="search-suggestion-item" onclick="ShopApp.openQuickView('${prod.id}'); document.getElementById('searchSuggestionsDropdown').style.display='none';">
+              <img src="${prod.image}" alt="${prod.title}" class="search-suggestion-img">
+              <div class="search-suggestion-info">
+                <div class="search-suggestion-title">${prod.title}</div>
+                <div class="search-suggestion-cat">${prod.category}</div>
+              </div>
+              <div class="search-suggestion-price">${formatMoney(prod.price)}</div>
+            </div>
+          `;
+          })
+          .join('');
+      }
+
+      suggestionsBox.style.display = 'block';
+    }
+
+    searchInput.addEventListener('input', performSearch);
+    if (searchSelect) searchSelect.addEventListener('change', performSearch);
+
+    if (searchBtn) {
+      searchBtn.addEventListener('click', e => {
+        e.preventDefault();
+        const query = searchInput.value.trim().toLowerCase();
+        if (query.length >= 2) {
+          filterProductsByQuery(query);
+        }
+      });
+    }
+
+    // Close suggestions on outside click
+    document.addEventListener('click', e => {
+      if (suggestionsBox && !searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+        suggestionsBox.style.display = 'none';
+      }
+    });
+  }
+
+  function filterProductsByQuery(query) {
+    const items = document.querySelectorAll('.single-product[data-product-id]');
+    let count = 0;
+    items.forEach(card => {
+      const pid = card.getAttribute('data-product-id');
+      const prod = PRODUCTS.find(p => p.id === pid);
+      if (prod && (prod.title.toLowerCase().includes(query) || prod.category.toLowerCase().includes(query))) {
+        card.closest('.col-lg-3').style.display = 'block';
+        count++;
+      } else {
+        card.closest('.col-lg-3').style.display = 'none';
+      }
+    });
+
+    window.scrollTo({
+      top: document.getElementById('trendingProductsArea').offsetTop - 80,
+      behavior: 'smooth'
+    });
+
+    showToast('Search Results', `Found ${count} matching product(s).`, 'info');
+  }
+
+  // ================= 7. Category Filter Tabs =================
+  function initCategoryFilters() {
+    const tabs = document.querySelectorAll('.filter-tab-btn');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-filter');
+        const cards = document.querySelectorAll('.single-product[data-product-id]');
+
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          const col = card.closest('.col-lg-3');
+          if (filter === 'all' || cat === filter) {
+            col.style.display = 'block';
+            card.style.animation = 'fadeIn 0.4s ease forwards';
+          } else {
+            col.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // ================= 8. Live Real-Time Countdown Timer =================
+  function initDealCountdown() {
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl = document.getElementById('cd-mins');
+    const secsEl = document.getElementById('cd-secs');
+
+    if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+    // Target: 2 days, 14 hours, 35 mins from now, stored in localStorage
+    let targetTime = localStorage.getItem('ecom_deal_target');
+    if (!targetTime || new Date(parseInt(targetTime)).getTime() <= Date.now()) {
+      targetTime = Date.now() + (2 * 24 * 60 * 60 + 14 * 60 * 60 + 35 * 60) * 1000;
+      localStorage.setItem('ecom_deal_target', targetTime);
+    } else {
+      targetTime = parseInt(targetTime);
+    }
+
+    function tick() {
+      const now = Date.now();
+      let diff = Math.max(0, targetTime - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+      const mins = Math.floor(diff / (1000 * 60));
+      diff -= mins * (1000 * 60);
+      const secs = Math.floor(diff / 1000);
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minsEl.textContent = String(mins).padStart(2, '0');
+      secsEl.textContent = String(secs).padStart(2, '0');
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // ================= 9. Coupons Engine =================
+  function applyCouponCode(code) {
+    const trimmed = (code || '').trim().toUpperCase();
+    if (trimmed === 'VIP20' || trimmed === 'SAVE20') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      showToast('Coupon Applied 🎉', '20% VIP discount applied to your cart!', 'success');
+      return true;
+    } else if (trimmed === 'WELCOME10') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      showToast('Coupon Applied 🎉', '10% Welcome discount applied to your cart!', 'success');
+      return true;
+    } else if (trimmed === 'FREESHIP') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      showToast('Coupon Applied 🎉', 'Free Express Shipping unlocked!', 'success');
+      return true;
+    } else if (trimmed === 'FLASH50') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      showToast('Coupon Applied 🎉', '$50 Flat Flash Discount applied!', 'success');
+      return true;
+    } else {
+      showToast('Invalid Coupon', 'The code entered is invalid or expired. Try VIP20 or WELCOME10.', 'error');
+      return false;
+    }
+  }
+
+  // ================= 10. Checkout & Order Placement =================
+  let checkoutStep = 1;
+
+  function openCheckoutModal() {
+    closeCartDrawer();
+    checkoutStep = 1;
+    updateCheckoutStepUI();
+
+    const calcs = getCartCalculations();
+    const orderItemsSummary = document.getElementById('checkoutOrderItemsSummary');
+    const checkoutTotal = document.getElementById('checkoutGrandTotal');
+
+    if (checkoutTotal) checkoutTotal.textContent = formatMoney(calcs.grandTotal);
+
+    if (orderItemsSummary) {
+      orderItemsSummary.innerHTML = cart
+        .map(item => {
+          const prod = PRODUCTS.find(p => p.id === item.id);
+          if (!prod) return '';
+          return `
+          <div class="d-flex justify-content-between align-items-center mb-2" style="font-size:13px;">
+            <span>${item.qty}x ${prod.title}</span>
+            <strong>${formatMoney(prod.price * item.qty)}</strong>
+          </div>
+        `;
+        })
+        .join('');
+    }
+
+    const modalEl = document.getElementById('checkoutModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function updateCheckoutStepUI() {
+    const step1El = document.getElementById('checkoutStep1');
+    const step2El = document.getElementById('checkoutStep2');
+    const nav1 = document.getElementById('chkStepNav1');
+    const nav2 = document.getElementById('chkStepNav2');
+
+    if (checkoutStep === 1) {
+      if (step1El) step1El.style.display = 'block';
+      if (step2El) step2El.style.display = 'none';
+      if (nav1) nav1.classList.add('active');
+      if (nav2) nav2.classList.remove('active');
+    } else {
+      if (step1El) step1El.style.display = 'none';
+      if (step2El) step2El.style.display = 'block';
+      if (nav1) nav1.classList.remove('active');
+      if (nav2) nav2.classList.add('active');
+    }
+  }
+
+  function proceedToCheckoutStep2() {
+    const name = document.getElementById('chkFullName');
+    const email = document.getElementById('chkEmail');
+    const address = document.getElementById('chkAddress');
+
+    if (!name || !name.value.trim()) {
+      showToast('Missing Field', 'Please enter your full name.', 'error');
+      return;
+    }
+    if (!email || !email.value.trim() || !email.value.includes('@')) {
+      showToast('Invalid Email', 'Please provide a valid email address.', 'error');
+      return;
+    }
+    if (!address || !address.value.trim()) {
+      showToast('Missing Address', 'Please provide your shipping street address.', 'error');
+      return;
+    }
+
+    checkoutStep = 2;
+    updateCheckoutStepUI();
+  }
+
+  function backToCheckoutStep1() {
+    checkoutStep = 1;
+    updateCheckoutStepUI();
+  }
+
+  function submitFinalOrder() {
+    const placeBtn = document.getElementById('btnPlaceOrder');
+    if (placeBtn) {
+      placeBtn.disabled = true;
+      placeBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Processing Payment...`;
+    }
+
+    // Simulate payment authorization
+    setTimeout(() => {
+      if (placeBtn) {
+        placeBtn.disabled = false;
+        placeBtn.innerHTML = `Place Order`;
+      }
+
+      // Hide Checkout Modal
+      const checkoutModalEl = document.getElementById('checkoutModal');
+      if (checkoutModalEl) {
+        const bsModal = bootstrap.Modal.getInstance(checkoutModalEl);
+        if (bsModal) bsModal.hide();
+      }
+
+      // Generate Order Record
+      const orderId = `SG-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+      const calcs = getCartCalculations();
+      const customerName = document.getElementById('chkFullName') ? document.getElementById('chkFullName').value : 'Valued Customer';
+      const customerAddress = document.getElementById('chkAddress') ? document.getElementById('chkAddress').value : 'Standard Delivery';
+
+      const orderData = {
+        orderId: orderId,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        customerName: customerName,
+        address: customerAddress,
+        items: [...cart],
+        totals: calcs
+      };
+
+      // Save order in history
+      let orders = [];
+      try {
+        orders = JSON.parse(localStorage.getItem('ecom_orders') || '[]');
+      } catch (e) {
+        orders = [];
+      }
+      orders.unshift(orderData);
+      localStorage.setItem('ecom_orders', JSON.stringify(orders));
+
+      // Reset Cart
+      cart = [];
+      activeCoupon = null;
+      localStorage.removeItem('ecom_coupon');
+      saveCart();
+      updateCartUI();
+
+      // Open Order Confirmation Receipt Modal
+      openOrderReceiptModal(orderData);
+      showToast('Order Placed Successfully! 🎉', `Order #${orderId} is confirmed.`, 'success');
+    }, 1300);
+  }
+
+  function openOrderReceiptModal(orderData) {
+    const recId = document.getElementById('receiptOrderId');
+    const recDate = document.getElementById('receiptDate');
+    const recName = document.getElementById('receiptName');
+    const recAddress = document.getElementById('receiptAddress');
+    const recTotal = document.getElementById('receiptTotal');
+    const recItems = document.getElementById('receiptItemsList');
+
+    if (recId) recId.textContent = orderData.orderId;
+    if (recDate) recDate.textContent = orderData.date;
+    if (recName) recName.textContent = orderData.customerName;
+    if (recAddress) recAddress.textContent = orderData.address;
+    if (recTotal) recTotal.textContent = formatMoney(orderData.totals.grandTotal);
+
+    if (recItems) {
+      recItems.innerHTML = orderData.items
+        .map(i => {
+          const p = PRODUCTS.find(prod => prod.id === i.id);
+          if (!p) return '';
+          return `
+          <div class="d-flex justify-content-between py-1" style="font-size:13px;border-bottom:1px dashed #f1f5f9;">
+            <span>${i.qty}x ${p.title}</span>
+            <span>${formatMoney(p.price * i.qty)}</span>
+          </div>
+        `;
+        })
+        .join('');
+    }
+
+    const receiptModalEl = document.getElementById('orderReceiptModal');
+    if (receiptModalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(receiptModalEl);
+      bsModal.show();
+    }
+  }
+
+  // ================= 11. Order Tracking System =================
+  function trackOrder(orderId) {
+    const inputVal = (orderId || (document.getElementById('trackOrderInput') ? document.getElementById('trackOrderInput').value : '')).trim();
+    if (!inputVal) {
+      showToast('Tracking Number Required', 'Please enter your order ID or tracking code.', 'error');
+      return;
+    }
+
+    const trackResultId = document.getElementById('trackResultOrderId');
+    const trackEstimatedDate = document.getElementById('trackEstimatedDate');
+    const trackingBox = document.getElementById('trackingResultDetails');
+
+    if (trackResultId) trackResultId.textContent = inputVal.toUpperCase();
+    if (trackEstimatedDate) {
+      const estDate = new Date();
+      estDate.setDate(estDate.getDate() + 2);
+      trackEstimatedDate.textContent = estDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    if (trackingBox) trackingBox.style.display = 'block';
+
+    const trackModalEl = document.getElementById('orderTrackingModal');
+    if (trackModalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(trackModalEl);
+      bsModal.show();
+    }
+  }
+
+  // ================= 12. Toast Notification Engine =================
+  function showToast(title, message, type = 'success') {
+    let container = document.getElementById('ecomToastContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'ecomToastContainer';
+      container.className = 'ecom-toast-container';
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `ecom-toast ${type}`;
+
+    let iconHtml = '<i class="lni lni-checkmark-circle ecom-toast-icon"></i>';
+    if (type === 'error') {
+      iconHtml = '<i class="lni lni-cross-circle ecom-toast-icon"></i>';
+    } else if (type === 'info') {
+      iconHtml = '<i class="lni lni-bullhorn ecom-toast-icon"></i>';
+    }
+
+    toast.innerHTML = `
+      ${iconHtml}
+      <div class="ecom-toast-content">
+        <div class="ecom-toast-title">${title}</div>
+        <div class="ecom-toast-msg">${message}</div>
+      </div>
+      <button class="ecom-toast-close">&times;</button>
+    `;
+
+    const closeBtn = toast.querySelector('.ecom-toast-close');
+    closeBtn.addEventListener('click', () => {
+      toast.style.animation = 'toastFadeOut 0.3s forwards';
+      setTimeout(() => toast.remove(), 300);
+    });
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.style.animation = 'toastFadeOut 0.3s forwards';
+        setTimeout(() => toast.remove(), 300);
+      }
+    }, 3800);
+  }
+
+  // ================= 13. Cart Drawer Toggle Controls =================
+  function openCartDrawer() {
+    const overlay = document.getElementById('cartDrawerOverlay');
+    if (overlay) overlay.classList.add('active');
+  }
+
+  function closeCartDrawer() {
+    const overlay = document.getElementById('cartDrawerOverlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  // ================= 14. Demo User Auth =================
+  function loginDemoUser() {
+    const userBadge = document.getElementById('headerUserGreeting');
+    if (userBadge) {
+      userBadge.innerHTML = `<i class="lni lni-user"></i> Hello, <strong>Alex</strong> <span class="badge bg-primary ms-1">VIP</span>`;
+    }
+    showToast('Welcome, Alex! 👋', 'Logged in as VIP Member. 20% discount unlocked.', 'success');
+
+    const authModalEl = document.getElementById('authModal');
+    if (authModalEl) {
+      const bsModal = bootstrap.Modal.getInstance(authModalEl);
+      if (bsModal) bsModal.hide();
+    }
+  }
+
+  // ================= 15. Initial Bindings on DOM Ready =================
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Currency selector binding
+    const currSelect = document.getElementById('select4');
+    if (currSelect) {
+      currSelect.addEventListener('change', function () {
+        const valMap = { '0': 'USD', '1': 'EUR', '2': 'CAD', '3': 'INR', '4': 'CNY', '5': 'BDT' };
+        const code = valMap[this.value] || 'USD';
+        setCurrency(code);
+      });
+      // set default select index
+      const revMap = { USD: '0', EUR: '1', CAD: '2', INR: '3', CNY: '4', BDT: '5' };
+      if (revMap[currentCurrencyCode]) {
+        currSelect.value = revMap[currentCurrencyCode];
+      }
+    }
+
+    // 2. Open Cart drawer when clicking cart button in header
+    document.querySelectorAll('.navbar-cart .cart-items .main-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openCartDrawer();
+      });
+    });
+
+    // 3. Open Wishlist modal when clicking wishlist button in header
+    document.querySelectorAll('.navbar-cart .wishlist a').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        renderWishlistModal();
+        const wishModalEl = document.getElementById('wishlistModal');
+        if (wishModalEl) {
+          const bsModal = bootstrap.Modal.getOrCreateInstance(wishModalEl);
+          bsModal.show();
+        }
+      });
+    });
+
+    // 4. Cart Drawer Overlay Close
+    const overlay = document.getElementById('cartDrawerOverlay');
+    if (overlay) {
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeCartDrawer();
+      });
+    }
+
+    // 5. Drawer Promo Code Apply
+    const promoBtn = document.getElementById('drawerApplyPromoBtn');
+    const promoInput = document.getElementById('drawerPromoInput');
+    if (promoBtn && promoInput) {
+      promoBtn.addEventListener('click', function () {
+        applyCouponCode(promoInput.value);
+      });
+    }
+
+    // 6. VIP Banner Copy Code Button
+    const vipCopyBtn = document.getElementById('btnCopyVipCode');
+    if (vipCopyBtn) {
+      vipCopyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText('VIP20').then(() => {
+          vipCopyBtn.textContent = 'Code Copied! ✓';
+          vipCopyBtn.style.background = '#10b981';
+          applyCouponCode('VIP20');
+          setTimeout(() => {
+            vipCopyBtn.textContent = 'Copy Code';
+            vipCopyBtn.style.background = 'var(--ecom-dark)';
+          }, 3000);
+        });
+      });
+    }
+
+    // 7. Newsletter Subscription Form
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const input = newsletterForm.querySelector('input[name="EMAIL"]');
+        if (input && input.value.includes('@')) {
+          showToast('Subscribed! 🎁', 'Use coupon WELCOME10 for 10% off your purchase.', 'success');
+          input.value = '';
+        } else {
+          showToast('Invalid Email', 'Please enter a valid email address.', 'error');
+        }
+      });
+    }
+
+    // 8. Credit Card number formatting on checkout
+    const ccInput = document.getElementById('chkCardNumber');
+    if (ccInput) {
+      ccInput.addEventListener('input', function (e) {
+        let val = e.target.value.replace(/\D/g, '');
+        val = val.replace(/(.{4})/g, '$1 ').trim();
+        e.target.value = val.substring(0, 19);
+      });
+    }
+    const ccExpiry = document.getElementById('chkCardExpiry');
+    if (ccExpiry) {
+      ccExpiry.addEventListener('input', function (e) {
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.length >= 2) {
+          val = val.substring(0, 2) + '/' + val.substring(2, 4);
+        }
+        e.target.value = val.substring(0, 5);
+      });
+    }
+
+    // 9. Initialize components
+    initLiveSearch();
+    initCategoryFilters();
+    initDealCountdown();
+    updateCartUI();
+    updateWishlistUI();
+    refreshAllPricesOnPage();
+  });
+
+  // Expose global methods under window.ShopApp
+  window.ShopApp = {
+    addToCart,
+    removeFromCart,
+    changeCartItemQty: updateCartQty,
+    openCartDrawer,
+    closeCartDrawer,
+    toggleWishlist,
+    openQuickView,
+    setQuickViewMainImage,
+    selectQuickViewColor,
+    changeQuickViewQty,
+    addQuickViewToCart,
+    applyCouponCode,
+    openCheckoutModal,
+    proceedToCheckoutStep2,
+    backToCheckoutStep1,
+    submitFinalOrder,
+    trackOrder,
+    loginDemoUser,
+    setCurrency,
+    showToast,
+    formatMoney
+  };
+})();

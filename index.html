@@ -3,94 +3,189 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" /> 
-    <title>ShopGrids</title> 
-    <meta name="description" content="" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" /> 
- 
-    <!-- ========================= CSS here ========================= --> 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" /> 
-    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" /> 
-    <link rel="stylesheet" href="assets/css/tiny-slider.css" /> 
-    <link rel="stylesheet" href="assets/css/glightbox.min.css" /> 
-    <link rel="stylesheet" href="assets/css/main.css" /> 
- 
-</head> 
- 
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ShopGrids - Premium Electronics, Gadgets & Tech Store</title>
+    <meta name="description" content="Shop the latest smartphones, laptops, smartwatches, cameras, and audio gear with free express shipping and 30-day money-back guarantee." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+</head>
+
 <body>
-  
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
     <!-- Start Header Area -->
     <header class="header navbar-area">
-        </div>
-        <!-- End Topbar -->
-        <div class="col-lg-3 col-md-3 col-7">
-            <!-- Start Header Logo -->
-            <a class="navbar-brand" href="index.html">
-            </a>
-            <!-- End Header Logo -->
-        </div>
-
-
-        <div class="navbar-cart">
-            <div class="wishlist">
-
-            </div>
-            <div class="cart-items">
-
-                <!-- Shopping Item -->
-                <div class="shopping-item">
-                    <div class="dropdown-cart-header">
-                        <span>2 Items</span>
-                        <a href="cart.html">View Cart</a>
-                    </div>
-                    <ul class="shopping-list">
-                        <li>
-                            <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                    class="lni lni-close"></i></a>
-                            <div class="cart-img-head">
-                                <a class="cart-img" href="product-details.html"><img
-                                        src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
-                            </div>
-
-                            <div class="content">
-                                <h4><a href="product-details.html">
-                                        Apple Watch Series 6</a></h4>
-                                <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                    class="lni lni-close"></i></a>  
-                            <div class="cart-img-head">  
-                                <a class="cart-img" href="product-details.html"><img  
-                                        src="assets/images/header/cart-items/item2.jpg" alt="#"></a>  
-                            </div>
-                            <div class="content"> 
-                                <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4> 
-                                <p class="quantity">1x - <span class="amount">$35.00</span></p> 
-                            </div>   
-                        </li>   
-                    </ul>  
-                    <div class="bottom">  
-                        <div class="total">  
-                            <span>Total</span> 
-                            <span class="total-amount">$134.00</span>
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select4" title="Select Currency">
+                                            <option value="0" selected>$ USD</option>
+                                            <option value="1">€ EURO</option>
+                                            <option value="2">$ CAD</option>
+                                            <option value="3">₹ INR</option>
+                                            <option value="4">¥ CNY</option>
+                                            <option value="5">৳ BDT</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select5" title="Select Language">
+                                            <option value="0" selected>English</option>
+                                            <option value="1">Español</option>
+                                            <option value="2">Français</option>
+                                            <option value="3">Deutsch</option>
+                                            <option value="4">हिन्दी</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="button">
-                            <a href="checkout.html" class="btn animate">Checkout</a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 d-none d-md-block">
+                        <div class="top-middle text-center">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#trendingProductsArea">Trending</a></li>
+                                <li><a href="#flashDealsSection">Flash Sale</a></li>
+                                <li><a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941')"><i class="lni lni-delivery"></i> Track Order</a></li>
+                                <li><a href="#faqSection">FAQs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <div class="user" id="headerUserGreeting">
+                                <i class="lni lni-user"></i>
+                                Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">Sign In</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">Register</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!--/ End Shopping Item -->
             </div>
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <!-- Start Header Logo -->
+                        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                        <!-- End Header Logo -->
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-xs-none">
+                        <!-- Start Main Menu Search -->
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="watches">Smart Watches</option>
+                                            <option value="speaker">Speakers & Audio</option>
+                                            <option value="camera">Smart Cameras</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="headphones">Headphones</option>
+                                            <option value="laptop">Laptops</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search gadgets, watches, laptops, audio..." autocomplete="off">
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn" title="Search"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                            <!-- Autocomplete live dropdown -->
+                            <div id="searchSuggestionsDropdown" class="search-suggestions-dropdown"></div>
+                        </div>
+                        <!-- End Main Menu Search -->
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline d-none d-xl-flex">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span><a href="tel:+1001234567890" style="color:inherit;text-decoration:none;">(+100) 123 456 7890</a></span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" title="View Wishlist">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" class="main-btn" title="View Cart">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">2</span>
+                                    </a>
+                                    <!-- Shopping Item Dropdown -->
+                                    <div class="shopping-item">
+                                        <div class="dropdown-cart-header">
+                                            <span>2 Items</span>
+                                            <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()">View Cart</a>
+                                        </div>
+                                        <ul class="shopping-list">
+                                            <!-- Dynamically populated by ShopApp -->
+                                        </ul>
+                                        <div class="bottom">
+                                            <div class="total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$134.00</span>
+                                            </div>
+                                            <div class="button">
+                                                <a href="javascript:void(0)" onclick="ShopApp.openCheckoutModal()" class="btn animate">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/ End Shopping Item Dropdown -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- End Header Middle -->
+
         <!-- Start Header Bottom -->
         <div class="container">
             <div class="row align-items-center">
@@ -100,34 +195,28 @@
                         <div class="mega-category-menu">
                             <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                             <ul class="sub-category">
-                                <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=all]').click()">Electronics <i class="lni lni-chevron-right"></i></a>
                                     <ul class="inner-sub-category">
-                                        <li><a href="product-grids.html">Digital Cameras</a></li>
-                                        <li><a href="product-grids.html">Camcorders</a></li>
-                                        <li><a href="product-grids.html">Camera Drones</a></li>
-                                        <li><a href="product-grids.html">Smart Watches</a></li>
-                                        <li><a href="product-grids.html">Headphones</a></li>
-                                        <li><a href="product-grids.html">MP3 Players</a></li>
-                                        <li><a href="product-grids.html">Microphones</a></li>
-                                        <li><a href="product-grids.html">Chargers</a></li>
-                                        <li><a href="product-grids.html">Batteries</a></li>
-                                        <li><a href="product-grids.html">Cables & Adapters</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=camera]').click()">Digital Cameras</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=camera]').click()">Security Cameras</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=watches]').click()">Smart Watches</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=headphones]').click()">ANC Headphones</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=speaker]').click()">Bluetooth Speakers</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=laptop]').click()">Laptops & Ultrabooks</a></li>
+                                        <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=phones]').click()">5G Smartphones</a></li>
                                     </ul>
-                                </li> 
-                                <li><a href="product-grids.html">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li> 
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                </li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=watches]').click()">Smart Watches & Fitness</a></li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=headphones]').click()">Audio & Headphones</a></li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=speaker]').click()">Portable Speakers</a></li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=laptop]').click()">Computers & Tablets</a></li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=camera]').click()">Cameras & Surveillance</a></li>
+                                <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=phones]').click()">Mobile Phones</a></li>
+                                <li><a href="#flashDealsSection">Top 100 Flash Deals</a></li>
                             </ul>
                         </div>
-                        <!-- End Mega Category Menu --> 
+                        <!-- End Mega Category Menu -->
+
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -143,47 +232,25 @@
                                         <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                            <li class="nav-item"><a href="login.html">Login</a></li>
-                                            <li class="nav-item"><a href="register.html">Register</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                        </ul>
+                                        <a href="#featuredCategories" aria-label="Toggle navigation">Categories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Shop</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-3">
-                                            <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
-                                            <li class="nav-item"><a href="product-list.html">Shop List</a></li>
-                                            <li class="nav-item"><a href="product-details.html">shop Single</a></li>
-                                            <li class="nav-item"><a href="cart.html">Cart</a></li>
-                                            <li class="nav-item"><a href="checkout.html">Checkout</a></li>
-                                        </ul>
+                                        <a href="#flashDealsSection" aria-label="Toggle navigation">Flash Deals</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-4"> 
-                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
-                                            </li>
-                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                                            <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
-                                                    Sibebar</a></li>
-                                        </ul>
+                                        <a href="#trendingProductsArea" aria-label="Toggle navigation">Shop</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
+                                        <a href="#testimonialsSection" aria-label="Toggle navigation">Reviews</a>
                                     </li>
-                                </ul> 
-                            </div> <!-- navbar collapse -->
+                                    <li class="nav-item">
+                                        <a href="#faqSection" aria-label="Toggle navigation">FAQ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" aria-label="Toggle navigation">My Cart</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </nav>
                         <!-- End Navbar -->
                     </div>
@@ -193,18 +260,10 @@
                     <div class="nav-social">
                         <h5 class="title">Follow Us:</h5>
                         <ul>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
-                            </li>
+                            <li><a href="javascript:void(0)" title="Facebook"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)" title="Twitter"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)" title="Instagram"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)" title="Skype"><i class="lni lni-skype"></i></a></li>
                         </ul>
                     </div>
                     <!-- End Nav Social -->
@@ -223,38 +282,34 @@
                     <div class="slider-head">
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
-                            <!-- Start Single Slider -->
-                            <div class="single-slider"
-                                style="background-image: url(assets/images/hero/slider-bg1.jpg);">
+                            <!-- Start Single Slider 1 -->
+                            <div class="single-slider" style="background-image: url(assets/images/hero/slider-bg1.jpg);">
                                 <div class="content">
-                                    <h2><span>No restocking fee ($35 savings)</span>
-                                        M75 Sport Watch
+                                    <h2><span>Special Launch Discount ($35 savings)</span>
+                                        M75 Sport Pro Smartwatch
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
+                                    <p>Advanced optical heart tracking, SpO2 sensor, integrated GPS, and 14-day ultra endurance battery.</p>
                                     <h3><span>Now Only</span> $320.99</h3>
                                     <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
+                                        <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-1')" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Single Slider -->
-                            <!-- Start Single Slider -->
-                            <div class="single-slider"
-                                style="background-image: url(assets/images/hero/slider-bg2.jpg);">
-                                <div class="content"> 
-                                    <h2><span>Big Sale Offer</span>
-                                        Get the Best Deal on CCTV Camera
-                                    </h2> 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
-                                    <h3><span>Combo Only:</span> $590.00</h3>
+                            <!-- End Single Slider 1 -->
+                            <!-- Start Single Slider 2 -->
+                            <div class="single-slider" style="background-image: url(assets/images/hero/slider-bg2.jpg);">
+                                <div class="content">
+                                    <h2><span>Mega Security Offer</span>
+                                        Dual 2K Smart AI Home Camera
+                                    </h2>
+                                    <p>360-degree panoramic coverage, full color night vision, motion tracking, and encrypted cloud backup.</p>
+                                    <h3><span>Combo Deal:</span> $399.00</h3>
                                     <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
+                                        <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-3')" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Single Slider -->
+                            <!-- End Single Slider 2 -->
                         </div>
                         <!-- End Hero Slider -->
                     </div>
@@ -263,14 +318,16 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
                             <!-- Start Small Banner -->
-                            <div class="hero-small-banner"
-                                style="background-image: url('assets/images/hero/slider-bnr.jpg');">
+                            <div class="hero-small-banner" style="background-image: url('assets/images/hero/slider-bnr.jpg');">
                                 <div class="content">
                                     <h2>
-                                        <span>New line required</span>
+                                        <span>Pro Camera & 5G</span>
                                         iPhone 12 Pro Max
                                     </h2>
-                                    <h3>$259.99</h3>
+                                    <h3>$400.00</h3>
+                                    <div class="button mt-2">
+                                        <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-4')" class="btn btn-sm btn-light">View Deal</a>
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Small Banner -->
@@ -279,14 +336,14 @@
                             <!-- Start Small Banner -->
                             <div class="hero-small-banner style2">
                                 <div class="content">
-                                    <h2>Weekly Sale!</h2>
-                                    <p>Saving up to 50% off all online store items this week.</p>
+                                    <h2>Weekend Flash Sale!</h2>
+                                    <p>Save up to 50% off high-demand electronics this weekend.</p>
                                     <div class="button">
-                                        <a class="btn" href="product-grids.html">Shop Now</a>
+                                        <a class="btn" href="#flashDealsSection">Explore Deals</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Start Small Banner -->
+                            <!-- End Small Banner -->
                         </div>
                     </div>
                 </div>
@@ -295,32 +352,231 @@
     </section>
     <!-- End Hero Area -->
 
-    <!-- Start Trending Product Area -->
-    <section class="trending-product section" style="margin-top: 12px;">
+    <!-- Start Featured Categories Strip -->
+    <section class="featured-cat-strip" id="featuredCategories">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h2>Trending Product</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
-                    </div>
+                <div class="col-12 text-center mb-3">
+                    <h3 style="font-size:24px;font-weight:800;color:#081828;">Explore Popular Departments</h3>
+                    <p style="color:#64748b;font-size:14px;">Browse through handpicked tech gear and gadgets</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=phones]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-mobile"></i></div>
+                        <div class="category-pill-title">Smartphones</div>
+                        <div class="category-pill-count">48 Products</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=laptop]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-laptop"></i></div>
+                        <div class="category-pill-title">Laptops</div>
+                        <div class="category-pill-count">36 Products</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=headphones]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-headphone"></i></div>
+                        <div class="category-pill-title">Audio & ANC</div>
+                        <div class="category-pill-count">52 Products</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=watches]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-timer"></i></div>
+                        <div class="category-pill-title">Smartwatches</div>
+                        <div class="category-pill-count">29 Products</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=camera]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-camera"></i></div>
+                        <div class="category-pill-title">Cameras</div>
+                        <div class="category-pill-count">19 Products</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=speaker]').click()" class="category-pill-card">
+                        <div class="category-pill-icon"><i class="lni lni-volume-high"></i></div>
+                        <div class="category-pill-title">Speakers</div>
+                        <div class="category-pill-count">41 Products</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Categories Strip -->
+
+    <!-- Start Flash Deals Section with Live Countdown -->
+    <section class="flash-deals-section" id="flashDealsSection">
+        <div class="container position-relative" style="z-index:2;">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-6 col-12">
+                    <div class="flash-deals-header">
+                        <span class="flash-tag"><i class="lni lni-bolt-alt"></i> Limited Stock Flash Sale</span>
+                        <h2>Deals of the Day</h2>
+                        <p style="color:#cbd5e1;margin-bottom:0;">Claim maximum savings before the live countdown timer reaches zero.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 text-lg-end text-start">
+                    <div class="countdown-container">
+                        <span style="font-size:13px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-right:8px;">HURRY! ENDS IN:</span>
+                        <div class="countdown-box">
+                            <span class="countdown-num" id="cd-days">02</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-box">
+                            <span class="countdown-num" id="cd-hours">14</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-box">
+                            <span class="countdown-num" id="cd-mins">35</span>
+                            <span class="countdown-label">Mins</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-box">
+                            <span class="countdown-num" id="cd-secs">48</span>
+                            <span class="countdown-label">Secs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Deal 1: MacBook Air -->
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="deal-product-card" data-deal-id="prod-8">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 col-12">
+                                <div class="deal-product-media">
+                                    <span class="deal-discount-badge">-15% OFF</span>
+                                    <img src="assets/images/products/product-8.jpg" alt="Apple MacBook Air M1" class="img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-12">
+                                <span class="badge bg-primary mb-2">Deal Pick</span>
+                                <h4 style="font-size:18px;font-weight:700;margin-bottom:8px;">Apple MacBook Air 13.3" M1 Chip</h4>
+                                <p style="font-size:13px;color:#64748b;margin-bottom:10px;">8-Core CPU, 256GB SSD, Retina Display with P3 color, 18hr battery longevity.</p>
+                                <div style="margin-bottom:12px;">
+                                    <span class="deal-curr-price" style="font-size:22px;font-weight:800;color:var(--ecom-primary);">$899.00</span>
+                                    <span class="deal-orig-price" style="text-decoration:line-through;color:#94a3b8;margin-left:8px;">$999.00</span>
+                                </div>
+                                <div class="deal-stock-bar-wrap">
+                                    <div class="deal-stock-info">
+                                        <span><i class="lni lni-fire" style="color:#ef4444;"></i> Sold: 82%</span>
+                                        <span style="color:#ef4444;">Only 6 left in stock</span>
+                                    </div>
+                                    <div class="deal-stock-progress">
+                                        <div class="deal-stock-fill" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary flex-grow-1" onclick="ShopApp.addToCart('prod-8', 1)">
+                                        <i class="lni lni-cart"></i> Claim Deal
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="ShopApp.openQuickView('prod-8')" title="Quick View">
+                                        <i class="lni lni-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deal 2: PX7 ANC Headphones -->
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="deal-product-card" data-deal-id="prod-7">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 col-12">
+                                <div class="deal-product-media">
+                                    <span class="deal-discount-badge">-50% OFF</span>
+                                    <img src="assets/images/products/product-7.jpg" alt="PX7 Wireless Headphones" class="img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-12">
+                                <span class="badge bg-danger mb-2">50% Special</span>
+                                <h4 style="font-size:18px;font-weight:700;margin-bottom:8px;">PX7 Over-Ear ANC Headphones</h4>
+                                <p style="font-size:13px;color:#64748b;margin-bottom:10px;">Adaptive ambient noise cancelling, custom 43mm drivers, 30hr battery.</p>
+                                <div style="margin-bottom:12px;">
+                                    <span class="deal-curr-price" style="font-size:22px;font-weight:800;color:var(--ecom-primary);">$100.00</span>
+                                    <span class="deal-orig-price" style="text-decoration:line-through;color:#94a3b8;margin-left:8px;">$200.00</span>
+                                </div>
+                                <div class="deal-stock-bar-wrap">
+                                    <div class="deal-stock-info">
+                                        <span><i class="lni lni-fire" style="color:#ef4444;"></i> Sold: 88%</span>
+                                        <span style="color:#ef4444;">Only 4 left in stock</span>
+                                    </div>
+                                    <div class="deal-stock-progress">
+                                        <div class="deal-stock-fill" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary flex-grow-1" onclick="ShopApp.addToCart('prod-7', 1)">
+                                        <i class="lni lni-cart"></i> Claim Deal
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="ShopApp.openQuickView('prod-7')" title="Quick View">
+                                        <i class="lni lni-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Flash Deals Section -->
+
+    <!-- Start Trending Product Area -->
+    <section class="trending-product section" id="trendingProductsArea" style="margin-top: 12px; padding: 60px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center mb-4">
+                        <h2>Trending Products</h2>
+                        <p>Explore our best-rated gadgets with verified customer reviews and manufacturer warranty.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="category-filter-nav">
+                <button class="filter-tab-btn active" data-filter="all">All Products</button>
+                <button class="filter-tab-btn" data-filter="watches">Smart Watches</button>
+                <button class="filter-tab-btn" data-filter="speaker">Speakers & Audio</button>
+                <button class="filter-tab-btn" data-filter="camera">Smart Cameras</button>
+                <button class="filter-tab-btn" data-filter="phones">Smartphones</button>
+                <button class="filter-tab-btn" data-filter="headphones">Headphones</button>
+                <button class="filter-tab-btn" data-filter="laptop">Laptops</button>
+            </div>
+
+            <div class="row" id="productsGridContainer">
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-1" data-category="watches">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-1" onclick="ShopApp.toggleWishlist('prod-1')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-1')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-1.jpg" alt="#">
+                            <img src="assets/images/products/product-1.jpg" alt="Xiaomi Mi Band 5">
+                            <span class="sale-tag">HOT</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-1', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Watches</span>
                             <h4 class="title">
-                                <a href="product-grids.html">Xiaomi Mi Band 5</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-1')">Xiaomi Mi Band 5</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -328,29 +584,38 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
+                                <li><span>4.5 (38)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$199.00</span>
+                                <span class="discount-price">$229.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-2" data-category="speaker">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-2" onclick="ShopApp.toggleWishlist('prod-2')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-2')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-2.jpg" alt="#">
+                            <img src="assets/images/products/product-2.jpg" alt="Big Power Sound Speaker">
                             <span class="sale-tag">-25%</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-2', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Speaker</span>
                             <h4 class="title">
-                                <a href="product-grids.html">Big Power Sound Speaker</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-2')">Big Power Sound Speaker</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -358,7 +623,7 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
+                                <li><span>5.0 (64)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$275.00</span>
@@ -366,21 +631,30 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-3" data-category="camera">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-3" onclick="ShopApp.toggleWishlist('prod-3')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-3')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-3.jpg" alt="#">
+                            <img src="assets/images/products/product-3.jpg" alt="WiFi Security Camera">
+                            <span class="new-tag">Security</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-3', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Camera</span>
                             <h4 class="title">
-                                <a href="product-grids.html">WiFi Security Camera</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-3')">WiFi Security Camera 2K</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -388,29 +662,38 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
+                                <li><span>5.0 (52)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$399.00</span>
+                                <span class="discount-price">$450.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-4" data-category="phones">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-4" onclick="ShopApp.toggleWishlist('prod-4')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-4')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-4.jpg" alt="#">
+                            <img src="assets/images/products/product-4.jpg" alt="iPhone 12 Pro Max">
                             <span class="new-tag">New</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-4', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Phones</span>
                             <h4 class="title">
-                                <a href="product-grids.html">iphone 6x plus</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-4')">iPhone 12 Pro Max 256GB</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -418,28 +701,38 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
+                                <li><span>5.0 (112)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$400.00</span>
+                                <span class="discount-price">$520.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 5 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-5" data-category="headphones">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-5" onclick="ShopApp.toggleWishlist('prod-5')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-5')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-5.jpg" alt="#">
+                            <img src="assets/images/products/product-5.jpg" alt="Studio Wireless Headphones">
+                            <span class="new-tag">Top Rated</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-5', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Headphones</span>
                             <h4 class="title">
-                                <a href="product-grids.html">Wireless Headphones</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-5')">Studio Hi-Fi Wireless ANC</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -447,28 +740,38 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
+                                <li><span>5.0 (78)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$350.00</span>
+                                <span class="discount-price">$420.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 6 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-6" data-category="speaker">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-6" onclick="ShopApp.toggleWishlist('prod-6')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-6')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-6.jpg" alt="#">
+                            <img src="assets/images/products/product-6.jpg" alt="Mini Bluetooth Speaker">
+                            <span class="sale-tag">SALE</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-6', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Speaker</span>
                             <h4 class="title">
-                                <a href="product-grids.html">Mini Bluetooth Speaker</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-6')">Mini Bluetooth Speaker Bass+</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -476,29 +779,38 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
+                                <li><span>4.0 (29)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$70.00</span>
+                                <span class="discount-price">$95.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 7 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-7" data-category="headphones">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-7" onclick="ShopApp.toggleWishlist('prod-7')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-7')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-7.jpg" alt="#">
+                            <img src="assets/images/products/product-7.jpg" alt="PX7 Wireless Headphones">
                             <span class="sale-tag">-50%</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-7', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Headphones</span>
                             <h4 class="title">
-                                <a href="product-grids.html">PX7 Wireless Headphones</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-7')">PX7 Wireless Headphones</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -506,7 +818,7 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
+                                <li><span>4.0 (45)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$100.00</span>
@@ -514,21 +826,30 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
+
+                <!-- Product 8 -->
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <div class="single-product" data-product-id="prod-8" data-category="laptop">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" data-wishlist-id="prod-8" onclick="ShopApp.toggleWishlist('prod-8')" title="Add to Wishlist">
+                                <i class="lni lni-heart"></i>
+                            </button>
+                            <button class="quick-action-btn" onclick="ShopApp.openQuickView('prod-8')" title="Quick View">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </div>
                         <div class="product-image">
-                            <img src="assets/images/products/product-8.jpg" alt="#">
+                            <img src="assets/images/products/product-8.jpg" alt="Apple MacBook Air">
+                            <span class="new-tag">Bestseller</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.addToCart('prod-8', 1)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
                             <span class="category">Laptop</span>
                             <h4 class="title">
-                                <a href="product-grids.html">Apple MacBook Air</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-8')">Apple MacBook Air M1</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -536,66 +857,63 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
+                                <li><span>5.0 (95)</span></li>
                             </ul>
                             <div class="price">
                                 <span>$899.00</span>
+                                <span class="discount-price">$999.00</span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
                 </div>
             </div>
         </div>
     </section>
     <!-- End Trending Product Area -->
 
-    <!-- Start Call Action Area -->
-    <section class="call-action section">
+    <!-- Start VIP Membership Promotional Banner (Replaces template placeholder) -->
+    <section class="vip-banner-area">
         <div class="container">
-            <div class="row ">
-                <div class="col-lg-8 offset-lg-2 col-12">
-                    <div class="inner">
-                        <div class="content">
-                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Currently You are using free<br>
-                                Lite version of ShopGrids</h2>
-                            <p class="wow fadeInUp" data-wow-delay=".6s">Please, purchase full version of the template
-                                to get all pages,<br> features and commercial license.</p>
-                            <div class="button wow fadeInUp" data-wow-delay=".8s">
-                                <a href="javascript:void(0)" class="btn">Purchase Now</a>
-                            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-12">
+                    <div class="vip-content-box">
+                        <span class="vip-badge"><i class="lni lni-star-filled"></i> VIP Club Rewards</span>
+                        <h2>Unlock 20% OFF Your Entire Cart</h2>
+                        <p>Join over 50,000+ tech lovers. Apply our exclusive VIP promo voucher at checkout for instant savings and Free Express Shipping!</p>
+                        <div class="vip-coupon-pill">
+                            <span style="font-size:12px;color:#64748b;font-weight:700;margin-right:10px;">CODE:</span>
+                            <span class="vip-coupon-code">VIP20</span>
+                            <button class="btn-copy-code" id="btnCopyVipCode">Copy Code</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Call Action Area -->
+    <!-- End VIP Membership Promotional Banner -->
 
     <!-- Start Banner Area -->
-    <section class="banner section">
+    <section class="banner section" style="padding: 60px 0;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="single-banner" style="background-image:url('assets/images/banner/banner-1-bg.jpg')">
                         <div class="content">
                             <h2>Smart Watch 2.0</h2>
-                            <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
+                            <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band</p>
                             <div class="button">
-                                <a href="product-grids.html" class="btn">View Details</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-1')" class="btn">View Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin"
-                        style="background-image:url('assets/images/banner/banner-2-bg.jpg')">
+                    <div class="single-banner custom-responsive-margin" style="background-image:url('assets/images/banner/banner-2-bg.jpg')">
                         <div class="content">
-                            <h2>Smart Headphone</h2>
-                            <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                incididunt ut labore.</p>
+                            <h2>Smart Studio Audio</h2>
+                            <p>Pure sound fidelity with active noise reduction <br>and 40hr battery stamina.</p>
                             <div class="button">
-                                <a href="product-grids.html" class="btn">Shop Now</a>
+                                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('prod-5')" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -604,6 +922,186 @@
         </div>
     </section>
     <!-- End Banner Area -->
+
+    <!-- Start Customer Testimonials Section -->
+    <section class="testimonials-section" id="testimonialsSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 style="font-size:26px;font-weight:800;color:#081828;">What Our Shoppers Say</h3>
+                    <p style="color:#64748b;font-size:14px;">Over 15,000+ verified 5-star reviews from satisfied customers worldwide.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">AM</div>
+                                <div class="testimonial-user">
+                                    <h5>Alex Mercer</h5>
+                                    <span><i class="lni lni-checkmark-circle"></i> Verified Buyer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial-stars">
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                            </div>
+                            <p class="testimonial-body">
+                                "The MacBook Air M1 arrived in pristine condition within 24 hours of ordering. Packaging was bulletproof and the coupon code shaved off \$180. Absolutely unbeatable customer service!"
+                            </p>
+                        </div>
+                        <small style="color:#94a3b8;margin-top:15px;display:block;">Purchased: Apple MacBook Air M1</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background:#fef2f2;color:#ef4444;border-color:#fecaca;">SJ</div>
+                                <div class="testimonial-user">
+                                    <h5>Sarah Jenkins</h5>
+                                    <span><i class="lni lni-checkmark-circle"></i> Verified Buyer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial-stars">
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                            </div>
+                            <p class="testimonial-body">
+                                "The Studio ANC headphones completely block out office background chatter. Battery life easily lasts throughout my entire work week. Fast checkout and seamless tracking updates."
+                            </p>
+                        </div>
+                        <small style="color:#94a3b8;margin-top:15px;display:block;">Purchased: Studio Hi-Fi Wireless ANC</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;">DC</div>
+                                <div class="testimonial-user">
+                                    <h5>David Chen</h5>
+                                    <span><i class="lni lni-checkmark-circle"></i> Verified Buyer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial-stars">
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                            </div>
+                            <p class="testimonial-body">
+                                "Ordered the 2K security camera kit for my workshop. Setup took literally 5 minutes with the phone app. Crystal clear night vision and instant alerts. Highly recommend ShopGrids!"
+                            </p>
+                        </div>
+                        <small style="color:#94a3b8;margin-top:15px;display:block;">Purchased: WiFi Security Camera 2K</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Customer Testimonials Section -->
+
+    <!-- Start Brands Carousel Area (hooks directly to tiny-slider script) -->
+    <section class="brands-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="brands-logo-carousel">
+                        <div class="brand-card-item"><i class="lni lni-apple"></i> Apple</div>
+                        <div class="brand-card-item"><i class="lni lni-android"></i> Samsung</div>
+                        <div class="brand-card-item"><i class="lni lni-play"></i> Sony</div>
+                        <div class="brand-card-item"><i class="lni lni-headphone"></i> Bose</div>
+                        <div class="brand-card-item"><i class="lni lni-camera"></i> Canon</div>
+                        <div class="brand-card-item"><i class="lni lni-laptop"></i> Asus</div>
+                        <div class="brand-card-item"><i class="lni lni-display"></i> Dell</div>
+                        <div class="brand-card-item"><i class="lni lni-mobile"></i> Xiaomi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Brands Carousel Area -->
+
+    <!-- Start FAQ Section -->
+    <section class="faq-section" id="faqSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 style="font-size:26px;font-weight:800;color:#081828;">Frequently Asked Questions</h3>
+                    <p style="color:#64748b;font-size:14px;">Everything you need to know about ordering, shipping, and returns.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-12">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    How fast is shipping, and how do I track my parcel?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    All orders are processed and dispatched within 24 hours. Orders over $99 qualify for <strong>FREE Express 2-Day Air Delivery</strong>. As soon as your order ships, you receive an instant tracking ID which can be tracked in real time using our <a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941')" style="color:var(--ecom-primary);font-weight:bold;">Track Order</a> portal.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    What is your 30-Day return and refund policy?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We offer a 100% satisfaction guarantee. If you are not delighted with your purchase for any reason, you may return the item within 30 days of receipt in its original packaging for a full refund or exchange with zero restocking fees.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Are all products genuine and backed by warranty?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! We are an authorized retailer for all featured brands including Apple, Samsung, Sony, Bose, and Xiaomi. Every single device comes brand new in original sealed retail packaging with standard 1-year official manufacturer warranty.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    What payment methods and currencies are supported?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We accept all major credit and debit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Cash on Delivery (COD in select regions). You can switch currencies dynamically between USD, EUR, CAD, INR, CNY, and BDT using the currency dropdown in the top header.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End FAQ Section -->
 
     <!-- Start Shipping Info -->
     <section class="shipping-info">
@@ -615,38 +1113,38 @@
                         <i class="lni lni-delivery"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Free Shipping</h5>
-                        <span>On order over $99</span>
+                        <h5>Free Express Shipping</h5>
+                        <span>On all orders over $99</span>
                     </div>
                 </li>
-                <!-- Money Return -->
+                <!-- 24/7 Support -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-support"></i>
                     </div>
                     <div class="media-body">
-                        <h5>24/7 Support.</h5>
-                        <span>Live Chat Or Call.</span>
+                        <h5>24/7 Live Support</h5>
+                        <span>Dedicated chat & hotline</span>
                     </div>
                 </li>
-                <!-- Support 24/7 -->
+                <!-- Secure Payment -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-credit-cards"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Online Payment.</h5>
-                        <span>Secure Payment Services.</span>
+                        <h5>100% Secure Checkout</h5>
+                        <span>256-bit SSL encrypted</span>
                     </div>
                 </li>
-                <!-- Safe Payment -->
+                <!-- Easy Return -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-reload"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Easy Return.</h5>
-                        <span>Hassle Free Shopping.</span>
+                        <h5>30-Day Money Back</h5>
+                        <span>Hassle-free easy returns</span>
                     </div>
                 </li>
             </ul>
@@ -660,11 +1158,11 @@
         <div class="footer-top">
             <div class="container">
                 <div class="inner-content">
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/white-logo.svg" alt="#">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
                                 </a>
                             </div>
                         </div>
@@ -672,13 +1170,13 @@
                             <div class="footer-newsletter">
                                 <h4 class="title">
                                     Subscribe to our Newsletter
-                                    <span>Get all the latest information, Sales and Offers.</span>
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
                                 </h4>
                                 <div class="newsletter-form-head">
-                                    <form action="#" method="get" target="_blank" class="newsletter-form">
-                                        <input name="EMAIL" placeholder="Email address here..." type="email">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
                                         <div class="button">
-                                            <button class="btn">Subscribe<span class="dir-part"></span></button>
+                                            <button class="btn" type="submit">Subscribe<span class="dir-part"></span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -689,6 +1187,7 @@
             </div>
         </div>
         <!-- End Footer Top -->
+
         <!-- Start Footer Middle -->
         <div class="footer-middle">
             <div class="container">
@@ -698,13 +1197,13 @@
                             <!-- Single Widget -->
                             <div class="single-footer f-contact">
                                 <h3>Get In Touch With Us</h3>
-                                <p class="phone">Phone: +91 8076118782</p>
+                                <p class="phone">Phone: <a href="tel:+918076118782" style="color:inherit;text-decoration:none;">+91 8076118782</a></p>
                                 <ul>
-                                    <li><span>Monday-Friday: </span> 9.00 am - 8.00 pm</li>
-                                    <li><span>Saturday: </span> 10.00 am - 6.00 pm</li>
+                                    <li><span>Monday - Friday: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Saturday - Sunday: </span> 10:00 am - 6:00 pm</li>
                                 </ul>
                                 <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">lakshayjofficial@gmail.com</a>
+                                    <a href="mailto:lakshayjofficial@gmail.com">lakshayjofficial@gmail.com</a>
                                 </p>
                             </div>
                             <!-- End Single Widget -->
@@ -715,14 +1214,14 @@
                                 <h3>Our Mobile App</h3>
                                 <ul class="app-btn">
                                     <li>
-                                        <a href="javascript:void(0)">
+                                        <a href="javascript:void(0)" onclick="ShopApp.showToast('Mobile App', 'iOS App is available on the Apple App Store.', 'info')">
                                             <i class="lni lni-apple"></i>
                                             <span class="small-title">Download on the</span>
                                             <span class="big-title">App Store</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)">
+                                        <a href="javascript:void(0)" onclick="ShopApp.showToast('Mobile App', 'Android App is available on the Google Play Store.', 'info')">
                                             <i class="lni lni-play-store"></i>
                                             <span class="small-title">Download on the</span>
                                             <span class="big-title">Google Play</span>
@@ -737,11 +1236,11 @@
                             <div class="single-footer f-link">
                                 <h3>Information</h3>
                                 <ul>
-                                    <li><a href="javascript:void(0)">About Us</a></li>
-                                    <li><a href="javascript:void(0)">Contact Us</a></li>
-                                    <li><a href="javascript:void(0)">Downloads</a></li>
-                                    <li><a href="javascript:void(0)">Sitemap</a></li>
-                                    <li><a href="javascript:void(0)">FAQs Page</a></li>
+                                    <li><a href="index.html">About Us</a></li>
+                                    <li><a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941')">Track Order</a></li>
+                                    <li><a href="#faqSection">FAQs Page</a></li>
+                                    <li><a href="#trendingProductsArea">Best Sellers</a></li>
+                                    <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">My Account</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
@@ -751,11 +1250,11 @@
                             <div class="single-footer f-link">
                                 <h3>Shop Departments</h3>
                                 <ul>
-                                    <li><a href="javascript:void(0)">Computers & Accessories</a></li>
-                                    <li><a href="javascript:void(0)">Smartphones & Tablets</a></li>
-                                    <li><a href="javascript:void(0)">TV, Video & Audio</a></li>
-                                    <li><a href="javascript:void(0)">Cameras, Photo & Video</a></li>
-                                    <li><a href="javascript:void(0)">Headphones</a></li>
+                                    <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=laptop]').click()">Computers & Laptops</a></li>
+                                    <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=phones]').click()">Smartphones & Tablets</a></li>
+                                    <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=speaker]').click()">TV, Video & Audio</a></li>
+                                    <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=camera]').click()">Cameras & Surveillance</a></li>
+                                    <li><a href="#trendingProductsArea" onclick="document.querySelector('[data-filter=headphones]').click()">ANC Headphones</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
@@ -765,6 +1264,7 @@
             </div>
         </div>
         <!-- End Footer Middle -->
+
         <!-- Start Footer Bottom -->
         <div class="footer-bottom">
             <div class="container">
@@ -773,24 +1273,21 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img src="assets/images/footer/credit-cards-footer.png" alt="#">
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Accepted Payment Methods">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
                             <div class="copyright">
-                                <p>Designed and Developed by<a href="https://www.linkedin.com/in/lakshay-542533371/"
-                                        rel="nofollow" target="_blank">Lucky</a></p>
+                                <p>Designed and Developed by <a href="https://www.linkedin.com/in/lakshay-542533371/" rel="nofollow" target="_blank">Lucky</a></p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
                             <ul class="socila">
-                                <li>
-                                    <span>Follow Us On:</span>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
+                                <li><span>Follow Us On:</span></li>
+                                <li><a href="javascript:void(0)" title="Facebook"><i class="lni lni-facebook-filled"></i></a></li>
+                                <li><a href="javascript:void(0)" title="Twitter"><i class="lni lni-twitter-original"></i></a></li>
+                                <li><a href="javascript:void(0)" title="Instagram"><i class="lni lni-instagram"></i></a></li>
+                                <li><a href="javascript:void(0)" title="Google"><i class="lni lni-google"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -801,55 +1298,509 @@
     </footer>
     <!--/ End Footer Area -->
 
-    <!-- ========================= scroll-top ========================= -->
+    <!-- ========================= Scroll Top ========================= -->
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
+
+    <!-- ========================= Interactive Cart Drawer ========================= -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay">
+        <div class="cart-drawer">
+            <div class="cart-drawer-header">
+                <h4><i class="lni lni-cart"></i> Shopping Cart <span id="drawerTotalItems">(0)</span></h4>
+                <button type="button" class="cart-drawer-close" onclick="ShopApp.closeCartDrawer()">&times;</button>
+            </div>
+            <div class="cart-shipping-meter">
+                <div id="shippingMeterText">Add items to unlock <strong>FREE Express Shipping</strong>!</div>
+                <div class="cart-shipping-meter-progress">
+                    <div id="shippingMeterFill" class="cart-shipping-meter-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div id="cartDrawerItems" class="cart-drawer-items">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="cart-drawer-footer">
+                <div class="cart-promo-box">
+                    <input type="text" id="drawerPromoInput" class="cart-promo-input" placeholder="Promo code (e.g. VIP20)">
+                    <button type="button" id="drawerApplyPromoBtn" class="cart-promo-btn">Apply</button>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Subtotal:</span>
+                    <strong id="drawerSubtotal">$0.00</strong>
+                </div>
+                <div class="cart-summary-line" style="display:none; color:#10b981;">
+                    <span>Discount:</span>
+                    <strong id="drawerDiscount">-$0.00</strong>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Estimated Shipping:</span>
+                    <strong id="drawerShipping">FREE</strong>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Estimated Tax (8%):</span>
+                    <strong id="drawerTax">$0.00</strong>
+                </div>
+                <div class="cart-summary-line total">
+                    <span>Grand Total:</span>
+                    <strong id="drawerGrandTotal">$0.00</strong>
+                </div>
+                <button type="button" class="btn-drawer-checkout" onclick="ShopApp.openCheckoutModal()">
+                    Proceed to Checkout &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Quick View Modal ========================= -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <span id="qvStockStatus" class="badge-stock badge-in-stock">In Stock</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-2">
+                    <div class="row">
+                        <div class="col-md-6 col-12 text-center">
+                            <img id="qvMainImg" src="assets/images/products/product-1.jpg" alt="Product View" class="img-fluid rounded border mb-2" style="max-height: 280px; object-fit: contain;">
+                            <div id="qvGalleryThumbs" class="quickview-gallery-thumbs justify-content-center">
+                                <!-- Thumbnails populated dynamically -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <span id="qvCategory" class="text-uppercase text-muted" style="font-size:12px;font-weight:700;">Watches</span>
+                            <h4 id="qvTitle" style="font-size:20px;font-weight:700;margin:6px 0;">Product Title</h4>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span id="qvRatingStars"></span>
+                                <small id="qvReviewCount" class="text-muted"></small>
+                            </div>
+                            <div class="d-flex align-items-baseline gap-2 mb-3">
+                                <span id="qvPrice" style="font-size:24px;font-weight:800;color:var(--ecom-primary);">$199.00</span>
+                                <span id="qvOrigPrice" style="text-decoration:line-through;color:#94a3b8;font-size:16px;">$229.00</span>
+                            </div>
+                            <p id="qvDescription" style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:15px;"></p>
+                            
+                            <div class="mb-3">
+                                <label style="font-size:12px;font-weight:700;color:#334155;display:block;margin-bottom:6px;">Select Color / Variant:</label>
+                                <div id="qvColorSwatches">
+                                    <!-- Swatches populated dynamically -->
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="cart-qty-stepper">
+                                    <button type="button" class="cart-qty-btn" onclick="ShopApp.changeQuickViewQty(-1)">-</button>
+                                    <span id="qvQtyValue" class="cart-qty-value">1</span>
+                                    <button type="button" class="cart-qty-btn" onclick="ShopApp.changeQuickViewQty(1)">+</button>
+                                </div>
+                                <small class="text-muted">SKU: <span id="qvSku">WTC-01</span></small>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-primary flex-grow-1" onclick="ShopApp.addQuickViewToCart(false)">
+                                    <i class="lni lni-cart"></i> Add to Cart
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" onclick="ShopApp.addQuickViewToCart(true)">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Wishlist Modal ========================= -->
+    <div class="modal fade" id="wishlistModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-heart text-danger"></i> Saved Wishlist Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" id="wishlistItemsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= 2-Step Checkout Modal ========================= -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-shield"></i> Express Secure Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="checkout-steps-nav">
+                        <div class="checkout-step-item active" id="chkStepNav1">1. Shipping Address</div>
+                        <div class="checkout-step-item" id="chkStepNav2">2. Payment & Confirmation</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 col-12">
+                            <!-- Step 1: Shipping Details -->
+                            <div id="checkoutStep1">
+                                <h6 class="mb-3 font-weight-bold">Shipping Information</h6>
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-size:13px;font-weight:600;">Full Name *</label>
+                                    <input type="text" id="chkFullName" class="form-control form-control-sm" placeholder="e.g. Alex Mercer" value="Alex Mercer">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Email Address *</label>
+                                        <input type="email" id="chkEmail" class="form-control form-control-sm" placeholder="alex.mercer@gmail.com" value="alex.mercer@gmail.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Phone Number *</label>
+                                        <input type="tel" id="chkPhone" class="form-control form-control-sm" placeholder="+1 (555) 019-2834" value="+1 (555) 019-2834">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-size:13px;font-weight:600;">Street Address *</label>
+                                    <input type="text" id="chkAddress" class="form-control form-control-sm" placeholder="742 Evergreen Terrace, Apt 4B" value="742 Evergreen Terrace">
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">City</label>
+                                        <input type="text" id="chkCity" class="form-control form-control-sm" value="San Francisco">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Postal / ZIP Code</label>
+                                        <input type="text" id="chkZip" class="form-control form-control-sm" value="94107">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary w-100" onclick="ShopApp.proceedToCheckoutStep2()">
+                                    Continue to Payment &rarr;
+                                </button>
+                            </div>
+
+                            <!-- Step 2: Payment Details -->
+                            <div id="checkoutStep2" style="display:none;">
+                                <h6 class="mb-3 font-weight-bold">Select Payment Method</h6>
+                                
+                                <label class="payment-method-card selected">
+                                    <input type="radio" name="chkPaymentMethod" value="card" checked>
+                                    <i class="lni lni-credit-cards" style="font-size:22px;color:var(--ecom-primary);"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">Credit or Debit Card</div>
+                                        <small class="text-muted">Encrypted 256-bit SSL transaction</small>
+                                    </div>
+                                </label>
+
+                                <div class="p-3 bg-light rounded mb-3 border">
+                                    <div class="mb-2">
+                                        <label class="form-label" style="font-size:12px;font-weight:600;">Card Number</label>
+                                        <input type="text" id="chkCardNumber" class="form-control form-control-sm" placeholder="4242 •••• •••• 4242" value="4242 8821 9934 1102">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label" style="font-size:12px;font-weight:600;">Expiry Date</label>
+                                            <input type="text" id="chkCardExpiry" class="form-control form-control-sm" placeholder="MM/YY" value="08/28">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" style="font-size:12px;font-weight:600;">CVV / CVC</label>
+                                            <input type="password" id="chkCardCvv" class="form-control form-control-sm" placeholder="•••" maxlength="4" value="882">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="payment-method-card">
+                                    <input type="radio" name="chkPaymentMethod" value="paypal">
+                                    <i class="lni lni-paypal" style="font-size:22px;color:#0079c1;"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">PayPal Express</div>
+                                        <small class="text-muted">Safe, quick checkout via PayPal account</small>
+                                    </div>
+                                </label>
+
+                                <label class="payment-method-card">
+                                    <input type="radio" name="chkPaymentMethod" value="cod">
+                                    <i class="lni lni-delivery" style="font-size:22px;color:#10b981;"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">Cash on Delivery (COD)</div>
+                                        <small class="text-muted">Pay in cash upon doorstep delivery</small>
+                                    </div>
+                                </label>
+
+                                <div class="d-flex gap-2 mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="ShopApp.backToCheckoutStep1()">
+                                        &larr; Back
+                                    </button>
+                                    <button type="button" id="btnPlaceOrder" class="btn btn-primary flex-grow-1" onclick="ShopApp.submitFinalOrder()">
+                                        Place Order Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Summary Sidebar -->
+                        <div class="col-lg-5 col-12 mt-4 mt-lg-0">
+                            <div class="p-3 bg-light rounded border">
+                                <h6 class="font-weight-bold mb-3">Order Items</h6>
+                                <div id="checkoutOrderItemsSummary" style="max-height:220px;overflow-y:auto;">
+                                    <!-- Items listed here -->
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between font-weight-bold" style="font-size:16px;">
+                                    <span>Total to Pay:</span>
+                                    <span id="checkoutGrandTotal" style="color:var(--ecom-primary);">$0.00</span>
+                                </div>
+                                <div class="mt-3 text-center" style="font-size:11px;color:#64748b;">
+                                    <i class="lni lni-lock"></i> Guaranteed Safe & Secure Checkout
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Order Confirmation Receipt Modal ========================= -->
+    <div class="modal fade" id="orderReceiptModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div style="font-size:60px;color:#10b981;line-height:1;margin-bottom:12px;">
+                    <i class="lni lni-checkmark-circle"></i>
+                </div>
+                <h4 style="font-weight:800;color:#081828;">Order Confirmed!</h4>
+                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Thank you for shopping with ShopGrids. Your order has been placed and is being prepared for express dispatch.</p>
+
+                <div class="bg-light p-3 rounded border text-start mb-3" style="font-size:13px;">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Order Number:</span>
+                        <strong id="receiptOrderId" style="color:var(--ecom-primary);">#SG-2026-0000</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Order Date:</span>
+                        <span id="receiptDate">Today</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Customer Name:</span>
+                        <span id="receiptName">Alex Mercer</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Shipping To:</span>
+                        <span id="receiptAddress">742 Evergreen Terrace</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2 pt-2 border-top font-weight-bold" style="font-size:15px;">
+                        <span>Total Paid:</span>
+                        <span id="receiptTotal" style="color:var(--ecom-primary);">$0.00</span>
+                    </div>
+                </div>
+
+                <div id="receiptItemsList" class="text-start mb-3">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-primary flex-grow-1" data-bs-dismiss="modal">
+                        Continue Shopping
+                    </button>
+                    <button type="button" class="btn btn-primary flex-grow-1" onclick="bootstrap.Modal.getInstance(document.getElementById('orderReceiptModal')).hide(); ShopApp.trackOrder(document.getElementById('receiptOrderId').textContent);">
+                        <i class="lni lni-delivery"></i> Track Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Order Tracking Modal ========================= -->
+    <div class="modal fade" id="orderTrackingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-delivery"></i> Real-Time Shipment Tracker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="input-group mb-4">
+                        <input type="text" id="trackOrderInput" class="form-control" placeholder="Enter Order ID (e.g. SG-2026-8941)" value="SG-2026-8941">
+                        <button class="btn btn-primary" type="button" onclick="ShopApp.trackOrder()">Track Parcel</button>
+                    </div>
+
+                    <div id="trackingResultDetails">
+                        <div class="p-3 bg-light rounded border mb-4 d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted" style="font-size:12px;">TRACKING ORDER:</span>
+                                <h6 id="trackResultOrderId" style="font-weight:800;color:var(--ecom-primary);margin-bottom:0;">SG-2026-8941</h6>
+                            </div>
+                            <div>
+                                <span class="text-muted" style="font-size:12px;">ESTIMATED DELIVERY:</span>
+                                <h6 id="trackEstimatedDate" style="font-weight:700;color:#10b981;margin-bottom:0;">In 2 Business Days</h6>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <span class="badge bg-primary">Express Air Courier</span>
+                            </div>
+                        </div>
+
+                        <!-- Visual Stepper -->
+                        <div class="order-tracking-timeline">
+                            <div class="tracking-step done">
+                                <div class="tracking-step-dot"><i class="lni lni-checkmark"></i></div>
+                                <div class="tracking-step-label">Order Placed</div>
+                                <div class="tracking-step-time">Oct 03, 10:15 AM</div>
+                            </div>
+                            <div class="tracking-step done">
+                                <div class="tracking-step-dot"><i class="lni lni-checkmark"></i></div>
+                                <div class="tracking-step-label">Verified & Paid</div>
+                                <div class="tracking-step-time">Oct 03, 10:30 AM</div>
+                            </div>
+                            <div class="tracking-step done">
+                                <div class="tracking-step-dot"><i class="lni lni-checkmark"></i></div>
+                                <div class="tracking-step-label">Packed</div>
+                                <div class="tracking-step-time">Oct 03, 02:45 PM</div>
+                            </div>
+                            <div class="tracking-step active">
+                                <div class="tracking-step-dot"><i class="lni lni-delivery"></i></div>
+                                <div class="tracking-step-label">In Transit</div>
+                                <div class="tracking-step-time">Hub Terminal</div>
+                            </div>
+                            <div class="tracking-step">
+                                <div class="tracking-step-dot"><i class="lni lni-home"></i></div>
+                                <div class="tracking-step-label">Delivered</div>
+                                <div class="tracking-step-time">Pending</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 border rounded bg-white" style="font-size:13px;">
+                            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                                <strong>Carrier:</strong>
+                                <span>FedEx International Priority</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                                <strong>Tracking Code:</strong>
+                                <span style="font-family:monospace;font-weight:bold;">FDX-9948210-US</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <strong>Latest Location:</strong>
+                                <span>Departed Regional Logistics Sort Facility, Oakland CA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Sign In / Auth Demo Modal ========================= -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-user"></i> Customer Account Portal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <ul class="nav nav-pills nav-fill mb-3" id="authTabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active font-weight-bold" id="tab-login" data-bs-toggle="pill" data-bs-target="#loginContent">Sign In</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link font-weight-bold" id="tab-register" data-bs-toggle="pill" data-bs-target="#registerContent">Register</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="authTabContent">
+                        <div class="tab-pane fade show active" id="loginContent">
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size:13px;font-weight:600;">Email or Username</label>
+                                <input type="email" class="form-control" placeholder="alex.mercer@gmail.com" value="alex.mercer@gmail.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size:13px;font-weight:600;">Password</label>
+                                <input type="password" class="form-control" value="••••••••••••">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3" style="font-size:13px;">
+                                <label><input type="checkbox" checked> Remember me</label>
+                                <a href="javascript:void(0)" class="text-primary">Forgot Password?</a>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100 mb-2" onclick="ShopApp.loginDemoUser()">
+                                Sign In
+                            </button>
+                            <div class="text-center my-2" style="font-size:12px;color:#94a3b8;">OR ONE-CLICK DEMO</div>
+                            <button type="button" class="btn btn-outline-success w-100" onclick="ShopApp.loginDemoUser()">
+                                <i class="lni lni-star-filled"></i> Quick Demo Login as VIP Member
+                            </button>
+                        </div>
+
+                        <div class="tab-pane fade" id="registerContent">
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size:13px;font-weight:600;">Full Name</label>
+                                <input type="text" class="form-control" placeholder="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size:13px;font-weight:600;">Email Address</label>
+                                <input type="email" class="form-control" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size:13px;font-weight:600;">Create Password</label>
+                                <input type="password" class="form-control" placeholder="Min. 8 characters">
+                            </div>
+                            <button type="button" class="btn btn-primary w-100" onclick="ShopApp.loginDemoUser()">
+                                Create Account & Get 10% Off
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ========================= JS here ========================= -->
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/tiny-slider.js"></script>
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
     <script type="text/javascript">
-        //========= Hero Slider 
-        tns({
-            container: '.hero-slider',
-            slideBy: 'page',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 0,
-            items: 1,
-            nav: false,
-            controls: true,
-            controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
-        });
+        //========= Hero Slider
+        if (document.querySelector('.hero-slider')) {
+            tns({
+                container: '.hero-slider',
+                slideBy: 'page',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 0,
+                items: 1,
+                nav: false,
+                controls: true,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+            });
+        }
 
         //======== Brand Slider
-        tns({
-            container: '.brands-logo-carousel',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 15,
-            nav: false,
-            controls: false,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 3,
-                },
-                768: {
-                    items: 5,
-                },
-                992: {
-                    items: 6,
+        if (document.querySelector('.brands-logo-carousel')) {
+            tns({
+                container: '.brands-logo-carousel',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: false,
+                responsive: {
+                    0: {
+                        items: 2,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 

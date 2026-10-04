@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
-
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
 </head>
 
 <body>
@@ -114,23 +114,25 @@
                             <div class="navbar-search search-style-5">
                                 <div class="search-select">
                                     <div class="select-position">
-                                        <select id="select1">
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="watches">Smart Watches</option>
+                                            <option value="speaker">Speakers & Audio</option>
+                                            <option value="camera">Smart Cameras</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="headphones">Headphones</option>
+                                            <option value="laptop">Laptops</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="search-input">
-                                    <input type="text" placeholder="Search">
+                                    <input type="text" id="mainSearchInput" placeholder="Search gadgets, watches, laptops, audio..." autocomplete="off">
                                 </div>
                                 <div class="search-btn">
-                                    <button><i class="lni lni-search-alt"></i></button>
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
                                 </div>
                             </div>
+                            <div id="searchSuggestionsDropdown" class="search-suggestions-dropdown"></div>
                             <!-- navbar search Ends -->
                         </div>
                         <!-- End Main Menu Search -->
@@ -159,7 +161,7 @@
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
                                             <span>2 Items</span>
-                                            <a href="cart.html">View Cart</a>
+                                            <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()">View Cart</a>
                                         </div>
                                         <ul class="shopping-list">
                                             <li>
@@ -195,7 +197,7 @@
                                                 <span class="total-amount">$134.00</span>
                                             </div>
                                             <div class="button">
-                                                <a href="checkout.html" class="btn animate">Checkout</a>
+                                                <a href="javascript:void(0)" onclick="ShopApp.openCheckoutModal()" class="btn animate">Checkout</a>
                                             </div>
                                         </div>
                                     </div>
@@ -434,17 +436,17 @@
                                 <div class="row align-items-end">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="button cart-button">
-                                            <button class="btn" style="width: 100%;">Add to Cart</button>
+                                            <button class="btn" style="width: 100%;" onclick="ShopApp.addToCart('prod-3', parseInt(document.querySelector('.quantity select').value) || 1)"><i class="lni lni-cart"></i> Add to Cart</button>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-reload"></i> Compare</button>
+                                            <button class="btn" onclick="ShopApp.openCartDrawer()"><i class="lni lni-cart-full"></i> View Cart</button>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
+                                            <button class="btn" onclick="ShopApp.toggleWishlist('prod-3')"><i class="lni lni-heart"></i> To Wishlist</button>
                                         </div>
                                     </div>
                                 </div>
@@ -708,25 +710,339 @@
         <i class="lni lni-chevron-up"></i>
     </a>
 
+    <!-- ========================= Interactive Cart Drawer ========================= -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay">
+        <div class="cart-drawer">
+            <div class="cart-drawer-header">
+                <h4><i class="lni lni-cart"></i> Shopping Cart <span id="drawerTotalItems">(0)</span></h4>
+                <button type="button" class="cart-drawer-close" onclick="ShopApp.closeCartDrawer()">&times;</button>
+            </div>
+            <div class="cart-shipping-meter">
+                <div id="shippingMeterText">Add items to unlock <strong>FREE Express Shipping</strong>!</div>
+                <div class="cart-shipping-meter-progress">
+                    <div id="shippingMeterFill" class="cart-shipping-meter-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div id="cartDrawerItems" class="cart-drawer-items">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="cart-drawer-footer">
+                <div class="cart-promo-box">
+                    <input type="text" id="drawerPromoInput" class="cart-promo-input" placeholder="Promo code (e.g. VIP20)">
+                    <button type="button" id="drawerApplyPromoBtn" class="cart-promo-btn">Apply</button>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Subtotal:</span>
+                    <strong id="drawerSubtotal">$0.00</strong>
+                </div>
+                <div class="cart-summary-line" style="display:none; color:#10b981;">
+                    <span>Discount:</span>
+                    <strong id="drawerDiscount">-$0.00</strong>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Estimated Shipping:</span>
+                    <strong id="drawerShipping">FREE</strong>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Estimated Tax (8%):</span>
+                    <strong id="drawerTax">$0.00</strong>
+                </div>
+                <div class="cart-summary-line total">
+                    <span>Grand Total:</span>
+                    <strong id="drawerGrandTotal">$0.00</strong>
+                </div>
+                <button type="button" class="btn-drawer-checkout" onclick="ShopApp.openCheckoutModal()">
+                    Proceed to Checkout &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Quick View Modal ========================= -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <span id="qvStockStatus" class="badge-stock badge-in-stock">In Stock</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-2">
+                    <div class="row">
+                        <div class="col-md-6 col-12 text-center">
+                            <img id="qvMainImg" src="assets/images/products/product-1.jpg" alt="Product View" class="img-fluid rounded border mb-2" style="max-height: 280px; object-fit: contain;">
+                            <div id="qvGalleryThumbs" class="quickview-gallery-thumbs justify-content-center"></div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <span id="qvCategory" class="text-uppercase text-muted" style="font-size:12px;font-weight:700;">Watches</span>
+                            <h4 id="qvTitle" style="font-size:20px;font-weight:700;margin:6px 0;">Product Title</h4>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span id="qvRatingStars"></span>
+                                <small id="qvReviewCount" class="text-muted"></small>
+                            </div>
+                            <div class="d-flex align-items-baseline gap-2 mb-3">
+                                <span id="qvPrice" style="font-size:24px;font-weight:800;color:var(--ecom-primary);">$199.00</span>
+                                <span id="qvOrigPrice" style="text-decoration:line-through;color:#94a3b8;font-size:16px;">$229.00</span>
+                            </div>
+                            <p id="qvDescription" style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:15px;"></p>
+                            <div class="mb-3">
+                                <label style="font-size:12px;font-weight:700;color:#334155;display:block;margin-bottom:6px;">Select Color / Variant:</label>
+                                <div id="qvColorSwatches"></div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="cart-qty-stepper">
+                                    <button type="button" class="cart-qty-btn" onclick="ShopApp.changeQuickViewQty(-1)">-</button>
+                                    <span id="qvQtyValue" class="cart-qty-value">1</span>
+                                    <button type="button" class="cart-qty-btn" onclick="ShopApp.changeQuickViewQty(1)">+</button>
+                                </div>
+                                <small class="text-muted">SKU: <span id="qvSku">WTC-01</span></small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-primary flex-grow-1" onclick="ShopApp.addQuickViewToCart(false)">
+                                    <i class="lni lni-cart"></i> Add to Cart
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" onclick="ShopApp.addQuickViewToCart(true)">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Wishlist Modal ========================= -->
+    <div class="modal fade" id="wishlistModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-heart text-danger"></i> Saved Wishlist Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" id="wishlistItemsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= 2-Step Checkout Modal ========================= -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-shield"></i> Express Secure Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="checkout-steps-nav">
+                        <div class="checkout-step-item active" id="chkStepNav1">1. Shipping Address</div>
+                        <div class="checkout-step-item" id="chkStepNav2">2. Payment & Confirmation</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 col-12">
+                            <div id="checkoutStep1">
+                                <h6 class="mb-3 font-weight-bold">Shipping Information</h6>
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-size:13px;font-weight:600;">Full Name *</label>
+                                    <input type="text" id="chkFullName" class="form-control form-control-sm" placeholder="e.g. Alex Mercer" value="Alex Mercer">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Email Address *</label>
+                                        <input type="email" id="chkEmail" class="form-control form-control-sm" placeholder="alex.mercer@gmail.com" value="alex.mercer@gmail.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Phone Number *</label>
+                                        <input type="tel" id="chkPhone" class="form-control form-control-sm" placeholder="+1 (555) 019-2834" value="+1 (555) 019-2834">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-size:13px;font-weight:600;">Street Address *</label>
+                                    <input type="text" id="chkAddress" class="form-control form-control-sm" placeholder="742 Evergreen Terrace" value="742 Evergreen Terrace">
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">City</label>
+                                        <input type="text" id="chkCity" class="form-control form-control-sm" value="San Francisco">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" style="font-size:13px;font-weight:600;">Postal / ZIP Code</label>
+                                        <input type="text" id="chkZip" class="form-control form-control-sm" value="94107">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary w-100" onclick="ShopApp.proceedToCheckoutStep2()">
+                                    Continue to Payment &rarr;
+                                </button>
+                            </div>
+                            <div id="checkoutStep2" style="display:none;">
+                                <h6 class="mb-3 font-weight-bold">Select Payment Method</h6>
+                                <label class="payment-method-card selected">
+                                    <input type="radio" name="chkPaymentMethod" value="card" checked>
+                                    <i class="lni lni-credit-cards" style="font-size:22px;color:var(--ecom-primary);"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">Credit or Debit Card</div>
+                                        <small class="text-muted">Encrypted 256-bit SSL transaction</small>
+                                    </div>
+                                </label>
+                                <div class="p-3 bg-light rounded mb-3 border">
+                                    <div class="mb-2">
+                                        <label class="form-label" style="font-size:12px;font-weight:600;">Card Number</label>
+                                        <input type="text" id="chkCardNumber" class="form-control form-control-sm" placeholder="4242 •••• •••• 4242" value="4242 8821 9934 1102">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label" style="font-size:12px;font-weight:600;">Expiry Date</label>
+                                            <input type="text" id="chkCardExpiry" class="form-control form-control-sm" placeholder="MM/YY" value="08/28">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" style="font-size:12px;font-weight:600;">CVV / CVC</label>
+                                            <input type="password" id="chkCardCvv" class="form-control form-control-sm" placeholder="•••" maxlength="4" value="882">
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="payment-method-card">
+                                    <input type="radio" name="chkPaymentMethod" value="paypal">
+                                    <i class="lni lni-paypal" style="font-size:22px;color:#0079c1;"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">PayPal Express</div>
+                                        <small class="text-muted">Safe, quick checkout via PayPal account</small>
+                                    </div>
+                                </label>
+                                <label class="payment-method-card">
+                                    <input type="radio" name="chkPaymentMethod" value="cod">
+                                    <i class="lni lni-delivery" style="font-size:22px;color:#10b981;"></i>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;">Cash on Delivery (COD)</div>
+                                        <small class="text-muted">Pay in cash upon doorstep delivery</small>
+                                    </div>
+                                </label>
+                                <div class="d-flex gap-2 mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="ShopApp.backToCheckoutStep1()">&larr; Back</button>
+                                    <button type="button" id="btnPlaceOrder" class="btn btn-primary flex-grow-1" onclick="ShopApp.submitFinalOrder()">Place Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-12 mt-4 mt-lg-0">
+                            <div class="p-3 bg-light rounded border">
+                                <h6 class="font-weight-bold mb-3">Order Items</h6>
+                                <div id="checkoutOrderItemsSummary" style="max-height:220px;overflow-y:auto;"></div>
+                                <hr>
+                                <div class="d-flex justify-content-between font-weight-bold" style="font-size:16px;">
+                                    <span>Total to Pay:</span>
+                                    <span id="checkoutGrandTotal" style="color:var(--ecom-primary);">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Order Confirmation Receipt Modal ========================= -->
+    <div class="modal fade" id="orderReceiptModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div style="font-size:60px;color:#10b981;line-height:1;margin-bottom:12px;">
+                    <i class="lni lni-checkmark-circle"></i>
+                </div>
+                <h4 style="font-weight:800;color:#081828;">Order Confirmed!</h4>
+                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Thank you for shopping with ShopGrids. Your order has been placed and is being prepared for express dispatch.</p>
+                <div class="bg-light p-3 rounded border text-start mb-3" style="font-size:13px;">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Order Number:</span>
+                        <strong id="receiptOrderId" style="color:var(--ecom-primary);">#SG-2026-0000</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Order Date:</span>
+                        <span id="receiptDate">Today</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Customer Name:</span>
+                        <span id="receiptName">Alex Mercer</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Shipping To:</span>
+                        <span id="receiptAddress">742 Evergreen Terrace</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2 pt-2 border-top font-weight-bold" style="font-size:15px;">
+                        <span>Total Paid:</span>
+                        <span id="receiptTotal" style="color:var(--ecom-primary);">$0.00</span>
+                    </div>
+                </div>
+                <div id="receiptItemsList" class="text-start mb-3"></div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-primary flex-grow-1" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary flex-grow-1" onclick="bootstrap.Modal.getInstance(document.getElementById('orderReceiptModal')).hide(); ShopApp.trackOrder(document.getElementById('receiptOrderId').textContent);">
+                        <i class="lni lni-delivery"></i> Track Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Order Tracking Modal ========================= -->
+    <div class="modal fade" id="orderTrackingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-delivery"></i> Real-Time Shipment Tracker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="input-group mb-4">
+                        <input type="text" id="trackOrderInput" class="form-control" placeholder="Enter Order ID" value="SG-2026-8941">
+                        <button class="btn btn-primary" type="button" onclick="ShopApp.trackOrder()">Track Parcel</button>
+                    </div>
+                    <div id="trackingResultDetails">
+                        <div class="p-3 bg-light rounded border mb-4 d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted" style="font-size:12px;">TRACKING ORDER:</span>
+                                <h6 id="trackResultOrderId" style="font-weight:800;color:var(--ecom-primary);margin-bottom:0;">SG-2026-8941</h6>
+                            </div>
+                            <div>
+                                <span class="text-muted" style="font-size:12px;">ESTIMATED DELIVERY:</span>
+                                <h6 id="trackEstimatedDate" style="font-weight:700;color:#10b981;margin-bottom:0;">In 2 Business Days</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Sign In / Auth Demo Modal ========================= -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-user"></i> Customer Account Portal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <button type="button" class="btn btn-outline-success w-100 mb-3" onclick="ShopApp.loginDemoUser()">
+                        <i class="lni lni-star-filled"></i> Quick Demo Login as VIP Member
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ========================= JS here ========================= -->
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/tiny-slider.js"></script>
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
     <script type="text/javascript">
         const current = document.getElementById("current");
         const opacity = 0.6;
         const imgs = document.querySelectorAll(".img");
         imgs.forEach(img => {
             img.addEventListener("click", (e) => {
-                //reset opacity
                 imgs.forEach(img => {
                     img.style.opacity = 1;
                 });
                 current.src = e.target.src;
-                //adding class 
-                //current.classList.add("fade-in");
-                //opacity
                 e.target.style.opacity = opacity;
             });
         });
