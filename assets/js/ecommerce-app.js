@@ -728,6 +728,8 @@
     const prod = PRODUCTS.find(p => p.id === productId);
     if (!prod) return;
 
+    recordRecentlyViewed(productId);
+
     currentQuickViewProduct = prod;
     quickViewQty = 1;
     quickViewSelectedColor = prod.colors ? prod.colors[0] : 'Standard';
@@ -1433,13 +1435,548 @@
     }
 
     // 9. Initialize components
+    applyTheme();
     initLiveSearch();
     initCategoryFilters();
     initDealCountdown();
     updateCartUI();
     updateWishlistUI();
+    updateCompareUI();
+    renderRecentlyViewed();
+    initLiveSalesSocialProof();
     refreshAllPricesOnPage();
+
+    // Check announcement bar session state
+    if (sessionStorage.getItem('ecom_announcement_closed') === 'true') {
+      const aBar = document.getElementById('topAnnouncementBar');
+      if (aBar) aBar.style.display = 'none';
+    }
   });
+
+  // ================= 16. Dark Theme Toggle =================
+  let isDarkMode = localStorage.getItem('ecom_theme') === 'dark';
+  function applyTheme() {
+    if (isDarkMode) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+      themeBtn.innerHTML = isDarkMode ? '<i class="lni lni-sun"></i>' : '<i class="lni lni-night"></i>';
+      themeBtn.title = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    }
+  }
+
+  function toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    localStorage.setItem('ecom_theme', isDarkMode ? 'dark' : 'light');
+    applyTheme();
+    showToast(isDarkMode ? 'Dark Mode Enabled 🌙' : 'Light Mode Enabled ☀️', 'Display theme updated.', 'info');
+  }
+
+  // ================= 17. Top Announcement Bar =================
+  function closeAnnouncementBar() {
+    const bar = document.getElementById('topAnnouncementBar');
+    if (bar) {
+      bar.style.display = 'none';
+      sessionStorage.setItem('ecom_announcement_closed', 'true');
+    }
+  }
+
+  // ================= 18. Product Comparison Tray & Modal =================
+  let compareList = [];
+  try {
+    compareList = JSON.parse(localStorage.getItem('ecom_compare') || '[]');
+  } catch(e) {
+    compareList = [];
+  }
+
+  function toggleCompare(productId) {
+    const prod = PRODUCTS.find(p => p.id === productId);
+    if (!prod) return;
+
+    const idx = compareList.indexOf(productId);
+    if (idx > -1) {
+      compareList.splice(idx, 1);
+      showToast('Removed from Compare', `${prod.title} removed from comparison.`, 'info');
+    } else {
+      if (compareList.length >= 4) {
+        showToast('Compare Limit Reached', 'You can compare up to 4 products at a time.', 'error');
+        return;
+      }
+      compareList.push(productId);
+      showToast('Added to Compare ⚖️', `${prod.title} added to comparison.`, 'success');
+    }
+
+    localStorage.setItem('ecom_compare', JSON.stringify(compareList));
+    updateCompareUI();
+  }
+
+  function removeFromCompare(productId) {
+    compareList = compareList.filter(id => id !== productId);
+    localStorage.setItem('ecom_compare', JSON.stringify(compareList));
+    updateCompareUI();
+  }
+
+  function clearCompare() {
+    compareList = [];
+    localStorage.removeItem('ecom_compare');
+    updateCompareUI();
+    showToast('Comparison Cleared', 'All products removed from comparison tray.', 'info');
+  }
+
+  function updateCompareUI() {
+    const tray = document.getElementById('compareFloatingTray');
+    const itemsWrap = document.getElementById('compareTrayItems');
+    const countBadge = document.getElementById('compareCountBadge');
+
+    if (!tray || !itemsWrap) return;
+
+    if (compareList.length > 0) {
+      tray.classList.add('active');
+      if (countBadge) countBadge.textContent = compareList.length;
+
+      itemsWrap.innerHTML = compareList.map(id => {
+        const prod = PRODUCTS.find(p => p.id === id);
+        if (!prod) return '';
+        return `
+          <div class="compare-tray-thumb" title="${prod.title}">
+            <img src="${prod.image}" alt="${prod.title}">
+            <button type="button" class="compare-tray-thumb-remove" onclick="ShopApp.removeFromCompare('${prod.id}')">&times;</button>
+          </div>
+        `;
+      }).join('');
+    } else {
+      tray.classList.remove('active');
+    }
+
+    document.querySelectorAll('.quick-action-btn[data-compare-id]').forEach(btn => {
+      const pid = btn.getAttribute('data-compare-id');
+      if (compareList.includes(pid)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function openCompareModal() {
+    if (compareList.length < 2) {
+      showToast('Select More Products', 'Please select at least 2 products to compare.', 'info');
+      return;
+    }
+
+    const tableBody = document.getElementById('compareTableBody');
+    if (!tableBody) return;
+
+    const prods = compareList.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+
+    const headerRow = `
+      <tr>
+        <th>Product</th>
+        ${prods.map(p => `
+          <td>
+            <div class="compare-product-header">
+              <img src="${p.image}" alt="${p.title}" style="max-height:80px;object-fit:contain;">
+              <h6>${p.title}</h6>
+              <div style="font-weight:800;color:var(--ecom-primary);font-size:16px;">${formatMoney(p.price)}</div>
+            </div>
+          </td>
+        `).join('')}
+      </tr>
+    `;
+
+    const ratingRow = `
+      <tr>
+        <th>Customer Rating</th>
+        ${prods.map(p => `
+          <td>
+            <div style="color:#facc15;"><i class="lni lni-star-filled"></i> ${p.rating} / 5.0</div>
+            <small class="text-muted">(${p.reviewsCount} reviews)</small>
+          </td>
+        `).join('')}
+      </tr>
+    `;
+
+    const categoryRow = `
+      <tr>
+        <th>Category</th>
+        ${prods.map(p => `<td><span class="badge bg-light text-dark border">${p.category}</span></td>`).join('')}
+      </tr>
+    `;
+
+    const stockRow = `
+      <tr>
+        <th>Availability</th>
+        ${prods.map(p => `<td><span class="badge ${p.inStock > 0 ? 'bg-success' : 'bg-danger'}">${p.inStock > 0 ? 'In Stock (' + p.inStock + ')' : 'Out of Stock'}</span></td>`).join('')}
+      </tr>
+    `;
+
+    const warrantyRow = `
+      <tr>
+        <th>Warranty</th>
+        ${prods.map(() => `<td>1-Year Official Manufacturer Warranty</td>`).join('')}
+      </tr>
+    `;
+
+    const shippingRow = `
+      <tr>
+        <th>Delivery Speed</th>
+        ${prods.map(p => `<td>${p.price >= 99 ? '<span class="text-success font-weight-bold">Free Express 2-Day Air</span>' : 'Standard 3-5 Days'}</td>`).join('')}
+      </tr>
+    `;
+
+    const actionRow = `
+      <tr>
+        <th>Action</th>
+        ${prods.map(p => `
+          <td>
+            <button class="btn btn-sm btn-primary w-100" onclick="ShopApp.addToCart('${p.id}', 1); bootstrap.Modal.getInstance(document.getElementById('compareModal')).hide();">
+              <i class="lni lni-cart"></i> Add to Cart
+            </button>
+          </td>
+        `).join('')}
+      </tr>
+    `;
+
+    tableBody.innerHTML = headerRow + ratingRow + categoryRow + stockRow + warrantyRow + shippingRow + actionRow;
+
+    const modalEl = document.getElementById('compareModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  // ================= 19. Recently Viewed Products =================
+  let recentlyViewed = [];
+  try {
+    recentlyViewed = JSON.parse(localStorage.getItem('ecom_recent') || '[]');
+  } catch(e) {
+    recentlyViewed = [];
+  }
+
+  function recordRecentlyViewed(productId) {
+    recentlyViewed = recentlyViewed.filter(id => id !== productId);
+    recentlyViewed.unshift(productId);
+    if (recentlyViewed.length > 6) recentlyViewed.pop();
+    localStorage.setItem('ecom_recent', JSON.stringify(recentlyViewed));
+    renderRecentlyViewed();
+  }
+
+  function renderRecentlyViewed() {
+    const wrap = document.getElementById('recentlyViewedContainer');
+    const section = document.getElementById('recentlyViewedSection');
+    if (!wrap) return;
+
+    if (recentlyViewed.length === 0) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+
+    if (section) section.style.display = 'block';
+
+    wrap.innerHTML = recentlyViewed.map(id => {
+      const prod = PRODUCTS.find(p => p.id === id);
+      if (!prod) return '';
+      return `
+        <div class="col-lg-2 col-md-4 col-6 mb-3">
+          <div class="recent-product-card">
+            <img src="${prod.image}" alt="${prod.title}" onclick="ShopApp.openQuickView('${prod.id}')" style="cursor:pointer;">
+            <div class="recent-product-title" onclick="ShopApp.openQuickView('${prod.id}')" style="cursor:pointer;" title="${prod.title}">${prod.title}</div>
+            <div class="recent-product-price">${formatMoney(prod.price)}</div>
+            <button class="btn btn-sm btn-outline-primary w-100 mt-2" onclick="ShopApp.addToCart('${prod.id}', 1)">
+              <i class="lni lni-cart"></i> Add
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ================= 20. Live Social Proof Sales Popups =================
+  function initLiveSalesSocialProof() {
+    const buyers = [
+      { name: 'Jessica T.', loc: 'Chicago, IL' },
+      { name: 'Marcus L.', loc: 'Austin, TX' },
+      { name: 'Chloe B.', loc: 'Seattle, WA' },
+      { name: 'David K.', loc: 'London, UK' },
+      { name: 'Rahul S.', loc: 'Toronto, CA' },
+      { name: 'Liam P.', loc: 'Sydney, AU' },
+      { name: 'Elena V.', loc: 'Berlin, DE' }
+    ];
+
+    const toastEl = document.getElementById('liveSalesToast');
+    const toastImg = document.getElementById('liveSalesImg');
+    const toastBuyer = document.getElementById('liveSalesBuyer');
+    const toastProd = document.getElementById('liveSalesProd');
+    const toastTime = document.getElementById('liveSalesTime');
+
+    if (!toastEl) return;
+
+    function triggerNotice() {
+      const buyer = buyers[Math.floor(Math.random() * buyers.length)];
+      const prod = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+      const minsAgo = Math.floor(Math.random() * 8) + 1;
+
+      if (toastImg) toastImg.src = prod.image;
+      if (toastBuyer) toastBuyer.textContent = `${buyer.name} from ${buyer.loc}`;
+      if (toastProd) toastProd.textContent = prod.title;
+      if (toastTime) toastTime.textContent = `Purchased ${minsAgo} minutes ago • Verified`;
+
+      toastEl.classList.add('active');
+
+      setTimeout(() => {
+        toastEl.classList.remove('active');
+      }, 5500);
+    }
+
+    setTimeout(triggerNotice, 5000);
+    setInterval(triggerNotice, 25000);
+  }
+
+  // ================= 21. Live Customer Support Chat Assistant =================
+  function toggleChatWindow() {
+    const chatWin = document.getElementById('ecomChatWindow');
+    if (chatWin) {
+      chatWin.classList.toggle('active');
+      if (chatWin.classList.contains('active')) {
+        const input = document.getElementById('ecomChatInput');
+        if (input) input.focus();
+      }
+    }
+  }
+
+  function sendChatMessage(text) {
+    const input = document.getElementById('ecomChatInput');
+    const msg = (text || (input ? input.value : '')).trim();
+    if (!msg) return;
+
+    if (input && !text) input.value = '';
+
+    const body = document.getElementById('ecomChatBody');
+    if (!body) return;
+
+    const userBubble = document.createElement('div');
+    userBubble.className = 'chat-bubble user';
+    userBubble.textContent = msg;
+    body.appendChild(userBubble);
+    body.scrollTop = body.scrollHeight;
+
+    setTimeout(() => {
+      const lower = msg.toLowerCase();
+      let replyHtml = '';
+
+      if (lower.includes('track') || lower.includes('order')) {
+        replyHtml = `You can track any order live using our real-time portal! <br><a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941'); ShopApp.toggleChatWindow();" style="color:var(--ecom-primary);font-weight:bold;text-decoration:underline;">Click here to Track Order #SG-2026-8941 &rarr;</a>`;
+      } else if (lower.includes('coupon') || lower.includes('discount') || lower.includes('code') || lower.includes('promo')) {
+        replyHtml = `Here are active store vouchers:<br>• <strong>VIP20</strong> for 20% OFF entire cart<br>• <strong>WELCOME10</strong> for 10% OFF<br>• <strong>FREESHIP</strong> for Free Shipping<br><button class="btn btn-sm btn-primary mt-2" onclick="ShopApp.applyCouponCode('VIP20')">Apply VIP20 Now</button>`;
+      } else if (lower.includes('return') || lower.includes('refund')) {
+        replyHtml = `We offer an unconditional <strong>30-Day Money Back Guarantee</strong>. If you are not completely satisfied, return the product for a 100% full refund with zero restocking fees.`;
+      } else if (lower.includes('ship') || lower.includes('delivery')) {
+        replyHtml = `We offer <strong>FREE Express 2-Day Air Shipping</strong> on all orders over $99. Most items ship from our logistics hub within 24 hours of ordering!`;
+      } else if (lower.includes('macbook') || lower.includes('laptop')) {
+        replyHtml = `The <strong>Apple MacBook Air M1</strong> is currently on Deal of the Day for $899 (save $100!). <br><button class="btn btn-sm btn-outline-primary mt-2" onclick="ShopApp.openQuickView('prod-8'); ShopApp.toggleChatWindow();">View MacBook Deal</button>`;
+      } else {
+        replyHtml = `Thanks for reaching out! Our team is ready to assist. You can browse our trending deals, use voucher code <strong>VIP20</strong>, or let us know if you have specific product questions!`;
+      }
+
+      const botBubble = document.createElement('div');
+      botBubble.className = 'chat-bubble bot';
+      botBubble.innerHTML = replyHtml;
+      body.appendChild(botBubble);
+      body.scrollTop = body.scrollHeight;
+    }, 600);
+  }
+
+  // ================= 22. Catalog Sorting & Price Filter =================
+  let currentSortCriteria = 'featured';
+  let currentPriceFilter = 'all';
+
+  function sortProducts(criteria) {
+    currentSortCriteria = criteria;
+    applyCatalogFiltersAndSort();
+  }
+
+  function filterByPrice(rangeKey) {
+    currentPriceFilter = rangeKey;
+    document.querySelectorAll('.price-pill-btn').forEach(btn => {
+      if (btn.getAttribute('data-price-range') === rangeKey) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    applyCatalogFiltersAndSort();
+  }
+
+  function applyCatalogFiltersAndSort() {
+    const container = document.getElementById('productsGridContainer');
+    if (!container) return;
+
+    let filtered = [...PRODUCTS];
+
+    const activeCatTab = document.querySelector('.filter-tab-btn.active');
+    const catFilter = activeCatTab ? activeCatTab.getAttribute('data-filter') : 'all';
+    if (catFilter !== 'all') {
+      filtered = filtered.filter(p => p.categoryKey === catFilter || p.category.toLowerCase() === catFilter);
+    }
+
+    if (currentPriceFilter === 'under-100') {
+      filtered = filtered.filter(p => p.price < 100);
+    } else if (currentPriceFilter === '100-300') {
+      filtered = filtered.filter(p => p.price >= 100 && p.price <= 300);
+    } else if (currentPriceFilter === '300-500') {
+      filtered = filtered.filter(p => p.price > 300 && p.price <= 500);
+    } else if (currentPriceFilter === 'over-500') {
+      filtered = filtered.filter(p => p.price > 500);
+    }
+
+    if (currentSortCriteria === 'price-low') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (currentSortCriteria === 'price-high') {
+      filtered.sort((a, b) => b.price - a.price);
+    } else if (currentSortCriteria === 'rating') {
+      filtered.sort((a, b) => b.rating - a.rating);
+    } else if (currentSortCriteria === 'newest') {
+      filtered.sort((a, b) => (b.badge === 'NEW' ? 1 : 0) - (a.badge === 'NEW' ? 1 : 0));
+    }
+
+    const countEl = document.getElementById('catalogItemCountText');
+    if (countEl) countEl.textContent = `Showing ${filtered.length} of ${PRODUCTS.length} products`;
+
+    renderProductCards(filtered);
+  }
+
+  function renderProductCards(prods) {
+    const container = document.getElementById('productsGridContainer');
+    if (!container) return;
+
+    if (prods.length === 0) {
+      container.innerHTML = `
+        <div class="col-12 text-center py-5">
+          <div style="font-size:48px;color:#cbd5e1;margin-bottom:12px;"><i class="lni lni-search"></i></div>
+          <h5>No products match your selected filters</h5>
+          <p class="text-muted">Try changing your price range or category filter.</p>
+          <button class="btn btn-outline-primary" onclick="ShopApp.filterByPrice('all'); document.querySelector('[data-filter=all]').click();">Reset Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = prods.map(prod => {
+      const isWish = wishlist.includes(prod.id);
+      const isComp = compareList.includes(prod.id);
+      return `
+        <div class="col-lg-3 col-md-6 col-12 mb-4">
+          <div class="single-product" data-product-id="${prod.id}" data-category="${prod.categoryKey}">
+            <div class="product-quick-actions">
+              <button class="quick-action-btn ${isWish ? 'active' : ''}" data-wishlist-id="${prod.id}" onclick="ShopApp.toggleWishlist('${prod.id}')" title="Add to Wishlist">
+                <i class="lni ${isWish ? 'lni-heart-filled' : 'lni-heart'}"></i>
+              </button>
+              <button class="quick-action-btn ${isComp ? 'active' : ''}" data-compare-id="${prod.id}" onclick="ShopApp.toggleCompare('${prod.id}')" title="Compare Product">
+                <i class="lni lni-reload"></i>
+              </button>
+              <button class="quick-action-btn" onclick="ShopApp.openQuickView('${prod.id}')" title="Quick View">
+                <i class="lni lni-eye"></i>
+              </button>
+            </div>
+            <div class="product-image">
+              <img src="${prod.image}" alt="${prod.title}">
+              <span class="${prod.badgeClass || 'sale-tag'}">${prod.badge || 'HOT'}</span>
+              <div class="button">
+                <a href="javascript:void(0)" onclick="ShopApp.addToCart('${prod.id}', 1)" class="btn">
+                  <i class="lni lni-cart"></i> Add to Cart
+                </a>
+              </div>
+            </div>
+            <div class="product-info">
+              <span class="category">${prod.category}</span>
+              <h4 class="title">
+                <a href="javascript:void(0)" onclick="ShopApp.openQuickView('${prod.id}')">${prod.title}</a>
+              </h4>
+              <ul class="review">
+                <li><i class="lni lni-star-filled"></i></li>
+                <li><i class="lni lni-star-filled"></i></li>
+                <li><i class="lni lni-star-filled"></i></li>
+                <li><i class="lni lni-star-filled"></i></li>
+                <li><i class="lni ${prod.rating >= 4.5 ? 'lni-star-filled' : 'lni-star'}"></i></li>
+                <li><span>${prod.rating.toFixed(1)} (${prod.reviewsCount})</span></li>
+              </ul>
+              <div class="price">
+                <span>${formatMoney(prod.price)}</span>
+                ${prod.origPrice ? `<span class="discount-price">${formatMoney(prod.origPrice)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ================= 23. Customer Review Submission =================
+  let userReviewRating = 5;
+  function setReviewRating(score) {
+    userReviewRating = score;
+    const stars = document.querySelectorAll('#reviewStarPicker i');
+    stars.forEach((star, idx) => {
+      if (idx < score) {
+        star.className = 'lni lni-star-filled active';
+      } else {
+        star.className = 'lni lni-star';
+      }
+    });
+  }
+
+  function submitCustomerReview(e) {
+    if (e) e.preventDefault();
+    const nameInput = document.getElementById('revName');
+    const commentInput = document.getElementById('revComment');
+
+    const name = nameInput ? nameInput.value.trim() : 'Customer';
+    const comment = commentInput ? commentInput.value.trim() : '';
+
+    if (!comment) {
+      showToast('Review Required', 'Please enter your review comments.', 'error');
+      return;
+    }
+
+    const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'CU';
+
+    const testContainer = document.querySelector('#testimonialsSection .row:nth-child(2)');
+    if (testContainer) {
+      const newCard = document.createElement('div');
+      newCard.className = 'col-lg-4 col-md-6 col-12 mb-4';
+      newCard.innerHTML = `
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar" style="background:#eff6ff;color:var(--ecom-primary);border-color:#bfdbfe;">${initials}</div>
+              <div class="testimonial-user">
+                <h5>${name}</h5>
+                <span><i class="lni lni-checkmark-circle"></i> Verified Buyer</span>
+              </div>
+            </div>
+            <div class="testimonial-stars">
+              ${'<i class="lni lni-star-filled"></i>'.repeat(userReviewRating)}
+            </div>
+            <p class="testimonial-body">"${comment}"</p>
+          </div>
+          <small style="color:#94a3b8;margin-top:15px;display:block;">Just now • Verified Purchase</small>
+        </div>
+      `;
+      testContainer.prepend(newCard);
+    }
+
+    const modalEl = document.getElementById('writeReviewModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getInstance(modalEl);
+      if (bsModal) bsModal.hide();
+    }
+
+    showToast('Review Submitted! ⭐', 'Thank you for your valuable feedback.', 'success');
+  }
 
   // Expose global methods under window.ShopApp
   window.ShopApp = {
@@ -1463,6 +2000,18 @@
     loginDemoUser,
     setCurrency,
     showToast,
-    formatMoney
+    formatMoney,
+    toggleDarkMode,
+    closeAnnouncementBar,
+    toggleCompare,
+    removeFromCompare,
+    clearCompare,
+    openCompareModal,
+    toggleChatWindow,
+    sendChatMessage,
+    sortProducts,
+    filterByPrice,
+    setReviewRating,
+    submitCustomerReview
   };
 })();
