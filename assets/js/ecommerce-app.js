@@ -544,6 +544,13 @@
       discount = 30.0;
     } else if (activeCoupon === 'GIFTKIT') {
       discount = Math.min(25.0, subtotal); // $25 free accessory credit
+    } else if (activeCoupon && activeCoupon.startsWith('TRADEIN')) {
+      const val = parseInt(activeCoupon.replace('TRADEIN', '')) || 280;
+      discount = Math.min(subtotal, val);
+    } else if (activeCoupon === 'POINTS18') {
+      discount = Math.min(subtotal, 18.50);
+    } else if (activeCoupon && activeCoupon.startsWith('GIFTCARD')) {
+      discount = Math.min(subtotal, 50.00);
     }
 
     // Free shipping threshold: $99
@@ -1170,6 +1177,27 @@
       playChime('win');
       showToast('Tech Gift Credit Unlocked! 🎁', '$25 Gift Credit & Free Shipping applied!', 'success');
       return true;
+    } else if (trimmed.startsWith('TRADEIN')) {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Trade-In Credit Applied ♻️', 'Instant trade-in discount deducted from cart!', 'success');
+      return true;
+    } else if (trimmed === 'POINTS18') {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('VIP Points Redeemed! 💎', '$18.50 TechPoints store credit applied!', 'success');
+      return true;
+    } else if (trimmed.startsWith('GIFTCARD')) {
+      activeCoupon = trimmed;
+      localStorage.setItem('ecom_coupon', trimmed);
+      updateCartUI();
+      playChime('win');
+      showToast('Gift Card Redeemed! 💳', '$50.00 Digital Gift Card applied!', 'success');
+      return true;
     } else {
       showToast('Invalid Coupon', 'The code entered is invalid or expired. Try VIP20 or WELCOME10.', 'error');
       return false;
@@ -1589,6 +1617,9 @@
     if (storeSearch) {
       storeSearch.addEventListener('input', e => renderStoreList(e.target.value));
     }
+
+    // Initialize circular progress back-to-top
+    initBackToTop();
 
     // Check announcement bar session state
     if (sessionStorage.getItem('ecom_announcement_closed') === 'true') {
@@ -2497,6 +2528,317 @@
     showToast('Question Submitted! 💬', 'Your question has been posted to the tech community.', 'success');
   }
 
+  // ================= 29. Trade-In Estimator =================
+  let selectedTradeInCondition = 'flawless';
+
+  const TRADE_IN_DEVICES = {
+    'iphone-14-pro': { name: 'iPhone 14 Pro / Pro Max', base: 450 },
+    'iphone-13-pro': { name: 'iPhone 13 Pro', base: 340 },
+    'iphone-12': { name: 'iPhone 12 / 12 Pro', base: 220 },
+    'macbook-pro-m1': { name: 'MacBook Pro (M1 2020)', base: 520 },
+    'macbook-air-intel': { name: 'MacBook Air (Intel 2019/2020)', base: 280 },
+    'galaxy-s23': { name: 'Samsung Galaxy S23 Ultra', base: 420 },
+    'apple-watch-8': { name: 'Apple Watch Series 8', base: 180 },
+    'sony-a73': { name: 'Sony Alpha 7 III Body', base: 490 }
+  };
+
+  function openTradeInModal() {
+    calculateTradeInEstimate();
+    const modalEl = document.getElementById('tradeInModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function setTradeInCondition(cond, el) {
+    selectedTradeInCondition = cond;
+    document.querySelectorAll('#tradeInConditionGroup .condition-pill').forEach(p => p.classList.remove('active'));
+    if (el) el.classList.add('active');
+    calculateTradeInEstimate();
+  }
+
+  function calculateTradeInEstimate() {
+    const devSelect = document.getElementById('tradeInDeviceSelect');
+    const key = devSelect ? devSelect.value : 'iphone-14-pro';
+    const dev = TRADE_IN_DEVICES[key] || TRADE_IN_DEVICES['iphone-14-pro'];
+
+    let multiplier = 1.0;
+    if (selectedTradeInCondition === 'good') multiplier = 0.8;
+    if (selectedTradeInCondition === 'fair') multiplier = 0.55;
+
+    const finalVal = Math.round(dev.base * multiplier);
+    const valEl = document.getElementById('tradeInEstimatedValue');
+    const deviceNameEl = document.getElementById('tradeInSelectedDeviceName');
+
+    if (valEl) valEl.textContent = formatMoney(finalVal);
+    if (deviceNameEl) deviceNameEl.textContent = `${dev.name} (${selectedTradeInCondition.toUpperCase()})`;
+
+    return finalVal;
+  }
+
+  function applyTradeInToCart() {
+    const val = calculateTradeInEstimate();
+    const code = `TRADEIN${val}`;
+    applyCouponCode(code);
+    playChime('win');
+    showToast('Trade-In Credit Applied! ♻️', `${formatMoney(val)} instant credit deducted from your cart!`, 'success');
+    const modalEl = document.getElementById('tradeInModal');
+    if (modalEl) {
+      const bs = bootstrap.Modal.getInstance(modalEl);
+      if (bs) bs.hide();
+    }
+    openCartDrawer();
+  }
+
+  // ================= 30. VIP Account Dashboard =================
+  function openAccountDashboard(tabId = 'tabOrders') {
+    renderAccountDashboard();
+    const modalEl = document.getElementById('accountDashboardModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+      if (tabId) {
+        const btn = document.querySelector(`[data-bs-target="#${tabId}"]`);
+        if (btn) btn.click();
+      }
+    }
+  }
+
+  function renderAccountDashboard() {
+    const ordersContainer = document.getElementById('accountOrdersList');
+    if (!ordersContainer) return;
+
+    let orders = [];
+    try {
+      orders = JSON.parse(localStorage.getItem('ecom_orders') || '[]');
+    } catch (e) {
+      orders = [];
+    }
+
+    if (orders.length === 0) {
+      orders = [
+        {
+          orderId: 'SG-2026-8941',
+          date: 'Oct 02, 2026',
+          customerName: 'Alex Mercer',
+          address: '742 Evergreen Terrace, San Francisco CA',
+          items: [{ id: 'prod-1', qty: 1 }],
+          totals: { grandTotal: 799.00 }
+        },
+        {
+          orderId: 'SG-2026-6102',
+          date: 'Sep 18, 2026',
+          customerName: 'Alex Mercer',
+          address: '742 Evergreen Terrace, San Francisco CA',
+          items: [{ id: 'prod-3', qty: 1 }],
+          totals: { grandTotal: 279.00 }
+        }
+      ];
+    }
+
+    ordersContainer.innerHTML = orders.map(ord => {
+      const firstItem = ord.items && ord.items[0] ? PRODUCTS.find(p => p.id === ord.items[0].id) : PRODUCTS[0];
+      const prodImg = firstItem ? firstItem.image : 'assets/images/products/product-1.jpg';
+      const prodTitle = firstItem ? firstItem.title : 'ShopGrids Item';
+
+      return `
+        <div class="account-card">
+          <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+            <div>
+              <span class="text-muted" style="font-size:12px;">ORDER:</span>
+              <strong style="color:var(--ecom-primary);">${ord.orderId}</strong>
+              <span class="text-muted ms-2" style="font-size:12px;">• ${ord.date}</span>
+            </div>
+            <span class="badge bg-success"><i class="lni lni-delivery"></i> Shipped / On the Way</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${prodImg}" alt="${prodTitle}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0;">
+              <div>
+                <h6 class="mb-0 font-weight-bold" style="font-size:14px;">${prodTitle} ${ord.items.length > 1 ? `+ ${ord.items.length - 1} more` : ''}</h6>
+                <div style="font-weight:700;color:var(--ecom-primary);">${formatMoney(ord.totals ? ord.totals.grandTotal : 799)}</div>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-secondary" onclick="ShopApp.downloadPrintableInvoice('${ord.orderId}')">
+                <i class="lni lni-printer"></i> Receipt
+              </button>
+              <button class="btn btn-sm btn-primary" onclick="ShopApp.trackOrder('${ord.orderId}'); bootstrap.Modal.getInstance(document.getElementById('accountDashboardModal')).hide();">
+                <i class="lni lni-delivery"></i> Track
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function redeemRewardsPoints() {
+    applyCouponCode('POINTS18');
+    playChime('win');
+    showToast('Points Converted! 💎', '$18.50 TechPoints discount voucher applied to cart!', 'success');
+    const modalEl = document.getElementById('accountDashboardModal');
+    if (modalEl) {
+      const bs = bootstrap.Modal.getInstance(modalEl);
+      if (bs) bs.hide();
+    }
+    openCartDrawer();
+  }
+
+  function downloadPrintableInvoice(orderId) {
+    showToast('Generating Invoice 🖨️', `Preparing official PDF tax invoice for order #${orderId}...`, 'info');
+    setTimeout(() => {
+      window.print();
+    }, 400);
+  }
+
+  // ================= 31. Digital Gift Card Studio =================
+  let selectedGiftAmount = 50;
+  let selectedGiftTheme = 'cyberpunk';
+
+  function openGiftCardModal() {
+    const modalEl = document.getElementById('giftCardModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function setGiftCardAmount(amount, el) {
+    selectedGiftAmount = amount;
+    document.querySelectorAll('.gift-amount-pill').forEach(p => p.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    const previewAmt = document.getElementById('giftCardPreviewAmount');
+    if (previewAmt) previewAmt.textContent = formatMoney(amount);
+  }
+
+  function setGiftCardTheme(theme) {
+    selectedGiftTheme = theme;
+    const cardEl = document.getElementById('giftCardVisualPreview');
+    if (cardEl) {
+      cardEl.className = `giftcard-preview ${theme}`;
+    }
+  }
+
+  function checkGiftCardBalance() {
+    const input = document.getElementById('giftCardCheckInput');
+    const code = (input ? input.value : '').trim().toUpperCase();
+
+    if (!code) {
+      showToast('Card Code Required', 'Please enter your gift card code.', 'error');
+      return;
+    }
+
+    const resBox = document.getElementById('giftCardCheckResult');
+    if (resBox) {
+      resBox.innerHTML = `
+        <div class="alert alert-success mt-3 mb-0 d-flex justify-content-between align-items-center">
+          <div>
+            <strong>${code}</strong> is Active!
+            <div class="h5 font-weight-bold text-success mb-0">Balance: ${formatMoney(50.00)}</div>
+          </div>
+          <button class="btn btn-sm btn-success" onclick="ShopApp.applyGiftCardToCart('${code}')">
+            Apply to Cart
+          </button>
+        </div>
+      `;
+      resBox.style.display = 'block';
+    }
+  }
+
+  function applyGiftCardToCart(code) {
+    applyCouponCode('GIFTCARD50');
+    showToast('Gift Card Applied! 🎁', '$50.00 credit applied to current order.', 'success');
+    const modalEl = document.getElementById('giftCardModal');
+    if (modalEl) {
+      const bs = bootstrap.Modal.getInstance(modalEl);
+      if (bs) bs.hide();
+    }
+    openCartDrawer();
+  }
+
+  function sendDigitalGiftCard(e) {
+    if (e) e.preventDefault();
+    const recipient = document.getElementById('giftRecipientEmail') ? document.getElementById('giftRecipientEmail').value : 'Friend';
+    playChime('win');
+    showToast('Gift Card Sent! 💌', `${formatMoney(selectedGiftAmount)} digital gift card dispatched to ${recipient}!`, 'success');
+    const modalEl = document.getElementById('giftCardModal');
+    if (modalEl) {
+      const bs = bootstrap.Modal.getInstance(modalEl);
+      if (bs) bs.hide();
+    }
+  }
+
+  // ================= 32. 360° AR Simulator =================
+  let currentArAngle = 0;
+  let currentArProduct = PRODUCTS[0];
+
+  function openVirtual360Modal(productId) {
+    if (productId) {
+      const p = PRODUCTS.find(prod => prod.id === productId);
+      if (p) currentArProduct = p;
+    }
+    const imgEl = document.getElementById('arDeviceImg');
+    const titleEl = document.getElementById('arProductTitle');
+    if (imgEl) imgEl.src = currentArProduct.image;
+    if (titleEl) titleEl.textContent = currentArProduct.title;
+
+    const modalEl = document.getElementById('virtual360Modal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
+  }
+
+  function update360Rotation(deg) {
+    currentArAngle = deg;
+    const imgEl = document.getElementById('arDeviceImg');
+    const degEl = document.getElementById('arDegreeText');
+    if (imgEl) {
+      imgEl.style.transform = `rotateY(${deg}deg) rotateZ(${Math.sin(deg * Math.PI / 180) * 8}deg)`;
+    }
+    if (degEl) degEl.textContent = `${deg}°`;
+  }
+
+  function setArEnvironment(env, el) {
+    const vp = document.getElementById('arViewport');
+    if (vp) vp.className = `ar-viewport ${env}`;
+    document.querySelectorAll('.ar-env-pill').forEach(p => p.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  // ================= 33. Back-to-Top Circular Scroll =================
+  function initBackToTop() {
+    const btn = document.getElementById('backToTopProgress');
+    const circle = document.querySelector('.progress-ring-circle');
+    if (!btn || !circle) return;
+
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+      const offset = circumference - progress * circumference;
+      circle.style.strokeDashoffset = offset;
+
+      if (scrollTop > 350) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   // Expose global methods under window.ShopApp
   window.ShopApp = {
     addToCart,
@@ -2545,6 +2887,22 @@
     openStoreLocatorModal,
     renderStoreList,
     reservePickup,
-    submitCommunityQuestion
+    submitCommunityQuestion,
+    openTradeInModal,
+    setTradeInCondition,
+    calculateTradeInEstimate,
+    applyTradeInToCart,
+    openAccountDashboard,
+    redeemRewardsPoints,
+    downloadPrintableInvoice,
+    openGiftCardModal,
+    setGiftCardAmount,
+    setGiftCardTheme,
+    checkGiftCardBalance,
+    applyGiftCardToCart,
+    sendDigitalGiftCard,
+    openVirtual360Modal,
+    update360Rotation,
+    setArEnvironment
   };
 })();

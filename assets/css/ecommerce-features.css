@@ -2331,3 +2331,218 @@ body.dark-theme .qv-urgency-strip {
   background: rgba(255, 255, 255, 0.25);
   color: #facc15;
 }
+
+/* ================== Trade-In Value Calculator ================== */
+.tradein-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px dashed #22c55e;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 15px;
+}
+body.dark-theme .tradein-box {
+  background: #052e16;
+  border-color: #16a34a;
+  color: #fff;
+}
+.tradein-val-amount {
+  font-size: 32px;
+  font-weight: 800;
+  color: #16a34a;
+  margin: 6px 0;
+}
+.condition-pill {
+  cursor: pointer;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #fff;
+  transition: all 0.2s;
+  text-align: center;
+}
+body.dark-theme .condition-pill {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.condition-pill.active {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+body.dark-theme .condition-pill.active {
+  background: #052e16;
+  border-color: #16a34a;
+}
+
+/* ================== VIP Account Dashboard Portal ================== */
+.account-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+body.dark-theme .account-card {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.points-banner {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+  padding: 16px 20px;
+  color: #78350f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+body.dark-theme .points-banner {
+  background: #451a03;
+  border-color: #b45309;
+  color: #fde68a;
+}
+.points-num {
+  font-size: 26px;
+  font-weight: 800;
+  color: #b45309;
+}
+body.dark-theme .points-num {
+  color: #fef3c7;
+}
+
+/* ================== Digital Gift Card Studio ================== */
+.giftcard-preview {
+  border-radius: 16px;
+  padding: 24px;
+  color: #fff;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.giftcard-preview.cyberpunk {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+}
+.giftcard-preview.gold {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+  border: 1px solid #d97706;
+}
+.giftcard-preview.emerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #064e3b 100%);
+}
+.gift-amount-pill {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s;
+}
+body.dark-theme .gift-amount-pill {
+  background: #111e2e;
+  border-color: #1e293b;
+}
+.gift-amount-pill.active {
+  border-color: var(--ecom-primary);
+  background: #eff6ff;
+  color: var(--ecom-primary);
+}
+
+/* ================== Interactive 360° & AR Simulator ================== */
+.ar-viewport {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #e2e8f0;
+}
+.ar-viewport.desk {
+  background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%);
+}
+.ar-viewport.studio {
+  background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+}
+.ar-viewport.gaming {
+  background: radial-gradient(circle, #312e81 0%, #1e1b4b 100%);
+}
+.ar-device-img {
+  max-height: 250px;
+  max-width: 80%;
+  object-fit: contain;
+  transition: transform 0.1s ease-out;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.35));
+}
+.ar-env-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  transition: all 0.2s;
+}
+.ar-env-pill.active {
+  background: var(--ecom-primary);
+  color: #fff;
+  border-color: var(--ecom-primary);
+}
+
+/* ================== Back to Top with Circular SVG Progress Ring ================== */
+.back-to-top-progress {
+  position: fixed;
+  bottom: 85px;
+  right: 25px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 9991;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.dark-theme .back-to-top-progress {
+  background: #0f172a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.back-to-top-progress.active {
+  opacity: 1;
+  visibility: visible;
+}
+.back-to-top-progress:hover {
+  transform: translateY(-4px);
+}
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.1s;
+  stroke: var(--ecom-primary);
+}
+.back-to-top-icon {
+  font-size: 16px;
+  color: var(--ecom-primary);
+  z-index: 2;
+}
+

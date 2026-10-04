@@ -80,10 +80,10 @@
                         <div class="top-middle text-center">
                             <ul class="useful-links">
                                 <li><a href="index.html">Home</a></li>
+                                <li><a href="javascript:void(0)" onclick="ShopApp.openTradeInModal()"><i class="lni lni-reload"></i> Trade-In</a></li>
+                                <li><a href="javascript:void(0)" onclick="ShopApp.openGiftCardModal()"><i class="lni lni-gift"></i> Gift Cards</a></li>
                                 <li><a href="javascript:void(0)" onclick="ShopApp.openStoreLocatorModal()"><i class="lni lni-map-marker"></i> Stores</a></li>
-                                <li><a href="javascript:void(0)" onclick="ShopApp.trackOrder('SG-2026-8941')"><i class="lni lni-delivery"></i> Track Order</a></li>
                                 <li><a href="javascript:void(0)" onclick="ShopApp.openSpinWheelModal()" style="color:#facc15;font-weight:700;"><i class="lni lni-gift"></i> Spin & Win</a></li>
-                                <li><a href="#faqSection">FAQs</a></li>
                             </ul>
                         </div>
                     </div>
@@ -95,16 +95,16 @@
                             <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
                                 <i class="lni lni-night"></i>
                             </button>
-                            <div class="user" id="headerUserGreeting">
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
                                 <i class="lni lni-user"></i>
                                 Hello, Guest
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">Sign In</a>
+                                    <a href="javascript:void(0)" onclick="ShopApp.openAccountDashboard()"><i class="lni lni-dashboard"></i> Account</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">Register</a>
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#authModal">Sign In</a>
                                 </li>
                             </ul>
                         </div>
@@ -1653,6 +1653,9 @@
                                 <button type="button" class="btn btn-outline-primary" onclick="ShopApp.addQuickViewToCart(true)">
                                     Buy Now
                                 </button>
+                                <button type="button" class="btn btn-outline-dark" onclick="bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide(); ShopApp.openVirtual360Modal();" title="Interactive 360 & AR Viewer">
+                                    <i class="lni lni-reload"></i> 360° / AR
+                                </button>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="font-size:12px;">
@@ -2298,6 +2301,275 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- ========================= Trade-In Calculator Modal ========================= -->
+    <div class="modal fade" id="tradeInModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-reload text-success"></i> Trade-In & Upgrade Value Calculator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted" style="font-size:13px;">
+                        Trade in your current smartphone, laptop, or smartwatch to receive instant store credit applied directly to your cart at checkout.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label font-weight-bold" style="font-size:13px;">Select Your Current Device</label>
+                            <select id="tradeInDeviceSelect" class="form-select" onchange="ShopApp.calculateTradeInEstimate()">
+                                <option value="iphone-14-pro" selected>Apple iPhone 14 Pro / Pro Max</option>
+                                <option value="iphone-13-pro">Apple iPhone 13 Pro</option>
+                                <option value="iphone-12">Apple iPhone 12 / 12 Pro</option>
+                                <option value="macbook-pro-m1">Apple MacBook Pro (M1 2020)</option>
+                                <option value="macbook-air-intel">Apple MacBook Air (Intel Core i5)</option>
+                                <option value="galaxy-s23">Samsung Galaxy S23 Ultra</option>
+                                <option value="apple-watch-8">Apple Watch Series 8</option>
+                                <option value="sony-a73">Sony Alpha 7 III Body</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label font-weight-bold" style="font-size:13px;">Device Condition</label>
+                            <div class="d-flex gap-2" id="tradeInConditionGroup">
+                                <div class="condition-pill flex-grow-1 active" onclick="ShopApp.setTradeInCondition('flawless', this)">
+                                    <div style="font-size:13px;font-weight:700;">Flawless</div>
+                                    <small class="text-muted" style="font-size:11px;">Like new</small>
+                                </div>
+                                <div class="condition-pill flex-grow-1" onclick="ShopApp.setTradeInCondition('good', this)">
+                                    <div style="font-size:13px;font-weight:700;">Good</div>
+                                    <small class="text-muted" style="font-size:11px;">Normal wear</small>
+                                </div>
+                                <div class="condition-pill flex-grow-1" onclick="ShopApp.setTradeInCondition('fair', this)">
+                                    <div style="font-size:13px;font-weight:700;">Fair</div>
+                                    <small class="text-muted" style="font-size:11px;">Scratches</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tradein-box mt-4">
+                        <div class="text-muted" style="font-size:13px;">Estimated Instant Trade-In Credit for <strong id="tradeInSelectedDeviceName">Apple iPhone 14 Pro</strong>:</div>
+                        <div class="tradein-val-amount" id="tradeInEstimatedValue">$450.00</div>
+                        <p class="text-muted mb-3" style="font-size:12px;">Includes prepaid shipping kit sent directly to your door to send in your old device.</p>
+                        <button type="button" class="btn btn-success px-4 py-2 font-weight-bold" onclick="ShopApp.applyTradeInToCart()">
+                            <i class="lni lni-checkmark-circle"></i> Accept & Apply Credit to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= VIP Account Dashboard Modal ========================= -->
+    <div class="modal fade" id="accountDashboardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <div style="width:36px;height:36px;border-radius:50%;background:var(--ecom-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;">AM</div>
+                        <div>
+                            <h6 class="modal-title font-weight-bold mb-0">Alex Mercer</h6>
+                            <small class="text-success"><i class="lni lni-star-filled"></i> VIP Tier 2 • Gold Member</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="points-banner">
+                        <div>
+                            <span style="font-size:12px;font-weight:700;text-transform:uppercase;">TechRewards Cash Points</span>
+                            <div class="points-num">1,850 Pts <span style="font-size:15px;font-weight:normal;">(= $18.50 Credit)</span></div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-dark font-weight-bold" onclick="ShopApp.redeemRewardsPoints()">
+                            Redeem as $18.50 Coupon
+                        </button>
+                    </div>
+
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active font-weight-bold" data-bs-toggle="tab" data-bs-target="#tabOrders">
+                                <i class="lni lni-delivery"></i> My Orders
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link font-weight-bold" data-bs-toggle="tab" data-bs-target="#tabAddresses">
+                                <i class="lni lni-map-marker"></i> Saved Addresses
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link font-weight-bold" data-bs-toggle="tab" data-bs-target="#tabPayments">
+                                <i class="lni lni-credit-cards"></i> Saved Cards
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- Tab 1: Orders -->
+                        <div class="tab-pane fade show active" id="tabOrders">
+                            <div id="accountOrdersList">
+                                <!-- Populated dynamically by ShopApp.renderAccountDashboard() -->
+                            </div>
+                        </div>
+
+                        <!-- Tab 2: Addresses -->
+                        <div class="tab-pane fade" id="tabAddresses">
+                            <div class="account-card">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="font-weight-bold mb-0">Primary Home Address</h6>
+                                    <span class="badge bg-primary">Default</span>
+                                </div>
+                                <p class="text-muted mb-2" style="font-size:13px;">Alex Mercer • +1 (555) 019-2834<br>742 Evergreen Terrace, Apt 4B<br>San Francisco, CA 94107, United States</p>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="ShopApp.showToast('Address Updated', 'Shipping address verified.', 'info')">Edit Address</button>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3: Payments -->
+                        <div class="tab-pane fade" id="tabPayments">
+                            <div class="account-card">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="lni lni-visa" style="font-size:24px;color:#1d4ed8;"></i>
+                                        <strong style="font-size:14px;">Visa ending in •••• 4242</strong>
+                                    </div>
+                                    <span class="badge bg-success">Verified</span>
+                                </div>
+                                <p class="text-muted mb-2" style="font-size:12px;">Expires: 08/2028 • Cardholder: Alex Mercer</p>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="ShopApp.showToast('Payment Method', 'Card is active.', 'info')">Remove Card</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Digital Gift Card Modal ========================= -->
+    <div class="modal fade" id="giftCardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-gift text-primary"></i> Digital Gift Cards & Balance Checker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <ul class="nav nav-pills nav-fill mb-4" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active font-weight-bold" data-bs-toggle="pill" data-bs-target="#giftTabSend">Send a Gift Card</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link font-weight-bold" data-bs-toggle="pill" data-bs-target="#giftTabCheck">Check Card Balance</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- Send Gift Card Tab -->
+                        <div class="tab-pane fade show active" id="giftTabSend">
+                            <div class="row">
+                                <div class="col-lg-5 col-12 mb-3">
+                                    <div id="giftCardVisualPreview" class="giftcard-preview cyberpunk">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 style="font-weight:900;letter-spacing:1px;color:#fff;margin:0;">SHOPGRIDS</h5>
+                                            <span style="font-size:11px;background:rgba(255,255,255,0.25);padding:3px 8px;border-radius:12px;">E-GIFT</span>
+                                        </div>
+                                        <div>
+                                            <div style="font-size:11px;text-transform:uppercase;opacity:0.9;">Store Gift Card</div>
+                                            <h3 id="giftCardPreviewAmount" style="font-weight:900;color:#fff;margin:0;">$50.00</h3>
+                                        </div>
+                                        <div style="font-size:11px;font-family:monospace;letter-spacing:2px;opacity:0.85;">•••• •••• •••• 2026</div>
+                                    </div>
+                                    <div class="d-flex justify-content-center gap-2 mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="ShopApp.setGiftCardTheme('cyberpunk')">Neon</button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="ShopApp.setGiftCardTheme('gold')">Midnight Gold</button>
+                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="ShopApp.setGiftCardTheme('emerald')">Emerald</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-12">
+                                    <form onsubmit="ShopApp.sendDigitalGiftCard(event)">
+                                        <label class="form-label font-weight-bold" style="font-size:13px;">Select Gift Amount</label>
+                                        <div class="d-flex gap-2 mb-3">
+                                            <div class="gift-amount-pill" onclick="ShopApp.setGiftCardAmount(25, this)">$25</div>
+                                            <div class="gift-amount-pill active" onclick="ShopApp.setGiftCardAmount(50, this)">$50</div>
+                                            <div class="gift-amount-pill" onclick="ShopApp.setGiftCardAmount(100, this)">$100</div>
+                                            <div class="gift-amount-pill" onclick="ShopApp.setGiftCardAmount(250, this)">$250</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" style="font-size:13px;font-weight:600;">Recipient Email Address *</label>
+                                            <input type="email" id="giftRecipientEmail" class="form-control" placeholder="friend@example.com" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" style="font-size:13px;font-weight:600;">Personal Message</label>
+                                            <textarea class="form-control" rows="2" placeholder="Happy Birthday! Enjoy your new tech gadget!"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100 font-weight-bold">
+                                            <i class="lni lni-telegram-original"></i> Purchase & Dispatch Gift Card
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Check Balance Tab -->
+                        <div class="tab-pane fade" id="giftTabCheck">
+                            <div class="p-3 bg-light rounded border">
+                                <h6 class="font-weight-bold mb-2">Check Gift Card Balance</h6>
+                                <p class="text-muted" style="font-size:13px;">Enter your 16-character alphanumeric gift code or demo code <strong>GIFT-2026-TECH</strong> to verify active credit.</p>
+                                <div class="input-group mb-2">
+                                    <input type="text" id="giftCardCheckInput" class="form-control" placeholder="Enter Gift Code (e.g. GIFT-2026-TECH)" value="GIFT-2026-TECH">
+                                    <button class="btn btn-primary" type="button" onclick="ShopApp.checkGiftCardBalance()">Check Balance</button>
+                                </div>
+                                <div id="giftCardCheckResult" style="display:none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Interactive 360° & AR Simulator Modal ========================= -->
+    <div class="modal fade" id="virtual360Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold"><i class="lni lni-reload text-info"></i> 360° Product Virtual Inspection & AR Viewer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <h5 id="arProductTitle" class="font-weight-bold mb-2">Apple Watch Ultra 2</h5>
+                    <p class="text-muted" style="font-size:13px;margin-bottom:15px;">Drag the rotation slider below to inspect the device from all angles, or switch simulated studio environments.</p>
+
+                    <div id="arViewport" class="ar-viewport desk mb-3">
+                        <img id="arDeviceImg" src="assets/images/products/product-1.jpg" alt="360 view" class="ar-device-img">
+                    </div>
+
+                    <!-- 360 Rotation Slider -->
+                    <div class="mb-3 px-3">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:12px;font-weight:700;">
+                            <span><i class="lni lni-reload"></i> Rotate Angle</span>
+                            <span id="arDegreeText" style="color:var(--ecom-primary);">0°</span>
+                        </div>
+                        <input type="range" class="form-range" id="arRotationSlider" min="-180" max="180" value="0" oninput="ShopApp.update360Rotation(this.value)">
+                    </div>
+
+                    <!-- Environment Switcher -->
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                        <span class="text-muted" style="font-size:12px;font-weight:600;">Workspace Setup:</span>
+                        <span class="ar-env-pill active" onclick="ShopApp.setArEnvironment('desk', this)">Modern Desk</span>
+                        <span class="ar-env-pill" onclick="ShopApp.setArEnvironment('studio', this)">Dark Studio</span>
+                        <span class="ar-env-pill" onclick="ShopApp.setArEnvironment('gaming', this)">Cyber Neon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= Circular Scroll-to-Top Button ========================= -->
+    <div id="backToTopProgress" class="back-to-top-progress" title="Scroll to Top">
+        <svg class="progress-ring" width="44" height="44">
+            <circle class="progress-ring-circle" stroke-width="3" fill="transparent" r="18" cx="22" cy="22"/>
+        </svg>
+        <i class="lni lni-chevron-up back-to-top-icon"></i>
     </div>
 
     <!-- ========================= JS here ========================= -->
