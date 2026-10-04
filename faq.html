@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Help Center & FAQ - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Find answers to frequently asked questions regarding shipping, delivery, payments, warranty, returns, and customer support." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .faq-hero-search {
+            background: linear-gradient(135deg, #081828 0%, #1e293b 100%);
+            padding: 50px 0;
+            color: #fff;
+            text-align: center;
+        }
+        .faq-search-box {
+            max-width: 600px;
+            margin: 25px auto 0;
+            position: relative;
+        }
+        .faq-search-box input {
+            height: 54px;
+            border-radius: 27px;
+            padding: 0 60px 0 25px;
+            font-size: 15px;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .faq-search-box button {
+            position: absolute;
+            right: 8px;
+            top: 6px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ecom-primary);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .faq-cat-pill {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            color: #4b5563;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        body.dark-theme .faq-cat-pill {
+            background: #142436;
+            border-color: #243447;
+            color: #cbd5e1;
+        }
+        .faq-cat-pill.active,
+        .faq-cat-pill:hover {
+            background: var(--ecom-primary);
+            color: #fff;
+            border-color: var(--ecom-primary);
+        }
+        .faq-accordion .accordion-item {
+            border: 1px solid #e9ecef;
+            border-radius: 10px !important;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            background: #fff;
+        }
+        body.dark-theme .faq-accordion .accordion-item {
+            background: #142436;
+            border-color: #243447;
+        }
+        .faq-accordion .accordion-button {
+            font-weight: 700;
+            font-size: 16px;
+            padding: 20px 24px;
+            background: #fff;
+            color: #1f2937;
+        }
+        body.dark-theme .faq-accordion .accordion-button {
+            background: #142436;
+            color: #f1f5f9;
+        }
+        .faq-accordion .accordion-button:not(.collapsed) {
+            background: rgba(1, 103, 243, 0.05);
+            color: var(--ecom-primary);
+        }
+        body.dark-theme .faq-accordion .accordion-button:not(.collapsed) {
+            background: rgba(1, 103, 243, 0.15);
+            color: #60a5fa;
+        }
+        .faq-accordion .accordion-body {
+            padding: 20px 24px;
+            color: #4b5563;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        body.dark-theme .faq-accordion .accordion-body {
+            color: #cbd5e1;
+        }
+        .contact-support-card {
+            background: linear-gradient(135deg, #0167f3 0%, #004bbb 100%);
+            border-radius: 12px;
+            padding: 35px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html" class="active">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start FAQ Search Hero -->
+    <div class="faq-hero-search">
+        <div class="container">
+            <h1 class="font-weight-bold mb-2">How Can We Help You?</h1>
+            <p class="text-white-50" style="font-size:16px;">Search our comprehensive knowledge base or select a topic below.</p>
+            <div class="faq-search-box">
+                <input type="text" id="faqSearchInput" placeholder="Type keywords: e.g. shipping time, returns, warranty, coupon..." oninput="FaqEngine.filterFaqs()">
+                <button type="button"><i class="lni lni-search-alt"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- End FAQ Search Hero -->
+
+    <!-- Start FAQ Main Section -->
+    <section class="section py-5">
+        <div class="container">
+            <!-- Topic Filter Pills -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" id="faqCatPills">
+                <button class="faq-cat-pill active" onclick="FaqEngine.selectCategory('all', this)">
+                    <i class="lni lni-grid-alt"></i> All Questions
+                </button>
+                <button class="faq-cat-pill" onclick="FaqEngine.selectCategory('shipping', this)">
+                    <i class="lni lni-delivery"></i> Shipping & Delivery
+                </button>
+                <button class="faq-cat-pill" onclick="FaqEngine.selectCategory('returns', this)">
+                    <i class="lni lni-reload"></i> Returns & Refunds
+                </button>
+                <button class="faq-cat-pill" onclick="FaqEngine.selectCategory('payment', this)">
+                    <i class="lni lni-credit-cards"></i> Payment & Security
+                </button>
+                <button class="faq-cat-pill" onclick="FaqEngine.selectCategory('warranty', this)">
+                    <i class="lni lni-shield"></i> Warranty & Authenticity
+                </button>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-12">
+                    <div class="accordion faq-accordion" id="faqAccordion">
+                        <!-- Q1 -->
+                        <div class="accordion-item faq-item" data-category="shipping">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                                    How long will standard and express delivery take?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Standard Ground delivery takes between <strong>3 to 5 business days</strong> across North America and Europe. For expedited needs, we offer <strong>FedEx 2-Day Air Priority</strong> and <strong>Priority Overnight Rush</strong> (next-morning delivery by 10:30 AM). You will receive an SMS and email notification with an active tracking link as soon as your parcel departs our hub.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="accordion-item faq-item" data-category="returns">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    What is the ShopGrids 30-Day Money-Back Policy?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We offer a 100% no-hassle <strong>30-day money-back guarantee</strong> on all flagship hardware. If you are not completely satisfied, you can initiate a return within 30 days of receiving your item. Items must be returned in their original packaging with all included cables and accessories. Pre-paid return labels are automatically provided in your VIP portal.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="accordion-item faq-item" data-category="shipping">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Do you ship internationally and how are customs handled?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! ShopGrids ships to over <strong>120 countries worldwide</strong>. All cross-border duties and import taxes are calculated and collected upfront at checkout (DDP - Delivered Duty Paid), ensuring zero surprise customs fees upon doorstep delivery.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="accordion-item faq-item" data-category="payment">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                    Which payment methods and currencies are supported?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We support Visa, MasterCard, American Express, Discover, PayPal Express, Apple Pay, Google Pay, and Cash on Delivery in supported territories. You can also view live pricing in <strong>USD, EUR, GBP, CAD, INR, and CNY</strong> with our header currency switcher.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="accordion-item faq-item" data-category="warranty">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                    Are all devices authentic and covered under manufacturer warranty?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Every item sold on ShopGrids is <strong>100% brand new, authentic, and factory-sealed</strong>. As an authorized distributor, all hardware is backed by full manufacturer warranties (minimum 12 to 24 months depending on the manufacturer). An official serial number certificate is included in every shipment.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="accordion-item faq-item" data-category="warranty">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                    How does the Trade-In Valuation Calculator work?
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Use our online Trade-In tool to select your old device model and condition (Flawless, Good, Fair, or Cracked). We provide an instant credit valuation of up to $500 that can be immediately deducted from your cart total. We will then send a prepaid shipping kit to send in your old gear.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="accordion-item faq-item" data-category="payment">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven">
+                                    How do promotional coupons and rewards points apply?
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can enter coupons like <strong>SAVE20</strong> or <strong>FREESHIP</strong> directly on the Cart or Checkout pages. VIP members also accumulate 10 points for every $1 spent, which can be converted directly into store vouchers inside your Account Dashboard.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="accordion-item faq-item" data-category="shipping">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight">
+                                    How do I track my active order?
+                                </button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Visit our dedicated <a href="order-tracking.html" class="text-primary font-weight-bold">Order Tracking</a> page and type in your Order ID (such as <code>SG-2026-8941</code>). You'll view a live visual timeline including packaging, carrier handover, dispatch, and final route delivery.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Support Callout -->
+                    <div class="contact-support-card mt-5">
+                        <h4 class="font-weight-bold mb-2">Still Need Assistance?</h4>
+                        <p class="text-white-50 mb-4" style="max-width:550px;margin:0 auto 20px;">Our California and London hardware engineers and customer concierge teams are available 24/7 to help resolve questions.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="contact.html" class="btn btn-light px-4 py-2 font-weight-bold text-primary">
+                                <i class="lni lni-envelope"></i> Send Us an Email
+                            </a>
+                            <button type="button" class="btn btn-outline-light px-4 py-2 font-weight-bold" onclick="ShopApp.toggleChatWindow()">
+                                <i class="lni lni-comments"></i> Start Live Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End FAQ Main Section -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
+    <!-- FAQ Search and Filter Engine -->
+    <script>
+        const FaqEngine = (function() {
+            let activeCategory = 'all';
+
+            function selectCategory(cat, btn) {
+                activeCategory = cat;
+                document.querySelectorAll('#faqCatPills button').forEach(b => b.classList.remove('active'));
+                if (btn) btn.classList.add('active');
+                filterFaqs();
+            }
+
+            function filterFaqs() {
+                const query = (document.getElementById('faqSearchInput').value || '').toLowerCase().trim();
+                const items = document.querySelectorAll('.faq-item');
+
+                items.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    const text = item.textContent.toLowerCase();
+
+                    const matchesCat = (activeCategory === 'all' || itemCat === activeCategory);
+                    const matchesQuery = (query === '' || text.includes(query));
+
+                    if (matchesCat && matchesQuery) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            return {
+                selectCategory,
+                filterFaqs
+            };
+        })();
+    </script>
+</body>
+
+</html>

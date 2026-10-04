@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Terms & Privacy - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Read our transparent customer policies including Terms of Service, GDPR Privacy Policy, 30-Day Return Guarantee, and Warranty guidelines." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .legal-sidebar {
+            position: sticky;
+            top: 100px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+        }
+        body.dark-theme .legal-sidebar {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .legal-nav-link {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 6px;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+        }
+        body.dark-theme .legal-nav-link {
+            color: #cbd5e1;
+        }
+        .legal-nav-link:hover,
+        .legal-nav-link.active {
+            background: rgba(1, 103, 243, 0.1);
+            color: var(--ecom-primary);
+        }
+        .legal-content-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 35px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+        body.dark-theme .legal-content-card {
+            background: #142436;
+            border-color: #243447;
+            color: #e2e8f0;
+        }
+        .legal-content-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111827;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+        body.dark-theme .legal-content-card h3 {
+            color: #fff;
+            border-bottom-color: #243447;
+        }
+        .legal-content-card p,
+        .legal-content-card li {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #4b5563;
+        }
+        body.dark-theme .legal-content-card p,
+        body.dark-theme .legal-content-card li {
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Privacy Policy & Terms of Service</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li>Terms & Privacy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Legal Body Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Nav (Col-lg-3) -->
+                <div class="col-lg-3 col-12 mb-4">
+                    <div class="legal-sidebar">
+                        <h6 class="font-weight-bold mb-3 text-uppercase" style="font-size:12px;letter-spacing:1px;color:var(--ecom-primary);">Policy Directory</h6>
+                        <a href="#terms" class="legal-nav-link active">1. Terms of Service</a>
+                        <a href="#privacy" class="legal-nav-link">2. Privacy & Data (GDPR)</a>
+                        <a href="#returns" class="legal-nav-link">3. 30-Day Return Guarantee</a>
+                        <a href="#shipping" class="legal-nav-link">4. Shipping & Delivery</a>
+                        <a href="#warranty" class="legal-nav-link">5. Warranty & Authenticity</a>
+                        <button class="btn btn-sm btn-outline-secondary w-100 mt-3" onclick="window.print()">
+                            <i class="lni lni-printer"></i> Print Documentation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content Area (Col-lg-9) -->
+                <div class="col-lg-9 col-12">
+                    <!-- Section 1: Terms -->
+                    <div class="legal-content-card" id="terms">
+                        <h3>1. Terms of Service</h3>
+                        <p>Welcome to ShopGrids. By accessing or using our website, services, and physical store locations, you agree to comply with and be bound by the following legal terms and conditions.</p>
+                        <h6 class="font-weight-bold mt-4 mb-2">Account Registration & Security</h6>
+                        <p>When you register for a VIP account on ShopGrids, you agree to maintain the security of your password and identification credentials. You accept full responsibility for all activities that occur under your registered account.</p>
+                        <h6 class="font-weight-bold mt-4 mb-2">Pricing & Order Acceptance</h6>
+                        <p>All prices displayed in our online catalog are subject to confirmation. We reserve the right to cancel or limit orders that appear to be placed by unauthorized resellers or dealers. In the event of an inadvertent pricing error, you will be notified immediately with the option to reconfirm or cancel without penalty.</p>
+                    </div>
+
+                    <!-- Section 2: Privacy -->
+                    <div class="legal-content-card" id="privacy">
+                        <h3>2. Privacy Policy & Cookie Compliance (GDPR & CCPA)</h3>
+                        <p>Your privacy is paramount to our hardware engineers and business operations. We never sell, lease, or monetize your personal information to third-party data brokers.</p>
+                        <h6 class="font-weight-bold mt-4 mb-2">Information We Collect</h6>
+                        <ul>
+                            <li><strong>Contact Details:</strong> Your name, billing/shipping address, telephone number, and email.</li>
+                            <li><strong>Payment Security:</strong> Transaction tokens processed through PCI-DSS Level 1 encrypted gateways (we do not store raw card CVV numbers).</li>
+                            <li><strong>Technical Diagnostics:</strong> Device browser telemetry to deliver optimized screen resolutions and dark theme persistence.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 3: Returns -->
+                    <div class="legal-content-card" id="returns">
+                        <h3>3. 30-Day Money-Back Guarantee</h3>
+                        <p>We stand behind the engineering excellence of every device in our store. If you are not thoroughly satisfied with your product, you have <strong>30 days from delivery</strong> to request a full refund or exchange.</p>
+                        <div class="p-3 bg-light rounded border mb-3">
+                            <strong class="text-success d-block mb-1"><i class="lni lni-checkmark-circle"></i> Return Requirements:</strong>
+                            <span class="text-muted" style="font-size:13px;">Items must include all original packaging, manuals, accessories, power adapters, and protective coverings. Return shipping labels are pre-paid for all VIP Tier members.</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Shipping -->
+                    <div class="legal-content-card" id="shipping">
+                        <h3>4. Shipping, Customs & Duties</h3>
+                        <p>ShopGrids partners with FedEx Priority Air, DHL Express, and UPS to guarantee fast, insured transit to over 120 global jurisdictions.</p>
+                        <p>All cross-border duties, VAT, and brokerage fees are calculated upfront at checkout (DDP - Delivered Duty Paid). You will never be charged surprise tariffs at doorstep delivery.</p>
+                    </div>
+
+                    <!-- Section 5: Warranty -->
+                    <div class="legal-content-card" id="warranty">
+                        <h3>5. Hardware Warranty & Device Authenticity</h3>
+                        <p>Every product sold through ShopGrids is 100% factory-sealed and covered under our Comprehensive 1-Year Hardware Protection Plan in addition to manufacturer warranties.</p>
+                        <p>If you experience any acoustic driver defect, battery degradation, screen anomaly, or sensor malfunction, our technical support engineers will arrange expedited repair or replacement within 48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Legal Body Section -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+</body>
+
+</html>

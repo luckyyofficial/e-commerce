@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Shopping Cart - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Review your shopping cart, apply promotional discount coupons, estimate shipping, and proceed to secure checkout." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .cart-page-table {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        body.dark-theme .cart-page-table {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .cart-page-table th {
+            background: #f8fafc;
+            padding: 16px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #4b5563;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        body.dark-theme .cart-page-table th {
+            background: #0d1825;
+            color: #94a3b8;
+            border-bottom-color: #243447;
+        }
+        .cart-page-table td {
+            padding: 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        body.dark-theme .cart-page-table td {
+            border-bottom-color: #243447;
+            color: #e2e8f0;
+        }
+        .cart-item-img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f8fafc;
+            padding: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        body.dark-theme .cart-item-img {
+            background: #0d1825;
+            border-color: #243447;
+        }
+        .cart-item-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1f2937;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 4px;
+        }
+        body.dark-theme .cart-item-title {
+            color: #f1f5f9;
+        }
+        .cart-item-title:hover {
+            color: var(--ecom-primary);
+        }
+        .cart-qty-stepper {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        body.dark-theme .cart-qty-stepper {
+            border-color: #334155;
+        }
+        .cart-qty-stepper button {
+            background: #f3f4f6;
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-weight: bold;
+            color: #374151;
+            transition: background 0.2s;
+        }
+        body.dark-theme .cart-qty-stepper button {
+            background: #1e293b;
+            color: #cbd5e1;
+        }
+        .cart-qty-stepper button:hover {
+            background: #e5e7eb;
+        }
+        body.dark-theme .cart-qty-stepper button:hover {
+            background: #334155;
+        }
+        .cart-qty-stepper span {
+            width: 38px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cart-summary-card {
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        body.dark-theme .cart-summary-card {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        body.dark-theme .summary-row {
+            color: #cbd5e1;
+        }
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111827;
+            border-top: 2px dashed #e2e8f0;
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+        body.dark-theme .summary-row.total {
+            color: #fff;
+            border-top-color: #243447;
+        }
+        .trust-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 10px;
+        }
+        body.dark-theme .trust-badge-item {
+            background: #0d1825;
+            border-color: #243447;
+        }
+        .trust-badge-item i {
+            font-size: 24px;
+            color: var(--ecom-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html" class="active">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Shopping Cart</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="shop-grid.html">Catalog</a></li>
+                        <li>Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Shopping Cart Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div id="cartPageFilledView">
+                <div class="row g-4">
+                    <!-- Cart Items Table (Col-lg-8) -->
+                    <div class="col-lg-8 col-12">
+                        <div class="cart-page-table table-responsive mb-4">
+                            <table class="table mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="min-width:280px;">Product</th>
+                                        <th scope="col" class="text-center" style="min-width:110px;">Price</th>
+                                        <th scope="col" class="text-center" style="min-width:130px;">Quantity</th>
+                                        <th scope="col" class="text-center" style="min-width:110px;">Total</th>
+                                        <th scope="col" class="text-center" style="width:60px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartTableBody">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Table Bottom Action Buttons -->
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                            <a href="shop-grid.html" class="btn btn-outline-secondary px-4">
+                                <i class="lni lni-arrow-left"></i> Continue Shopping
+                            </a>
+                            <button type="button" class="btn btn-outline-danger px-4" onclick="CartPage.clearAllCart()">
+                                <i class="lni lni-trash-can"></i> Clear Cart
+                            </button>
+                        </div>
+
+                        <!-- Coupon & Estimator Cards -->
+                        <div class="row g-4">
+                            <div class="col-md-6 col-12">
+                                <div class="cart-summary-card">
+                                    <h5 class="font-weight-bold mb-3"><i class="lni lni-tag"></i> Have a Promo Coupon?</h5>
+                                    <p class="text-muted" style="font-size:13px;">Try promo code <strong>SAVE20</strong> (20% off) or <strong>FREESHIP</strong> for free expedited shipping.</p>
+                                    <div class="input-group mb-2">
+                                        <input type="text" id="cartPageCouponInput" class="form-control text-uppercase" placeholder="Enter coupon code">
+                                        <button class="btn btn-primary" type="button" onclick="CartPage.applyCoupon()">Apply</button>
+                                    </div>
+                                    <div id="cartCouponFeedback" style="font-size:12px;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="cart-summary-card">
+                                    <h5 class="font-weight-bold mb-3"><i class="lni lni-delivery"></i> Shipping Estimator</h5>
+                                    <div class="mb-2">
+                                        <select class="form-select form-select-sm" id="cartEstimateCountry">
+                                            <option value="US" selected>United States (USD)</option>
+                                            <option value="UK">United Kingdom (GBP)</option>
+                                            <option value="CA">Canada (CAD)</option>
+                                            <option value="EU">European Union (EUR)</option>
+                                            <option value="IN">India (INR)</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm" placeholder="ZIP / Postal Code" value="94016">
+                                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="ShopApp.showToast('Shipping estimated! Free express shipping on orders over $100.', 'success')">Estimate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary (Col-lg-4) -->
+                    <div class="col-lg-4 col-12">
+                        <div class="cart-summary-card mb-4">
+                            <h5 class="font-weight-bold mb-3 border-bottom pb-3">Order Summary</h5>
+                            
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <strong id="cartSummarySubtotal">$0.00</strong>
+                            </div>
+                            <div class="summary-row" id="cartSummaryDiscountRow" style="display:none;">
+                                <span class="text-success"><i class="lni lni-checkmark-circle"></i> Coupon Discount</span>
+                                <strong class="text-success" id="cartSummaryDiscount">-$0.00</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping Estimate</span>
+                                <span id="cartSummaryShipping" class="text-success font-weight-bold">Free</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Estimated Tax (7%)</span>
+                                <span id="cartSummaryTax">$0.00</span>
+                            </div>
+                            
+                            <div class="summary-row total">
+                                <span>Estimated Total</span>
+                                <span class="text-primary font-weight-bold" id="cartSummaryTotal">$0.00</span>
+                            </div>
+
+                            <a href="checkout.html" class="btn btn-primary w-100 py-3 mt-4 font-weight-bold d-flex align-items-center justify-content-center gap-2" style="font-size:16px;">
+                                <i class="lni lni-lock"></i> Proceed to Secure Checkout
+                            </a>
+
+                            <div class="text-center mt-3">
+                                <span class="text-muted" style="font-size:12px;">
+                                    <i class="lni lni-shield"></i> 256-Bit SSL Encrypted & Bank-Grade Security
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Trust Badges Card -->
+                        <div class="cart-summary-card">
+                            <div class="trust-badge-item">
+                                <i class="lni lni-checkmark-circle"></i>
+                                <div>
+                                    <h6 class="mb-0 font-weight-bold" style="font-size:14px;">30-Day Money-Back Guarantee</h6>
+                                    <small class="text-muted">Return any unopened item within 30 days.</small>
+                                </div>
+                            </div>
+                            <div class="trust-badge-item">
+                                <i class="lni lni-rocket"></i>
+                                <div>
+                                    <h6 class="mb-0 font-weight-bold" style="font-size:14px;">Fast & Insured Worldwide Delivery</h6>
+                                    <small class="text-muted">All orders tracked via priority FedEx carrier.</small>
+                                </div>
+                            </div>
+                            <div class="trust-badge-item mb-0">
+                                <i class="lni lni-support"></i>
+                                <div>
+                                    <h6 class="mb-0 font-weight-bold" style="font-size:14px;">24/7 Expert Technical Concierge</h6>
+                                    <small class="text-muted">Live human support ready for questions.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty Cart State -->
+            <div id="cartPageEmptyView" class="text-center py-5" style="display:none;">
+                <div class="mb-4 text-muted" style="font-size:70px;">
+                    <i class="lni lni-cart-full"></i>
+                </div>
+                <h3 class="font-weight-bold mb-2">Your Shopping Cart is Empty</h3>
+                <p class="text-muted mb-4" style="max-width:450px;margin:0 auto;">Looks like you haven't added any flagship electronics to your cart yet. Explore our curated catalog of premium gear!</p>
+                <a href="shop-grid.html" class="btn btn-primary px-5 py-3 font-weight-bold">
+                    <i class="lni lni-grid-alt"></i> Browse Catalog Products
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- End Shopping Cart Section -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
+    <!-- Cart Page Interactive Script -->
+    <script>
+        const CartPage = (function() {
+            function getCart() {
+                try {
+                    return JSON.parse(localStorage.getItem('shopgrids_cart') || '[]');
+                } catch(e) {
+                    return [];
+                }
+            }
+
+            function renderCartPage() {
+                const cart = getCart();
+                const filledView = document.getElementById('cartPageFilledView');
+                const emptyView = document.getElementById('cartPageEmptyView');
+                const tbody = document.getElementById('cartTableBody');
+
+                if (!cart || cart.length === 0) {
+                    filledView.style.display = 'none';
+                    emptyView.style.display = 'block';
+                    return;
+                }
+
+                filledView.style.display = 'block';
+                emptyView.style.display = 'none';
+
+                let subtotal = 0;
+
+                tbody.innerHTML = cart.map(item => {
+                    const itemTotal = (item.price || 0) * (item.qty || 1);
+                    subtotal += itemTotal;
+
+                    return `
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+                                    <div>
+                                        <a href="product-details.html" class="cart-item-title">${item.title}</a>
+                                        <small class="text-muted d-block">${item.sku ? 'SKU: ' + item.sku : 'SKU: PRD-' + item.id}</small>
+                                        ${item.selectedColor ? `<small class="badge bg-light text-dark border">Color: ${item.selectedColor}</small>` : ''}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center font-weight-bold">
+                                ${ShopApp ? ShopApp.formatMoney(item.price) : '$' + item.price.toFixed(2)}
+                            </td>
+                            <td class="text-center">
+                                <div class="cart-qty-stepper">
+                                    <button type="button" onclick="CartPage.updateQty('${item.id}', -1)">-</button>
+                                    <span>${item.qty}</span>
+                                    <button type="button" onclick="CartPage.updateQty('${item.id}', 1)">+</button>
+                                </div>
+                            </td>
+                            <td class="text-center font-weight-bold text-primary">
+                                ${ShopApp ? ShopApp.formatMoney(itemTotal) : '$' + itemTotal.toFixed(2)}
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm text-danger" onclick="CartPage.removeItem('${item.id}')" title="Remove Item">
+                                    <i class="lni lni-trash-can" style="font-size:18px;"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Calculations
+                const appliedCoupon = localStorage.getItem('shopgrids_applied_coupon');
+                let discount = 0;
+                if (appliedCoupon === 'SAVE20') {
+                    discount = subtotal * 0.20;
+                } else if (appliedCoupon === 'TECH15') {
+                    discount = subtotal * 0.15;
+                }
+
+                const shipping = subtotal > 100 || appliedCoupon === 'FREESHIP' ? 0 : 15;
+                const tax = (subtotal - discount) * 0.07;
+                const grandTotal = Math.max(0, subtotal - discount + shipping + tax);
+
+                document.getElementById('cartSummarySubtotal').textContent = ShopApp ? ShopApp.formatMoney(subtotal) : '$' + subtotal.toFixed(2);
+                
+                const discRow = document.getElementById('cartSummaryDiscountRow');
+                if (discount > 0) {
+                    discRow.style.display = 'flex';
+                    document.getElementById('cartSummaryDiscount').textContent = '-' + (ShopApp ? ShopApp.formatMoney(discount) : '$' + discount.toFixed(2));
+                } else {
+                    discRow.style.display = 'none';
+                }
+
+                document.getElementById('cartSummaryShipping').textContent = shipping === 0 ? 'FREE' : (ShopApp ? ShopApp.formatMoney(shipping) : '$' + shipping.toFixed(2));
+                document.getElementById('cartSummaryTax').textContent = ShopApp ? ShopApp.formatMoney(tax) : '$' + tax.toFixed(2);
+                document.getElementById('cartSummaryTotal').textContent = ShopApp ? ShopApp.formatMoney(grandTotal) : '$' + grandTotal.toFixed(2);
+            }
+
+            function updateQty(id, change) {
+                if (window.ShopApp && typeof window.ShopApp.changeCartQty === 'function') {
+                    window.ShopApp.changeCartQty(id, change);
+                } else {
+                    let cart = getCart();
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        item.qty = Math.max(1, (item.qty || 1) + change);
+                        localStorage.setItem('shopgrids_cart', JSON.stringify(cart));
+                    }
+                }
+                renderCartPage();
+            }
+
+            function removeItem(id) {
+                if (window.ShopApp && typeof window.ShopApp.removeFromCart === 'function') {
+                    window.ShopApp.removeFromCart(id);
+                } else {
+                    let cart = getCart();
+                    cart = cart.filter(i => i.id !== id);
+                    localStorage.setItem('shopgrids_cart', JSON.stringify(cart));
+                }
+                renderCartPage();
+            }
+
+            function clearAllCart() {
+                if (confirm('Are you sure you want to clear your entire cart?')) {
+                    localStorage.setItem('shopgrids_cart', JSON.stringify([]));
+                    renderCartPage();
+                    if (window.ShopApp) {
+                        ShopApp.showToast('Shopping cart has been cleared.', 'info');
+                    }
+                }
+            }
+
+            function applyCoupon() {
+                const input = document.getElementById('cartPageCouponInput');
+                const feedback = document.getElementById('cartCouponFeedback');
+                if (!input) return;
+
+                const code = input.value.trim().toUpperCase();
+                if (code === 'SAVE20' || code === 'TECH15' || code === 'FREESHIP') {
+                    localStorage.setItem('shopgrids_applied_coupon', code);
+                    feedback.innerHTML = `<span class="text-success font-weight-bold"><i class="lni lni-checkmark-circle"></i> Coupon ${code} applied successfully!</span>`;
+                    if (window.ShopApp) ShopApp.showToast(`Coupon ${code} applied!`, 'success');
+                    renderCartPage();
+                } else {
+                    feedback.innerHTML = `<span class="text-danger font-weight-bold"><i class="lni lni-cross-circle"></i> Invalid promo code. Try SAVE20.</span>`;
+                }
+            }
+
+            return {
+                init: function() {
+                    renderCartPage();
+                    // Listen for global storage changes from other tabs or drawer
+                    window.addEventListener('storage', renderCartPage);
+                },
+                updateQty,
+                removeItem,
+                clearAllCart,
+                applyCoupon,
+                renderCartPage
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            CartPage.init();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>About Us - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Learn about ShopGrids - authorized premium tech retailer delivering consumer electronics with global express shipping and 30-day money-back guarantee." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Top Announcement Bar -->
+    <div id="topAnnouncementBar" class="top-announcement-bar">
+        <div class="top-announcement-content">
+            <span class="top-announcement-pill">VIP FLASH DEAL</span>
+            <span>Get 20% OFF your entire order with voucher <strong>VIP20</strong> + FREE Express 2-Day Air Delivery over $99!</span>
+            <a href="shop-grid.html" class="top-announcement-link">Shop Catalog &rarr;</a>
+        </div>
+        <button type="button" class="top-announcement-close" onclick="ShopApp.closeAnnouncementBar()" title="Dismiss">&times;</button>
+    </div>
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select4" title="Select Currency">
+                                            <option value="0" selected>$ USD</option>
+                                            <option value="1">€ EURO</option>
+                                            <option value="2">$ CAD</option>
+                                            <option value="3">₹ INR</option>
+                                            <option value="4">¥ CNY</option>
+                                            <option value="5">৳ BDT</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select5" title="Select Language">
+                                            <option value="0" selected>English</option>
+                                            <option value="1">Español</option>
+                                            <option value="2">Français</option>
+                                            <option value="3">Deutsch</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 d-none d-md-block">
+                        <div class="top-middle text-center">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="order-tracking.html"><i class="lni lni-delivery"></i> Track Order</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end d-flex align-items-center justify-content-end gap-2">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html" class="active">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">About ShopGrids</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li>About Us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start About Area -->
+    <section class="about-us section py-5">
+        <div class="container">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 col-12">
+                    <div class="content-left pe-lg-4">
+                        <span class="badge bg-primary px-3 py-2 mb-2 font-weight-bold">ESTABLISHED 2018</span>
+                        <h2 class="font-weight-bold mb-3" style="font-size:32px;">Pioneering the Future of Premium Consumer Tech</h2>
+                        <p class="lead text-muted mb-4" style="font-size:16px;">
+                            ShopGrids was founded with a singular conviction: discerning tech enthusiasts deserve direct, authorized access to the world’s most cutting-edge gadgets with transparent pricing, zero counterfeit risks, and concierge-level customer care.
+                        </p>
+                        <p class="text-secondary mb-4" style="font-size:14px;line-height:1.7;">
+                            From our humble beginnings as an acoustic gear curator to becoming an authorized retail powerhouse serving over 500,000 customers globally, every smartphone, smartwatch, laptop, and studio monitor in our catalog passes rigorous authenticity and performance benchmarks.
+                        </p>
+                        <div class="d-flex gap-3">
+                            <a href="shop-grid.html" class="btn btn-primary px-4 py-2 font-weight-bold">Explore Our Catalog</a>
+                            <a href="contact.html" class="btn btn-outline-secondary px-4 py-2">Get In Touch</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                    <div class="content-right text-center">
+                        <img src="assets/images/banner/banner-1-bg.jpg" alt="ShopGrids Story" class="img-fluid rounded-3 shadow-lg" style="max-height: 420px; width: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Counter Strip -->
+            <div class="row my-5 p-4 rounded-4" style="background:#081828; color:#fff;">
+                <div class="col-lg-3 col-md-6 col-12 text-center py-3 border-end border-secondary">
+                    <h2 class="display-5 font-weight-bold text-warning mb-1">500K+</h2>
+                    <p class="text-light mb-0" style="font-size:14px;">Worldwide Satisfied Buyers</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 text-center py-3 border-end border-secondary">
+                    <h2 class="display-5 font-weight-bold text-success mb-1">99.8%</h2>
+                    <p class="text-light mb-0" style="font-size:14px;">On-Time Express Dispatch</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 text-center py-3 border-end border-secondary">
+                    <h2 class="display-5 font-weight-bold text-info mb-1">50+</h2>
+                    <p class="text-light mb-0" style="font-size:14px;">Logistics & Sorting Hubs</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 text-center py-3">
+                    <h2 class="display-5 font-weight-bold text-danger mb-1">4.9 / 5</h2>
+                    <p class="text-light mb-0" style="font-size:14px;">Verified Customer Score</p>
+                </div>
+            </div>
+
+            <!-- Core Pillars -->
+            <div class="row mb-5">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="font-weight-bold">Why Tech Lovers Trust ShopGrids</h3>
+                    <p class="text-muted">Built on transparency, speed, and obsessive attention to authenticity.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="p-4 border rounded-3 h-100 bg-white shadow-sm">
+                        <div class="d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10 text-primary mb-3">
+                            <i class="lni lni-shield" style="font-size:30px;"></i>
+                        </div>
+                        <h5 class="font-weight-bold mb-2">100% Factory Direct Seal</h5>
+                        <p class="text-muted" style="font-size:13px;line-height:1.6;">
+                            We partner directly with tier-1 manufacturers including Apple, Bose, Sony, and Samsung. Every product arrives factory sealed with verified serial numbers and valid global warranties.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="p-4 border rounded-3 h-100 bg-white shadow-sm">
+                        <div class="d-inline-flex p-3 rounded-circle bg-success bg-opacity-10 text-success mb-3">
+                            <i class="lni lni-delivery" style="font-size:30px;"></i>
+                        </div>
+                        <h5 class="font-weight-bold mb-2">Carbon-Neutral 2-Day Air</h5>
+                        <p class="text-muted" style="font-size:13px;line-height:1.6;">
+                            Free express priority dispatch on orders over $99 with automated real-time tracking, signature delivery options, and sustainable carbon-offset shipping partners.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="p-4 border rounded-3 h-100 bg-white shadow-sm">
+                        <div class="d-inline-flex p-3 rounded-circle bg-warning bg-opacity-10 text-warning mb-3">
+                            <i class="lni lni-reload" style="font-size:30px;"></i>
+                        </div>
+                        <h5 class="font-weight-bold mb-2">Unconditional 30-Day Returns</h5>
+                        <p class="text-muted" style="font-size:13px;line-height:1.6;">
+                            Not completely delighted? We provide prepaid return labels with immediate zero-hassle refunds and absolutely zero restocking penalties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership Team -->
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="font-weight-bold">Executive Leadership</h3>
+                    <p class="text-muted">Engineers, product designers, and audiophiles powering the platform.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="card border-0 shadow-sm text-center p-4 rounded-3">
+                        <div class="mx-auto mb-3" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#0167F3,#081828);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;">
+                            DL
+                        </div>
+                        <h5 class="font-weight-bold mb-1">David Lauren</h5>
+                        <span class="text-primary font-weight-bold mb-2" style="font-size:13px;">Chief Executive Officer & Founder</span>
+                        <p class="text-muted" style="font-size:12px;">Former hardware supply chain director with 15+ years in Silicon Valley consumer electronics.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="card border-0 shadow-sm text-center p-4 rounded-3">
+                        <div class="mx-auto mb-3" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#10B981,#047857);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;">
+                            SC
+                        </div>
+                        <h5 class="font-weight-bold mb-1">Sophia Chen</h5>
+                        <span class="text-success font-weight-bold mb-2" style="font-size:13px;">VP of Hardware & Testing</span>
+                        <p class="text-muted" style="font-size:12px;">Acoustic engineer leading our laboratory device benchmarking and compatibility evaluations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="card border-0 shadow-sm text-center p-4 rounded-3">
+                        <div class="mx-auto mb-3" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#EC4899,#8B5CF6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;">
+                            MR
+                        </div>
+                        <h5 class="font-weight-bold mb-1">Marcus Reynolds</h5>
+                        <span class="text-purple font-weight-bold mb-2" style="font-size:13px;color:#8b5cf6;">Head of Global Logistics</span>
+                        <p class="text-muted" style="font-size:12px;">Oversees 50+ international fulfillment centers and same-day flagship delivery operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End About Area -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+</body>
+
+</html>

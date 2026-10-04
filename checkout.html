@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Secure Checkout - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Complete your electronics order with bank-grade 256-bit SSL encryption, multiple payment methods, and express delivery options." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .checkout-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 28px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 25px;
+        }
+        body.dark-theme .checkout-box {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .checkout-step-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+        body.dark-theme .checkout-step-title {
+            border-bottom-color: #243447;
+            color: #fff;
+        }
+        .step-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--ecom-primary);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .shipping-option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        body.dark-theme .shipping-option-card {
+            border-color: #334155;
+            background: #0d1825;
+        }
+        .shipping-option-card:hover,
+        .shipping-option-card.selected {
+            border-color: var(--ecom-primary);
+            background: rgba(1, 103, 243, 0.04);
+        }
+        body.dark-theme .shipping-option-card.selected {
+            background: rgba(1, 103, 243, 0.15);
+        }
+        .payment-tab-btn {
+            border: 1px solid #d1d5db;
+            background: #fff;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        body.dark-theme .payment-tab-btn {
+            background: #0d1825;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+        .payment-tab-btn.active {
+            border-color: var(--ecom-primary);
+            color: var(--ecom-primary);
+            background: rgba(1, 103, 243, 0.08);
+        }
+        .order-summary-sidebar {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px;
+            border: 1px solid #e9ecef;
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        body.dark-theme .order-summary-sidebar {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .mini-cart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        body.dark-theme .mini-cart-item {
+            border-bottom-color: #243447;
+        }
+        .mini-cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 4px;
+        }
+        body.dark-theme .mini-cart-item img {
+            background: #0d1825;
+            border-color: #334155;
+        }
+        .credit-card-preview {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 12px;
+            padding: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .credit-card-preview::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Secure Checkout</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li>Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Checkout Area -->
+    <section class="section py-5">
+        <div class="container">
+            <form id="checkoutMainForm" onsubmit="CheckoutEngine.handleOrderSubmission(event)">
+                <div class="row g-4">
+                    <!-- Left Forms Column (Col-lg-8) -->
+                    <div class="col-lg-8 col-12">
+                        <!-- Step 1: Customer Info & Shipping Address -->
+                        <div class="checkout-box">
+                            <h4 class="checkout-step-title">
+                                <span class="step-num">1</span> Customer & Shipping Address
+                            </h4>
+                            <div class="row g-3">
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label font-weight-bold">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingFirstName" placeholder="Alex" required value="Alex">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label font-weight-bold">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingLastName" placeholder="Mercer" required value="Mercer">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label font-weight-bold">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="shippingEmail" placeholder="alex.mercer@gmail.com" required value="alex.mercer@gmail.com">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label font-weight-bold">Phone Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="shippingPhone" placeholder="+1 (555) 019-2834" required value="+1 (555) 019-2834">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label font-weight-bold">Street Address <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingAddress" placeholder="742 Evergreen Terrace, Suite 400" required value="742 Evergreen Terrace, Suite 400">
+                                </div>
+                                <div class="col-md-5 col-12">
+                                    <label class="form-label font-weight-bold">City <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingCity" placeholder="San Francisco" required value="San Francisco">
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <label class="form-label font-weight-bold">State / Province <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingState" placeholder="California" required value="CA">
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <label class="form-label font-weight-bold">Postal Code <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="shippingZip" placeholder="94016" required value="94016">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Shipping Method -->
+                        <div class="checkout-box">
+                            <h4 class="checkout-step-title">
+                                <span class="step-num">2</span> Shipping & Delivery Speed
+                            </h4>
+                            <div class="shipping-option-card selected" onclick="CheckoutEngine.selectShipping(0, this)">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="shippingSpeed" id="shipStandard" checked>
+                                    <div>
+                                        <h6 class="mb-0 font-weight-bold">Standard Tracked Delivery (3-5 Business Days)</h6>
+                                        <small class="text-muted">Dispatched via FedEx Ground with online parcel tracking.</small>
+                                    </div>
+                                </div>
+                                <strong class="text-success">FREE</strong>
+                            </div>
+                            <div class="shipping-option-card" onclick="CheckoutEngine.selectShipping(15, this)">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="shippingSpeed" id="shipExpress">
+                                    <div>
+                                        <h6 class="mb-0 font-weight-bold">FedEx 2-Day Air Priority (2 Business Days)</h6>
+                                        <small class="text-muted">Guaranteed second-day evening delivery with signature confirmation.</small>
+                                    </div>
+                                </div>
+                                <strong class="text-primary">$15.00</strong>
+                            </div>
+                            <div class="shipping-option-card" onclick="CheckoutEngine.selectShipping(25, this)">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="shippingSpeed" id="shipOvernight">
+                                    <div>
+                                        <h6 class="mb-0 font-weight-bold">Priority Overnight Rush (Next Morning Delivery)</h6>
+                                        <small class="text-muted">Delivered by 10:30 AM tomorrow with temperature-controlled handling.</small>
+                                    </div>
+                                </div>
+                                <strong class="text-primary">$25.00</strong>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Payment Method -->
+                        <div class="checkout-box">
+                            <h4 class="checkout-step-title">
+                                <span class="step-num">3</span> Payment Method
+                            </h4>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <button type="button" class="payment-tab-btn active" id="btnPayCard" onclick="CheckoutEngine.switchPayment('card')">
+                                    <i class="lni lni-credit-cards"></i> Credit / Debit Card
+                                </button>
+                                <button type="button" class="payment-tab-btn" id="btnPayPaypal" onclick="CheckoutEngine.switchPayment('paypal')">
+                                    <i class="lni lni-paypal"></i> PayPal Express
+                                </button>
+                                <button type="button" class="payment-tab-btn" id="btnPayCOD" onclick="CheckoutEngine.switchPayment('cod')">
+                                    <i class="lni lni-wallet"></i> Pay Upon Delivery
+                                </button>
+                            </div>
+
+                            <!-- Card View -->
+                            <div id="paymentViewCard">
+                                <div class="credit-card-preview">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span style="font-size:12px;letter-spacing:1px;">SHOPGRIDS SECURE PAY</span>
+                                        <i class="lni lni-visa" style="font-size:32px;"></i>
+                                    </div>
+                                    <div class="mb-3" style="font-size:18px;letter-spacing:2px;font-family:monospace;" id="cardPreviewNumber">
+                                        •••• •••• •••• 4242
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-end" style="font-size:12px;">
+                                        <div>
+                                            <div class="text-muted" style="font-size:9px;">CARDHOLDER</div>
+                                            <div id="cardPreviewName" class="font-weight-bold">ALEX MERCER</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-muted" style="font-size:9px;">EXPIRES</div>
+                                            <div id="cardPreviewExp" class="font-weight-bold">12/28</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label font-weight-bold">Card Number</label>
+                                        <input type="text" class="form-control" id="cardNumberInput" placeholder="4242 •••• •••• 4242" value="4242 8891 2234 4242" maxlength="19" oninput="CheckoutEngine.updateCardPreview()">
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label class="form-label font-weight-bold">Name on Card</label>
+                                        <input type="text" class="form-control" id="cardNameInput" placeholder="Alex Mercer" value="Alex Mercer" oninput="CheckoutEngine.updateCardPreview()">
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <label class="form-label font-weight-bold">Expiry Date</label>
+                                        <input type="text" class="form-control" id="cardExpInput" placeholder="MM/YY" value="12/28" maxlength="5" oninput="CheckoutEngine.updateCardPreview()">
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <label class="form-label font-weight-bold">CVV / CVC</label>
+                                        <input type="password" class="form-control" id="cardCvvInput" placeholder="•••" value="888" maxlength="4">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PayPal View -->
+                            <div id="paymentViewPaypal" style="display:none;" class="p-4 text-center border rounded bg-light">
+                                <i class="lni lni-paypal text-primary" style="font-size:45px;"></i>
+                                <h6 class="font-weight-bold mt-2">Pay securely with PayPal</h6>
+                                <p class="text-muted" style="font-size:13px;">You will be redirected to PayPal to complete your payment with buyer protection.</p>
+                            </div>
+
+                            <!-- COD View -->
+                            <div id="paymentViewCOD" style="display:none;" class="p-4 text-center border rounded bg-light">
+                                <i class="lni lni-wallet text-success" style="font-size:45px;"></i>
+                                <h6 class="font-weight-bold mt-2">Cash or Card on Delivery</h6>
+                                <p class="text-muted" style="font-size:13px;">Inspect your items upon FedEx doorstep handover before submitting payment to the courier.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar Order Summary (Col-lg-4) -->
+                    <div class="col-lg-4 col-12">
+                        <div class="order-summary-sidebar">
+                            <h5 class="font-weight-bold mb-3 border-bottom pb-3">Items in Your Order</h5>
+                            <div id="checkoutMiniItemsContainer" class="mb-3" style="max-height:240px;overflow-y:auto;">
+                                <!-- Rendered dynamically -->
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Cart Subtotal</span>
+                                <strong id="checkoutSubtotal">$0.00</strong>
+                            </div>
+                            <div class="summary-row" id="checkoutDiscountRow" style="display:none;">
+                                <span class="text-success"><i class="lni lni-tag"></i> Promo Discount</span>
+                                <strong class="text-success" id="checkoutDiscount">-$0.00</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Selected Delivery</span>
+                                <strong id="checkoutShippingCost" class="text-success">FREE</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Estimated Tax (7%)</span>
+                                <span id="checkoutTax">$0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Final Total</span>
+                                <span class="text-primary font-weight-bold" id="checkoutGrandTotal" style="font-size:20px;">$0.00</span>
+                            </div>
+
+                            <button type="submit" id="checkoutPlaceOrderBtn" class="btn btn-primary w-100 py-3 mt-4 font-weight-bold d-flex align-items-center justify-content-center gap-2" style="font-size:16px;">
+                                <i class="lni lni-checkmark-circle"></i> Place My Order Now
+                            </button>
+
+                            <div class="text-center mt-3">
+                                <small class="text-muted">
+                                    <i class="lni lni-shield"></i> Safe 256-Bit SSL Encrypted Checkout
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- End Checkout Area -->
+
+    <!-- Start Order Receipt Modal -->
+    <div class="modal fade" id="checkoutReceiptModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <i class="lni lni-checkmark-circle text-success" style="font-size:60px;"></i>
+                    </div>
+                    <h3 class="font-weight-bold text-success mb-2">Order Confirmed!</h3>
+                    <p class="text-muted mb-4" style="font-size:14px;">Thank you for your purchase! A confirmation receipt has been sent to your email.</p>
+                    
+                    <div class="bg-light p-3 rounded border text-start mb-4" style="font-size:13px;">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Order ID:</span>
+                            <strong id="receiptOrderId" class="text-primary">SG-2026-8941</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Estimated Delivery:</span>
+                            <span id="receiptDeliveryDate">In 3 Business Days</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Delivery Address:</span>
+                            <span id="receiptAddress">742 Evergreen Terrace</span>
+                        </div>
+                        <div class="d-flex justify-content-between border-top pt-2 mt-2 font-weight-bold">
+                            <span>Amount Paid:</span>
+                            <span id="receiptPaidTotal" class="text-primary">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a href="index.html" class="btn btn-outline-secondary flex-grow-1">Return Home</a>
+                        <a href="order-tracking.html" class="btn btn-primary flex-grow-1">
+                            <i class="lni lni-delivery"></i> Track My Package
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
+    <!-- Checkout Interactive Script -->
+    <script>
+        const CheckoutEngine = (function() {
+            let shippingFee = 0;
+            let currentPayment = 'card';
+
+            function getCart() {
+                try {
+                    return JSON.parse(localStorage.getItem('shopgrids_cart') || '[]');
+                } catch(e) {
+                    return [];
+                }
+            }
+
+            function renderCheckoutReview() {
+                let cart = getCart();
+                const container = document.getElementById('checkoutMiniItemsContainer');
+                
+                // If cart is empty, add a default demo product so checkout page is always functional and testable
+                if (!cart || cart.length === 0) {
+                    cart = [{
+                        id: 'prod-4',
+                        title: 'iPhone 12 Pro Max 256GB Flagship',
+                        price: 400.0,
+                        qty: 1,
+                        image: 'assets/images/products/product-4.jpg'
+                    }];
+                    localStorage.setItem('shopgrids_cart', JSON.stringify(cart));
+                }
+
+                let subtotal = 0;
+                container.innerHTML = cart.map(item => {
+                    const total = (item.price || 0) * (item.qty || 1);
+                    subtotal += total;
+                    return `
+                        <div class="mini-cart-item">
+                            <img src="${item.image}" alt="${item.title}">
+                            <div class="flex-grow-1" style="font-size:13px;">
+                                <div class="font-weight-bold text-truncate" style="max-width:180px;">${item.title}</div>
+                                <div class="text-muted">Qty: ${item.qty} × ${ShopApp ? ShopApp.formatMoney(item.price) : '$' + item.price.toFixed(2)}</div>
+                            </div>
+                            <strong style="font-size:13px;">${ShopApp ? ShopApp.formatMoney(total) : '$' + total.toFixed(2)}</strong>
+                        </div>
+                    `;
+                }).join('');
+
+                const appliedCoupon = localStorage.getItem('shopgrids_applied_coupon');
+                let discount = 0;
+                if (appliedCoupon === 'SAVE20') {
+                    discount = subtotal * 0.20;
+                } else if (appliedCoupon === 'TECH15') {
+                    discount = subtotal * 0.15;
+                }
+
+                const tax = (subtotal - discount) * 0.07;
+                const grandTotal = Math.max(0, subtotal - discount + shippingFee + tax);
+
+                document.getElementById('checkoutSubtotal').textContent = ShopApp ? ShopApp.formatMoney(subtotal) : '$' + subtotal.toFixed(2);
+                
+                const discRow = document.getElementById('checkoutDiscountRow');
+                if (discount > 0) {
+                    discRow.style.display = 'flex';
+                    document.getElementById('checkoutDiscount').textContent = '-' + (ShopApp ? ShopApp.formatMoney(discount) : '$' + discount.toFixed(2));
+                } else {
+                    discRow.style.display = 'none';
+                }
+
+                document.getElementById('checkoutShippingCost').textContent = shippingFee === 0 ? 'FREE' : (ShopApp ? ShopApp.formatMoney(shippingFee) : '$' + shippingFee.toFixed(2));
+                document.getElementById('checkoutTax').textContent = ShopApp ? ShopApp.formatMoney(tax) : '$' + tax.toFixed(2);
+                document.getElementById('checkoutGrandTotal').textContent = ShopApp ? ShopApp.formatMoney(grandTotal) : '$' + grandTotal.toFixed(2);
+            }
+
+            function selectShipping(fee, cardElement) {
+                shippingFee = fee;
+                document.querySelectorAll('.shipping-option-card').forEach(c => c.classList.remove('selected'));
+                if (cardElement) {
+                    cardElement.classList.add('selected');
+                    const radio = cardElement.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                }
+                renderCheckoutReview();
+            }
+
+            function switchPayment(method) {
+                currentPayment = method;
+                document.getElementById('btnPayCard').classList.toggle('active', method === 'card');
+                document.getElementById('btnPayPaypal').classList.toggle('active', method === 'paypal');
+                document.getElementById('btnPayCOD').classList.toggle('active', method === 'cod');
+
+                document.getElementById('paymentViewCard').style.display = method === 'card' ? 'block' : 'none';
+                document.getElementById('paymentViewPaypal').style.display = method === 'paypal' ? 'block' : 'none';
+                document.getElementById('paymentViewCOD').style.display = method === 'cod' ? 'block' : 'none';
+            }
+
+            function updateCardPreview() {
+                const num = document.getElementById('cardNumberInput').value || '•••• •••• •••• 4242';
+                const name = document.getElementById('cardNameInput').value || 'ALEX MERCER';
+                const exp = document.getElementById('cardExpInput').value || '12/28';
+
+                document.getElementById('cardPreviewNumber').textContent = num;
+                document.getElementById('cardPreviewName').textContent = name.toUpperCase();
+                document.getElementById('cardPreviewExp').textContent = exp;
+            }
+
+            function handleOrderSubmission(e) {
+                e.preventDefault();
+                
+                const address = document.getElementById('shippingAddress').value;
+                const totalText = document.getElementById('checkoutGrandTotal').textContent;
+                const orderId = 'SG-' + Math.floor(1000 + Math.random() * 9000);
+
+                // Populate receipt modal
+                document.getElementById('receiptOrderId').textContent = orderId;
+                document.getElementById('receiptAddress').textContent = address;
+                document.getElementById('receiptPaidTotal').textContent = totalText;
+
+                // Save to local storage orders
+                try {
+                    const orders = JSON.parse(localStorage.getItem('shopgrids_orders') || '[]');
+                    orders.unshift({
+                        id: orderId,
+                        date: new Date().toLocaleDateString(),
+                        total: totalText,
+                        address: address,
+                        items: getCart()
+                    });
+                    localStorage.setItem('shopgrids_orders', JSON.stringify(orders));
+                } catch(err) {}
+
+                // Clear cart
+                localStorage.setItem('shopgrids_cart', JSON.stringify([]));
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('checkoutReceiptModal'));
+                modal.show();
+
+                if (window.ShopApp && typeof window.ShopApp.showToast === 'function') {
+                    window.ShopApp.showToast('Order placed successfully! Tracking ID: ' + orderId, 'success');
+                }
+            }
+
+            return {
+                init: function() {
+                    renderCheckoutReview();
+                },
+                selectShipping,
+                switchPayment,
+                updateCardPreview,
+                handleOrderSubmission
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            CheckoutEngine.init();
+        });
+    </script>
+</body>
+
+</html>

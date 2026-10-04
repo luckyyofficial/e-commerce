@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Shop Catalog & Filter - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Browse our complete flagship electronics collection, including smartphones, laptops, studio headphones, smartwatches, and security systems." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .shop-sidebar-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+        body.dark-theme .shop-sidebar-card {
+            background: #142436;
+            border-color: #243447;
+            box-shadow: none;
+        }
+        .shop-sidebar-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        body.dark-theme .shop-sidebar-title {
+            border-bottom-color: #243447;
+            color: #fff;
+        }
+        .category-filter-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .category-filter-list li {
+            margin-bottom: 10px;
+        }
+        .category-filter-list li a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        body.dark-theme .category-filter-list li a {
+            color: #cbd5e1;
+        }
+        .category-filter-list li a:hover,
+        .category-filter-list li a.active {
+            background: rgba(1, 103, 243, 0.1);
+            color: var(--ecom-primary);
+            font-weight: 600;
+        }
+        .filter-badge {
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        body.dark-theme .filter-badge {
+            background: #1e293b;
+            color: #94a3b8;
+        }
+        .catalog-top-bar {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        body.dark-theme .catalog-top-bar {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .price-slider-wrap {
+            padding: 5px 0;
+        }
+        .price-range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+            color: #4b5563;
+        }
+        body.dark-theme .price-range-labels {
+            color: #94a3b8;
+        }
+        .product-grid-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        body.dark-theme .product-grid-card {
+            background: #142436;
+            border-color: #243447;
+        }
+        .product-grid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            border-color: var(--ecom-primary);
+        }
+        .product-card-img-wrap {
+            position: relative;
+            background: #f8fafc;
+            padding: 25px;
+            text-align: center;
+            overflow: hidden;
+        }
+        body.dark-theme .product-card-img-wrap {
+            background: #0d1825;
+        }
+        .product-card-img-wrap img {
+            max-height: 200px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        .product-grid-card:hover .product-card-img-wrap img {
+            transform: scale(1.06);
+        }
+        .product-card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .product-card-actions {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            transition: bottom 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 3;
+        }
+        .product-grid-card:hover .product-card-actions {
+            bottom: 15px;
+        }
+        .action-btn-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: none;
+            transition: all 0.2s ease;
+            font-size: 15px;
+        }
+        .action-btn-circle:hover {
+            background: var(--ecom-primary);
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .product-card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .product-card-category {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .product-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: #1f2937;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        body.dark-theme .product-card-title {
+            color: #f1f5f9;
+        }
+        .product-card-title:hover {
+            color: var(--ecom-primary);
+        }
+        .product-card-stars {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #fbbf24;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .product-card-stars span {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+        .product-card-pricing {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+        body.dark-theme .product-card-pricing {
+            border-top-color: #243447;
+        }
+        .current-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--ecom-primary);
+        }
+        .old-price {
+            font-size: 13px;
+            text-decoration: line-through;
+            color: #9ca3af;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html" class="active">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Flagship Electronics Catalog</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li>Shop Catalog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Catalog Section Area -->
+    <section class="section product-area py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters (Col-lg-3) -->
+                <div class="col-lg-3 col-12">
+                    <!-- Search Widget -->
+                    <div class="shop-sidebar-card">
+                        <h5 class="shop-sidebar-title">Search In Catalog</h5>
+                        <div class="input-group">
+                            <input type="text" id="catalogKeywordInput" class="form-control" placeholder="Search title, brand...">
+                            <button class="btn btn-primary" type="button" onclick="CatalogFilter.handleKeywordSearch()">
+                                <i class="lni lni-search-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="shop-sidebar-card">
+                        <h5 class="shop-sidebar-title">Categories</h5>
+                        <ul class="category-filter-list" id="categoryFilterList">
+                            <li><a href="javascript:void(0)" class="active" data-cat="all">All Products <span class="filter-badge">8</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="laptop">Laptops & MacBooks <span class="filter-badge">1</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="phones">Smartphones <span class="filter-badge">1</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="headphones">Audio & Headphones <span class="filter-badge">2</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="speaker">Portable Speakers <span class="filter-badge">2</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="watches">Smart Fitness Bands <span class="filter-badge">1</span></a></li>
+                            <li><a href="javascript:void(0)" data-cat="camera">Smart Security Cameras <span class="filter-badge">1</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="shop-sidebar-card">
+                        <h5 class="shop-sidebar-title">Max Price Range</h5>
+                        <div class="price-slider-wrap">
+                            <input type="range" class="form-range" id="priceRangeSlider" min="50" max="1000" step="50" value="1000" oninput="CatalogFilter.handlePriceSlider(this.value)">
+                            <div class="price-range-labels">
+                                <span>Min: $50</span>
+                                <span id="priceSliderValue" class="text-primary font-weight-bold">Up to $1,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter by Brand -->
+                    <div class="shop-sidebar-card">
+                        <h5 class="shop-sidebar-title">Popular Brands</h5>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input brand-checkbox" type="checkbox" value="Apple" id="brandApple" onchange="CatalogFilter.applyFilters()">
+                            <label class="form-check-label" for="brandApple">Apple</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input brand-checkbox" type="checkbox" value="Xiaomi" id="brandXiaomi" onchange="CatalogFilter.applyFilters()">
+                            <label class="form-check-label" for="brandXiaomi">Xiaomi</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input brand-checkbox" type="checkbox" value="Bowers" id="brandBowers" onchange="CatalogFilter.applyFilters()">
+                            <label class="form-check-label" for="brandBowers">Bowers & Wilkins</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input brand-checkbox" type="checkbox" value="Sound" id="brandSound" onchange="CatalogFilter.applyFilters()">
+                            <label class="form-check-label" for="brandSound">SoundCore Acoustic</label>
+                        </div>
+                    </div>
+
+                    <!-- In Stock Only Switch -->
+                    <div class="shop-sidebar-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label class="form-check-label font-weight-bold" for="inStockOnlySwitch">In Stock Only</label>
+                            <div class="form-check form-switch m-0">
+                                <input class="form-check-input" type="checkbox" id="inStockOnlySwitch" onchange="CatalogFilter.applyFilters()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reset Filters Button -->
+                    <button type="button" class="btn btn-outline-secondary w-100 py-2 font-weight-bold" onclick="CatalogFilter.resetFilters()">
+                        <i class="lni lni-reload"></i> Reset All Filters
+                    </button>
+                </div>
+
+                <!-- Products Display Area (Col-lg-9) -->
+                <div class="col-lg-9 col-12">
+                    <!-- Catalog Top Bar -->
+                    <div class="catalog-top-bar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted" style="font-size:14px;">Showing:</span>
+                            <strong id="catalogResultsCount" class="text-primary font-weight-bold" style="font-size:15px;">8 Products</strong>
+                            <span id="activeFilterBadge" class="badge bg-light text-primary border ms-2" style="display:none;">Filtered</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <label for="catalogSortSelect" class="text-muted mb-0 d-none d-sm-inline" style="font-size:14px;">Sort By:</label>
+                            <select id="catalogSortSelect" class="form-select form-select-sm" style="width:auto;min-width:180px;" onchange="CatalogFilter.handleSortChange(this.value)">
+                                <option value="featured" selected>Featured & Recommended</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="reviews">Most Reviewed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid Container -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="catalogProductsContainer">
+                        <!-- Products rendered dynamically by CatalogFilter.init() -->
+                    </div>
+
+                    <!-- Empty State (Hidden by default) -->
+                    <div id="catalogEmptyState" class="text-center py-5" style="display:none;">
+                        <div class="mb-3 text-muted" style="font-size:50px;"><i class="lni lni-search-alt"></i></div>
+                        <h4>No Products Match Your Criteria</h4>
+                        <p class="text-muted">Try resetting your filters or adjusting your maximum budget range.</p>
+                        <button class="btn btn-primary mt-2" onclick="CatalogFilter.resetFilters()">Clear Filters</button>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination center mt-5">
+                        <ul class="pagination-list">
+                            <li><a href="javascript:void(0)"><i class="lni lni-chevron-left"></i></a></li>
+                            <li class="active"><a href="javascript:void(0)">1</a></li>
+                            <li><a href="javascript:void(0)">2</a></li>
+                            <li><a href="javascript:void(0)">3</a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Catalog Section Area -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
+    <!-- Catalog Interactive Filter Script -->
+    <script>
+        const CatalogFilter = (function() {
+            const CATALOG_DATA = [
+                { id: 'prod-1', title: 'Xiaomi Mi Band 5 Smart Fitness Tracker', category: 'watches', categoryName: 'Smart Fitness Bands', price: 199.0, origPrice: 229.0, rating: 4.5, reviews: 38, image: 'assets/images/products/product-1.jpg', badge: 'HOT', badgeClass: 'bg-danger text-white', brand: 'Xiaomi', inStock: true },
+                { id: 'prod-2', title: 'Big Power Sound 360° Bluetooth Speaker', category: 'speaker', categoryName: 'Portable Speakers', price: 275.0, origPrice: 300.0, rating: 5.0, reviews: 64, image: 'assets/images/products/product-2.jpg', badge: '-25%', badgeClass: 'bg-primary text-white', brand: 'Sound', inStock: true },
+                { id: 'prod-3', title: 'Ultra HD WiFi Smart Security Camera', category: 'camera', categoryName: 'Security Cameras', price: 399.0, origPrice: 450.0, rating: 5.0, reviews: 52, image: 'assets/images/products/product-3.jpg', badge: 'SECURITY', badgeClass: 'bg-success text-white', brand: 'Sound', inStock: true },
+                { id: 'prod-4', title: 'iPhone 12 Pro Max 256GB Flagship', category: 'phones', categoryName: 'Smartphones', price: 400.0, origPrice: 520.0, rating: 5.0, reviews: 112, image: 'assets/images/products/product-4.jpg', badge: 'NEW', badgeClass: 'bg-info text-white', brand: 'Apple', inStock: true },
+                { id: 'prod-5', title: 'Studio Hi-Fi Wireless ANC Headphones', category: 'headphones', categoryName: 'Headphones', price: 350.0, origPrice: 420.0, rating: 5.0, reviews: 78, image: 'assets/images/products/product-5.jpg', badge: 'TOP RATED', badgeClass: 'bg-warning text-dark', brand: 'Bowers', inStock: true },
+                { id: 'prod-6', title: 'Mini Bluetooth Pocket Speaker Bass+', category: 'speaker', categoryName: 'Portable Speakers', price: 70.0, origPrice: 95.0, rating: 4.0, reviews: 29, image: 'assets/images/products/product-6.jpg', badge: 'SALE', badgeClass: 'bg-danger text-white', brand: 'Sound', inStock: true },
+                { id: 'prod-7', title: 'PX7 Wireless Over-Ear Active Headphones', category: 'headphones', categoryName: 'Headphones', price: 100.0, origPrice: 200.0, rating: 4.0, reviews: 45, image: 'assets/images/products/product-7.jpg', badge: '-50%', badgeClass: 'bg-danger text-white', brand: 'Bowers', inStock: true },
+                { id: 'prod-8', title: 'Apple MacBook Air 13.3" M1 256GB', category: 'laptop', categoryName: 'Laptops', price: 899.0, origPrice: 999.0, rating: 5.0, reviews: 95, image: 'assets/images/products/product-8.jpg', badge: 'BESTSELLER', badgeClass: 'bg-success text-white', brand: 'Apple', inStock: true }
+            ];
+
+            let activeCategory = 'all';
+            let maxPrice = 1000;
+            let currentKeyword = '';
+            let currentSort = 'featured';
+
+            function renderStars(rating) {
+                let html = '';
+                const fullStars = Math.floor(rating);
+                for (let i = 0; i < fullStars; i++) {
+                    html += '<i class="lni lni-star-filled"></i>';
+                }
+                if (rating % 1 !== 0) {
+                    html += '<i class="lni lni-star-half"></i>';
+                }
+                return html;
+            }
+
+            function renderCatalog(items) {
+                const container = document.getElementById('catalogProductsContainer');
+                const empty = document.getElementById('catalogEmptyState');
+                const countBadge = document.getElementById('catalogResultsCount');
+                
+                if (!container) return;
+                
+                countBadge.textContent = `${items.length} Product${items.length === 1 ? '' : 's'}`;
+
+                if (items.length === 0) {
+                    container.innerHTML = '';
+                    empty.style.display = 'block';
+                    return;
+                }
+                empty.style.display = 'none';
+
+                container.innerHTML = items.map(p => `
+                    <div class="col">
+                        <div class="product-grid-card">
+                            <div class="product-card-img-wrap">
+                                <span class="product-card-badge ${p.badgeClass}">${p.badge}</span>
+                                <img src="${p.image}" alt="${p.title}">
+                                <div class="product-card-actions">
+                                    <button class="action-btn-circle" onclick="ShopApp.openQuickView('${p.id}')" title="Quick View">
+                                        <i class="lni lni-eye"></i>
+                                    </button>
+                                    <button class="action-btn-circle" onclick="ShopApp.toggleWishlist('${p.id}')" title="Add to Wishlist">
+                                        <i class="lni lni-heart"></i>
+                                    </button>
+                                    <button class="action-btn-circle" onclick="ShopApp.toggleCompare('${p.id}')" title="Compare Specs">
+                                        <i class="lni lni-reload"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-card-body">
+                                <div class="product-card-category">${p.categoryName}</div>
+                                <a href="product-details.html" class="product-card-title">${p.title}</a>
+                                <div class="product-card-stars">
+                                    ${renderStars(p.rating)}
+                                    <span>(${p.reviews})</span>
+                                </div>
+                                <div class="product-card-pricing">
+                                    <div>
+                                        <span class="current-price">$${p.price.toFixed(2)}</span>
+                                        <span class="old-price">$${p.origPrice.toFixed(2)}</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary rounded-pill px-3" onclick="ShopApp.addToCart('${p.id}')">
+                                        <i class="lni lni-cart"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function applyFilters() {
+                let filtered = [...CATALOG_DATA];
+
+                // Category filter
+                if (activeCategory !== 'all') {
+                    filtered = filtered.filter(item => item.category === activeCategory);
+                }
+
+                // Price filter
+                filtered = filtered.filter(item => item.price <= maxPrice);
+
+                // Keyword search
+                if (currentKeyword.trim() !== '') {
+                    const kw = currentKeyword.toLowerCase().trim();
+                    filtered = filtered.filter(item => 
+                        item.title.toLowerCase().includes(kw) || 
+                        item.brand.toLowerCase().includes(kw) ||
+                        item.categoryName.toLowerCase().includes(kw)
+                    );
+                }
+
+                // Brand checkboxes
+                const checkedBrands = Array.from(document.querySelectorAll('.brand-checkbox:checked')).map(cb => cb.value);
+                if (checkedBrands.length > 0) {
+                    filtered = filtered.filter(item => checkedBrands.includes(item.brand));
+                }
+
+                // In stock switch
+                const inStockSwitch = document.getElementById('inStockOnlySwitch');
+                if (inStockSwitch && inStockSwitch.checked) {
+                    filtered = filtered.filter(item => item.inStock);
+                }
+
+                // Sorting
+                if (currentSort === 'price-asc') {
+                    filtered.sort((a, b) => a.price - b.price);
+                } else if (currentSort === 'price-desc') {
+                    filtered.sort((a, b) => b.price - a.price);
+                } else if (currentSort === 'rating') {
+                    filtered.sort((a, b) => b.rating - a.rating);
+                } else if (currentSort === 'reviews') {
+                    filtered.sort((a, b) => b.reviews - a.reviews);
+                }
+
+                renderCatalog(filtered);
+            }
+
+            function handleCategoryClick(cat, element) {
+                activeCategory = cat;
+                document.querySelectorAll('#categoryFilterList a').forEach(a => a.classList.remove('active'));
+                if (element) element.classList.add('active');
+                applyFilters();
+            }
+
+            function handlePriceSlider(val) {
+                maxPrice = parseFloat(val);
+                const label = document.getElementById('priceSliderValue');
+                if (label) label.textContent = `Up to $${maxPrice}`;
+                applyFilters();
+            }
+
+            function handleKeywordSearch() {
+                const input = document.getElementById('catalogKeywordInput');
+                if (input) {
+                    currentKeyword = input.value;
+                    applyFilters();
+                }
+            }
+
+            function handleSortChange(sortVal) {
+                currentSort = sortVal;
+                applyFilters();
+            }
+
+            function resetFilters() {
+                activeCategory = 'all';
+                maxPrice = 1000;
+                currentKeyword = '';
+                currentSort = 'featured';
+
+                const slider = document.getElementById('priceRangeSlider');
+                if (slider) slider.value = 1000;
+                const label = document.getElementById('priceSliderValue');
+                if (label) label.textContent = 'Up to $1,000';
+                const input = document.getElementById('catalogKeywordInput');
+                if (input) input.value = '';
+                const sortSelect = document.getElementById('catalogSortSelect');
+                if (sortSelect) sortSelect.value = 'featured';
+                const stockSwitch = document.getElementById('inStockOnlySwitch');
+                if (stockSwitch) stockSwitch.checked = false;
+
+                document.querySelectorAll('.brand-checkbox').forEach(cb => cb.checked = false);
+                document.querySelectorAll('#categoryFilterList a').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('data-cat') === 'all');
+                });
+
+                applyFilters();
+            }
+
+            function init() {
+                // Check URL params for category
+                const urlParams = new URLSearchParams(window.location.search);
+                const catParam = urlParams.get('cat');
+                if (catParam) {
+                    activeCategory = catParam;
+                    document.querySelectorAll('#categoryFilterList a').forEach(a => {
+                        a.classList.toggle('active', a.getAttribute('data-cat') === catParam);
+                    });
+                }
+
+                // Bind category links
+                document.querySelectorAll('#categoryFilterList a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const cat = this.getAttribute('data-cat');
+                        handleCategoryClick(cat, this);
+                    });
+                });
+
+                // Bind enter key on search input
+                const searchInput = document.getElementById('catalogKeywordInput');
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') handleKeywordSearch();
+                    });
+                }
+
+                applyFilters();
+            }
+
+            return {
+                init,
+                applyFilters,
+                handlePriceSlider,
+                handleKeywordSearch,
+                handleSortChange,
+                resetFilters
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            CatalogFilter.init();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Customer Sign In - ShopGrids Premium Electronics</title>
+    <meta name="description" content="Sign in to your ShopGrids account to manage orders, access VIP rewards points, track shipments, and view member pricing." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ecommerce-features.css" />
+
+    <style>
+        .auth-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        body.dark-theme .auth-card {
+            background: #142436;
+            border-color: #243447;
+            color: #fff;
+        }
+        .vip-benefit-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+        }
+        body.dark-theme .vip-benefit-badge {
+            background: #0d1825;
+            border-color: #243447;
+        }
+        .social-btn {
+            border: 1px solid #d1d5db;
+            background: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #374151;
+        }
+        body.dark-theme .social-btn {
+            background: #0d1825;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+        .social-btn:hover {
+            border-color: var(--ecom-primary);
+            color: var(--ecom-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <!-- Start Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="currencySelector" onchange="ShopApp.setCurrency(this.value)">
+                                            <option value="USD" selected>$ USD</option>
+                                            <option value="EUR">€ EUR</option>
+                                            <option value="GBP">£ GBP</option>
+                                            <option value="CAD">$ CAD</option>
+                                            <option value="INR">₹ INR</option>
+                                            <option value="CNY">¥ CNY</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="languageSelector">
+                                            <option value="en" selected>English</option>
+                                            <option value="es">Español</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="ar">العربية</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop-grid.html">Catalog</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <button type="button" id="soundToggleBtn" onclick="ShopApp.toggleSound()" class="sound-toggle-btn" title="Toggle Sound Effects">
+                                <i class="lni lni-volume-high"></i>
+                            </button>
+                            <button type="button" id="themeToggleBtn" onclick="ShopApp.toggleDarkMode()" class="btn btn-sm text-white p-0" style="font-size:16px;background:none;border:none;" title="Toggle Light/Dark Mode">
+                                <i class="lni lni-night"></i>
+                            </button>
+                            <div class="user" id="headerUserGreeting" style="cursor:pointer;" onclick="ShopApp.openAccountDashboard()" title="Open Account Dashboard">
+                                <i class="lni lni-user"></i> Hello, Guest
+                            </div>
+                            <ul class="user-login">
+                                <li><a href="login.html" class="active">Sign In</a></li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo/logo.svg" alt="ShopGrids Logo">
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-none d-md-block">
+                        <div class="main-menu-search">
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="searchCategorySelect">
+                                            <option value="all" selected>All Categories</option>
+                                            <option value="phones">Smartphones</option>
+                                            <option value="laptop">Laptops</option>
+                                            <option value="headphones">Audio & Sound</option>
+                                            <option value="speaker">Smart Wearables</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search-input">
+                                    <input type="text" id="mainSearchInput" placeholder="Search products, brands, specs..." autocomplete="off">
+                                    <div id="searchSuggestionsDropdown" class="search-suggestions-box"></div>
+                                </div>
+                                <div class="search-btn">
+                                    <button type="button" id="mainSearchBtn"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>(+100) 123 456 7890</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)" onclick="ShopApp.renderWishlistModal(); new bootstrap.Modal(document.getElementById('wishlistModal')).show();">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" onclick="ShopApp.openCartDrawer()" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+
+        <!-- Start Header Bottom -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item"><a href="index.html">Home</a></li>
+                                    <li class="nav-item"><a href="shop-grid.html">Catalog</a></li>
+                                    <li class="nav-item"><a href="product-details.html">Featured Item</a></li>
+                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                    <li class="nav-item"><a href="faq.html">Help & FAQ</a></li>
+                                    <li class="nav-item"><a href="order-tracking.html">Track Order</a></li>
+                                    <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="nav-social">
+                        <h5 class="title">Follow Us:</h5>
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Sign In to Your Account</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li>Sign In</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Auth Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-6 col-md-8 col-12">
+                    <div class="auth-card">
+                        <div class="text-center mb-4">
+                            <h3 class="font-weight-bold">Welcome Back</h3>
+                            <p class="text-muted">Sign in to unlock your VIP perks and access saved addresses.</p>
+                        </div>
+
+                        <!-- 1-Click VIP Demo Login -->
+                        <div class="p-3 mb-4 rounded border text-center" style="background:rgba(1, 103, 243, 0.05);border-color:rgba(1, 103, 243, 0.2) !important;">
+                            <span class="badge bg-primary mb-2">QUICK TEST ACCESS</span>
+                            <h6 class="font-weight-bold mb-1">Instant Demo VIP Member Sign-In</h6>
+                            <p class="text-muted mb-3" style="font-size:12px;">Sign in immediately as a pre-configured VIP Diamond customer with 1,250 rewards points.</p>
+                            <button type="button" class="btn btn-primary w-100 font-weight-bold py-2" onclick="AuthLogic.demoLogin()">
+                                <i class="lni lni-star-filled"></i> 1-Click VIP Demo Login
+                            </button>
+                        </div>
+
+                        <div class="position-relative text-center my-4">
+                            <hr>
+                            <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted" style="font-size:13px;">or sign in with email</span>
+                        </div>
+
+                        <form onsubmit="AuthLogic.handleLogin(event)">
+                            <div class="mb-3">
+                                <label class="form-label font-weight-bold">Email Address</label>
+                                <input type="email" id="loginEmail" class="form-control" placeholder="name@example.com" value="alex.mercer@gmail.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label class="form-label font-weight-bold mb-0">Password</label>
+                                    <a href="javascript:void(0)" onclick="ShopApp.showToast('Password reset link sent to your email!', 'info')" style="font-size:12px;" class="text-primary">Forgot password?</a>
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" value="••••••••" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="AuthLogic.togglePasswordVisibility()">
+                                        <i class="lni lni-eye" id="passwordToggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                                <label class="form-check-label" for="rememberMe" style="font-size:14px;">Keep me signed in for 30 days</label>
+                            </div>
+                            <button type="submit" class="btn btn-dark w-100 py-2 font-weight-bold mb-3">
+                                <i class="lni lni-enter"></i> Sign In to Account
+                            </button>
+                        </form>
+
+                        <div class="row g-2 mb-4">
+                            <div class="col-6">
+                                <a href="javascript:void(0)" class="social-btn" onclick="ShopApp.showToast('Google Sign-in connected!', 'success')">
+                                    <i class="lni lni-google text-danger"></i> Google
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0)" class="social-btn" onclick="ShopApp.showToast('Apple ID verified!', 'success')">
+                                    <i class="lni lni-apple"></i> Apple ID
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center" style="font-size:14px;">
+                            <span class="text-muted">New to ShopGrids?</span>
+                            <a href="register.html" class="text-primary font-weight-bold ms-1">Create a VIP Account</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right VIP Benefits Column -->
+                <div class="col-lg-4 col-md-8 col-12">
+                    <div class="auth-card">
+                        <h5 class="font-weight-bold mb-3 border-bottom pb-3">VIP Membership Perks</h5>
+                        <div class="vip-benefit-badge">
+                            <i class="lni lni-coin text-warning" style="font-size:24px;"></i>
+                            <div>
+                                <strong class="d-block" style="font-size:13px;">5% Cashback in Points</strong>
+                                <small class="text-muted">Earn 10 points for every $1 spent across the catalog.</small>
+                            </div>
+                        </div>
+                        <div class="vip-benefit-badge">
+                            <i class="lni lni-rocket text-primary" style="font-size:24px;"></i>
+                            <div>
+                                <strong class="d-block" style="font-size:13px;">Free 2-Day FedEx Delivery</strong>
+                                <small class="text-muted">Complimentary express shipping on all eligible tech orders.</small>
+                            </div>
+                        </div>
+                        <div class="vip-benefit-badge">
+                            <i class="lni lni-headphone-alt text-success" style="font-size:24px;"></i>
+                            <div>
+                                <strong class="d-block" style="font-size:13px;">Dedicated 24/7 Concierge</strong>
+                                <small class="text-muted">Direct line to our certified hardware lab technicians.</small>
+                            </div>
+                        </div>
+                        <div class="vip-benefit-badge mb-0">
+                            <i class="lni lni-gift text-danger" style="font-size:24px;"></i>
+                            <div>
+                                <strong class="d-block" style="font-size:13px;">Birthday & Holiday Rewards</strong>
+                                <small class="text-muted">Exclusive 20% off coupons delivered on special occasions.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Auth Section -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="footer-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/white-logo.svg" alt="ShopGrids">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-12">
+                            <div class="footer-newsletter">
+                                <h4 class="title">
+                                    Subscribe to our Newsletter
+                                    <span>Get instant 10% coupon code and first access to exclusive tech drops.</span>
+                                </h4>
+                                <div class="newsletter-form-head">
+                                    <form action="#" method="get" class="newsletter-form">
+                                        <input name="EMAIL" placeholder="Enter your email address..." type="email" required>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-contact">
+                                <h3>Get In Touch With Us</h3>
+                                <p class="phone">Phone: +91 8076118782</p>
+                                <ul>
+                                    <li><span>Mon - Fri: </span> 9:00 am - 8:00 pm</li>
+                                    <li><span>Sat - Sun: </span> 10:00 am - 6:00 pm</li>
+                                </ul>
+                                <p class="mail"><a href="mailto:support@shopgrids.com">support@shopgrids.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="shop-grid.html">Catalog Shop</a></li>
+                                    <li><a href="order-tracking.html">Track Order</a></li>
+                                    <li><a href="faq.html">Help & FAQ</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Customer Portal</h3>
+                                <ul>
+                                    <li><a href="cart.html">View Shopping Cart</a></li>
+                                    <li><a href="checkout.html">Checkout Now</a></li>
+                                    <li><a href="login.html">Member Sign In</a></li>
+                                    <li><a href="register.html">Create VIP Account</a></li>
+                                    <li><a href="terms.html">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Popular Departments</h3>
+                                <ul>
+                                    <li><a href="shop-grid.html?cat=laptop">Laptops & MacBooks</a></li>
+                                    <li><a href="shop-grid.html?cat=phones">Smartphones & 5G</a></li>
+                                    <li><a href="shop-grid.html?cat=headphones">Noise-Cancelling Audio</a></li>
+                                    <li><a href="shop-grid.html?cat=speaker">Smartwatches & Fitness</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="payment-gateway">
+                                <span>We Accept:</span>
+                                <img src="assets/images/footer/credit-cards-footer.png" alt="Payment Gateways">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="copyright text-center">
+                                <p>© 2026 ShopGrids Inc. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- JS here -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/ecommerce-app.js"></script>
+
+    <!-- Auth Logic -->
+    <script>
+        const AuthLogic = (function() {
+            function demoLogin() {
+                if (window.ShopApp && typeof window.ShopApp.loginDemoUser === 'function') {
+                    window.ShopApp.loginDemoUser();
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 800);
+                }
+            }
+
+            function handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const name = email.split('@')[0];
+                const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+                
+                localStorage.setItem('shopgrids_user', JSON.stringify({
+                    name: displayName,
+                    email: email,
+                    vip: true,
+                    points: 500
+                }));
+
+                if (window.ShopApp && typeof window.ShopApp.showToast === 'function') {
+                    window.ShopApp.showToast('Welcome back, ' + displayName + '! Signed in successfully.', 'success');
+                }
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 800);
+            }
+
+            function togglePasswordVisibility() {
+                const input = document.getElementById('loginPassword');
+                const icon = document.getElementById('passwordToggleIcon');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('lni-eye');
+                    icon.classList.add('lni-close');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('lni-close');
+                    icon.classList.add('lni-eye');
+                }
+            }
+
+            return { demoLogin, handleLogin, togglePasswordVisibility };
+        })();
+    </script>
+</body>
+
+</html>
